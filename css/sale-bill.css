@@ -1,0 +1,150 @@
+
+.print-sale-container{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+h4,h5{
+    padding: 0px;
+    margin: 0px;
+}
+.store-h5{
+    margin: 5px 0px 0px 0px;
+}
+input{
+    border: none;
+}
+.outer-most-boundry{
+    border: 3px solid black;
+    width: 100%;
+    height: 530px;
+    border-collapse: collapse;
+}
+.upper-head-tax{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20PX;
+    border-bottom: 2px solid black;
+}
+.store-info{
+    grid-area: store-info;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 5px 5px 5px 5px;
+}
+.patient-info{
+    grid-area: patient-info;
+    padding: 5px 5px 5px 5px;
+    border-bottom: 2px solid black;
+}
+.info-div{
+    display: grid;
+    width: 100%;
+    grid-template-areas:"store-info patient-info"
+}
+#sno{
+    width: 6.9%;
+}
+#ttl{
+    border-right: none;
+    width: 9.5%;
+}
+#qty{
+    width: 7%;
+}
+#ct,#st,#dis{
+    width: 6.5%;
+}
+#bth,#hsc{
+    width: 9.3%;
+}
+#exp{
+    width: 15%;
+}
+#mrp,#rt{
+    width: 11.5%;
+}
+#im{
+    width: 30.5%;
+    text-align: center;
+}
+.discription-header{
+    width: 100%;
+    display: flex;
+}
+#res-items-to-print{
+    width: 100%;
+    height: 189px;
+    border-bottom: 2px solid black;
+}
+/* data part table */
+.res-input{
+    text-align: center;
+    word-wrap: break-word;
+    width: 7%;
+    border: 1px solid black;
+    border-top:none ;
+    border-bottom:none ;
+
+}
+
+.cinput,.sinput,.qinput,.dinput{
+    width: 5%;
+}
+.tinput{
+    width: 7%;
+}
+.einput{
+    width: 12%;
+}
+.rinput,.minput{
+    width: 9%;
+}
+.iinput{
+    width: 25%;
+}
+.item-desc{
+    border-right: 2px solid black;
+    width: 9%;
+    margin: 0px;
+    text-align: center;
+}
+
+
+.cal-part{
+    grid-area: cal-part;
+    border-left:2px solid black ;
+    padding-left: 5px;
+}
+.terms-condi-part{
+    grid-area: terms-condi;
+    border-right:2px solid black ;
+}
+.receiver_sign{
+    grid-area: rec-sign;
+    border-bottom:2px solid black ;
+    
+}
+.store-seal{
+    grid-area: seal;
+    border-right:2px solid black ;
+}
+.str-nm-sign{
+    grid-area: auth;
+}
+.recieveing{
+    grid-area: recieve;
+    display: grid;
+    grid-template-areas: "rec-sign rec-sign""seal auth";
+}
+.amt-calc{
+    display: grid;
+    grid-template-areas: "terms-condi recieve cal-part cal-part cal-part";
+    padding-left:5px ;
+    border-bottom: 2px solid black;
+}
+
+
+

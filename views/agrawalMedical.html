@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrawal Medical Store</title>
+    <link rel="stylesheet" href="./css/styl.css">
+    <link rel="stylesheet" href="./css/sale-bill.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+    <div id="head-container" class="container">
+        <img id="back-wallpaper" src="/store.jpg" alt="">
+        <div class="navbar">
+            <h2>Agrawal Medical Store</h2>
+            <button class="tab-btn" id="home-nav">Home</button>
+            <button class="tab-btn" id="search-nav">Search Product</button>
+            <button class="tab-btn" id="add-nav">Add Product</button>
+            <button class="tab-btn" id="sell-nav">Sell Product</button>
+            <button class="tab-btn" id="nearExp-nav">Near Expiry</button>
+            <button class="tab-btn">Inventory</button>
+            <button class="tab-btn">Sell/Purchase</button>
+            <button class="tab-btn">Party History</button>
+            <button class="tab-btn">Manage Inventory</button>
+        </div>
+        <div class="hidden"></div>
+        <div class="super-container">
+
+            <!-- welcome container  -->
+            <div class="welcome-container">
+                <h2 class="header">Welcome To Agrawal Medical Store</h2>
+                <div class="login-logout-btn">
+                    <button id="login-btn" class="tab-btn" onclick="document.getElementById('id01').style.display='block'">Login</button>
+                    <button id="logout-btn" calss="tab-btn">LogOut</button>
+                </div>
+                <div id="id01" class="modal">
+                    <!-- login form  -->
+                    <form id="loginForm" class="modal-content animate">
+                      <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <img src="kanha.jpg" alt="Avatar" class="avatar">
+                      </div>
+                  
+                      <div class="container">
+                        <label style="padding-left:43% ;" for="email"><b>E-mail</b></label>
+                        <input id="email" type="text" placeholder="Enter E-mail" name="email" required>
+                  
+                        <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
+                        <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
+                          
+                        <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
+                      </div>
+                    </form>
+                  </div>
+            </div>
+            <!-- add product container  -->
+            <div class="addProd-container" hidden>
+                <h2 class="header">Add Product</h2>
+                <form method="POST" id="addProd-form" autocomplete="off" class="addProd-form">
+                    <div class="basic-detail">
+                        <input type="text" required name="itemName" id="itemName" placeholder="Product Name">
+                        <input type="text" required name="company" id="company" placeholder="Company Name">
+                    </div>
+                    <div class="basic-detail">
+                        <input type="text" required name="qnty" id="qnty" placeholder="Tab pr Strip/Btl">
+                        <input type="number" required name="stock" id="stock" placeholder="Strips/Bottles">
+                    </div>
+                    <div class="basic-detail price-div">
+                        <input type="text" required name="price" id="price" placeholder="MRP">
+                        <input type="text" required name="purPrice" id="rate" placeholder="Rate">
+                        <input type="text" required name="purPrice" id="gst" placeholder="GST%">
+                        <input type="text" required name="purPrice" id="netRate" placeholder="Net Rate">
+
+                    </div>
+                    <div class="date-div">
+                        <label for="mnfDate" class="man-lab">Manufac Date</label>
+                        <label for="expDate" class="exp-lab">Expiry Date</label>
+                        <label for="purDate" class="pur-lab">Purchase Date</label>
+                    </div>
+                    <div class="date-div" id="date-id">
+                        <input type="date" required name="mnfDate" id="mnfDate" placeholder="Manufacture Date">
+                        <input type="date" required name="expDate" id="expDate" placeholder="Expiry Date">
+                        <input type="date" required name="purDate" id="purDate" placeholder="Purchase Date">
+                    </div>
+
+                    <input type="text" required name="seller" id="seller" placeholder="Party Name">
+                    <input type="text" required name="billNo" id="billNo" placeholder="Bill no.">
+                    <input type="text" required name="batch" id="batch" placeholder="Batch number">
+                    <input type="text" required name="location" id="location" placeholder="Storage Location">
+                    <button class="submit-btn tab-btn" id="sub-btn" type="submit">Save</button>
+                </form>
+            </div>
+            <!-- search container  -->
+            <div class="search-container" hidden>
+                <h2 class="header">Search Product</h2>
+                <input type="text" id="search" placeholder="Enter product name">
+                <button class="searchRef-btn tab-btn">Refresh</button>
+                <table>
+                    <tr class="head-tr">
+                        <th>Item&emsp;Name&emsp; </th>
+                        <th>Company&emsp; </th>
+                        <th>Pk.Qnty&emsp; </th>
+                        <th>MRP&emsp; </th>
+                        <th>Stock&emsp;tabs/btl&emsp;</th>
+                        <th>Location</th>
+                    </tr>
+                </table>
+                <div id="match-product"></div>
+            </div>
+            <!-- sell container  -->
+            <div class="sell-container" hidden>
+                <h2 class="header">Sale Entry</h2>
+                <table>
+                    <tr class="head-tr">
+                        <th>Item&emsp;Name&emsp; </th>
+                        <th>Pk.Qnty&emsp; </th>
+                        <th>MRP&emsp; </th>
+                        <th>GST%&emsp;</th>
+                        <th>Stock&emsp;tabs/btl&emsp;</th>
+                        <th>Location</th>
+                    </tr>
+                </table>
+                <div id="selectedSell-product" style="pointer-events: none;"></div>
+                <button id="checkOut-btn" class="searchRef-btn tab-btn">Check Out</button>
+                <input type="text" id="sellItem-find" placeholder="Enter product name">
+                <button id="ref-btn" class="searchRef-btn two-btn tab-btn">Refresh</button>
+                <button id="clr-btn" class="searchRef-btn two-btn tab-btn">Clear All</button>
+                <div id="sell-product"></div>
+            </div>
+            <!-- billing first step  -->
+
+            <div id="first-billing-step-container" hidden>
+                <h2 class="header">Sale Bill</h2>
+                <div id="invoiceNo" style="display: flex;"><label for="invoiceNo">Invoice No.#<input id="invoNo" value="" type="text"></label></div>
+                <form method="POST" autocomplete="off" id="bill-print-form">
+                    <table>
+                        <tr class="head-tr">
+                            <th class="first-bill-th">Item&emsp;Name&emsp;</th>
+                            <th class="first-bill-th">Batch&emsp;No.&emsp;</th>
+                            <th class="first-bill-th">Exp.&emsp;Date&emsp;</th>
+                            <th class="first-bill-th">Qnty&emsp;tabs/btl&emsp;</th>
+                            <th class="first-bill-th">MRP&emsp;</th>
+                            <th class="first-bill-th">Rate&emsp;</th>
+                            <th class="first-bill-th">GST%&emsp;</th>
+                            <th class="first-bill-th">Disc%&emsp;</th>
+                            <th class="first-bill-th">Total&emsp;</th>
+
+                        </tr>
+                    </table>
+                    <div id="toCart"></div>
+                    <div style="display: flex;margin-top:20px">
+                        <label for="PName">Patient Name</label>
+                        <label for="mobile">Mobile No.</label>
+                        <label for="address">Address</label>
+                        <label for="age">Age</label>
+                        <label for="drName">Prescribed By</label>
+                    </div>
+                    <div style="display: flex;">
+                        <input id="PName" class="userDetail" type="text" value="" name="pName"
+                            placeholder="Patient Name">
+                        <input id="mobNo" class="userDetail" type="text" value="" name="mobile" placeholder="Mobile No.">
+                        <input id="ads" class="userDetail" type="text" value="" name="address" placeholder="Address">
+                        <input id="Page" class="userDetail" type="text" value="" name="age" placeholder="Age">
+                        <input id="dr" class="userDetail" type="text" value="" name="drName"
+                            placeholder="Prescribed By">
+                    </div>
+
+                    <div style="display: flex;margin-top:20px">
+                        <label for="gttl">Grand Total</label>
+                        <label for="amtPaid">Paid</label>
+                        <label for="amtDue">Amount Due</label>
+                    </div>
+                    <div style="display: flex;">
+                        <input name="gttl" id="grand-ttl" type="text" value="0" class="final-amt">
+                        <input name="amtPaid" type="text" id="amt-paid" value="0" class="final-amt">
+                        <input name="amtDue" type="text" id="amt-due" value="0" class="final-amt">
+                    </div>
+                    <!-- <a id="go-print-bill" href="http://localhost:5500/front-end/new_sale.html" hidden></a> -->
+                    <button id="print-btn" type="submit" class="tab-btn">Print Bill</button>
+                </form>
+            </div>
+            <!-- near expiry container -->
+            <div class="nearExp-container" hidden>
+                <h2 class="header">Near Expiry</h2>
+                <button id="nearExp-find" class="tab-btn">Search Near Expiry</button>
+                <button class="tab-btn clearExp-btn">Clear</button>
+                <table>
+                    <tr class="head-tr">
+                        <th>Item&emsp;Name&emsp; </th>
+                        <th>Company&emsp; </th>
+                        <th>Pk.Qnty&emsp; </th>
+                        <th>MRP&emsp; </th>
+                        <th>Exp.Date&emsp; </th>
+                        <th>Stock&emsp;tabs/btl&emsp;</th>
+                        <th>Location</th>
+                    </tr>
+                </table>
+
+                <div id="alertProd"></div>
+                <div id="nearExp-product"></div>
+            </div>
+        </div>
+    </div>
+    <!-- invoice container  -->
+    <div id="invoice-print" class="print-sale-container" hidden>
+        <div class="outer-most-boundry">
+            <div class="upper-head-tax">TAX INVOICE</div>
+            <div class="info-div">
+                <div class="store-info">
+                    <h4>AGRAWAL MEDICAL AND GENERAL STORE</h4>
+                    <h5 class="store-h5">BajrangPara,Main Road,Near Electric Office,Silyari,Raipur,(C.G.)</h5>
+                    <h5 class="store-h5">Silyari Raipur (C.G.)</h5>
+                    <h5 class="store-h5">Raipur-492001</h5>
+                    <h5 class="store-h5">Mob.:7987575131</h5>
+                    <h5 class="store-h5">DL.NO.: 20/CG-RZ1-40016,21/40017</h5>
+                </div>
+                <div class="patient-info">
+                    <h5>Patient Name&emsp;: <input id="pName" type="text"></h5>
+                    <h5>Mobile No. &emsp; &emsp;: <input id="mob" type="text"></h5>
+                    <h5>Dr.Name.&emsp;&emsp;&emsp;: <input id="drName" type="text"></h5>
+                    <h5>Age &emsp;&emsp;&emsp;&emsp; &emsp;: <input id="age" type="text"></h5>
+                    <h5>Address&emsp; &emsp; &emsp;: <input id="adrs" type="text"></h5>
+                    <h5>Date &emsp; &emsp;&emsp; &emsp; : <input id="bil-date" type="text"></h5>
+                    <h5>Invoice No.&emsp;&emsp; : <input id="invo" style="font-weight: bold;" type="text"></h5>
+                </div>
+            </div>
+            <div class="discription-header" style="font-weight: bolder;border-bottom:2px solid black">
+                <h4 id="sno" class="item-desc">S.No</h4>
+                <h4 id="im" class="item-desc">Item Name</h4>
+                <h4 id="qty" class="item-desc">Qty.</h4>
+                <h4 id="exp" class="item-desc">Exp. (mm-dd-yy)</h4>
+                <h4 id="bth" class="item-desc">Batch</h4>
+                <h4 id="hsc" class="item-desc">HSN /SAC</h4>
+                <h4 id="mrp" class="item-desc">MRP</h4>
+                <h4 id="rt" class="item-desc">Rate</h4>
+                <h4 id="ct" class="item-desc">CGST %</h4>
+                <h4 id="st" class="item-desc">SGST %</h4>
+                <h4 id="dis" class="item-desc">Disc . %</h4>
+                <h4 id="ttl" class="item-desc">Total</h4>
+            </div>  
+            <div id="res-items-to-print"></div>
+                  
+            <div class="amt-words" style="border-bottom: 2px solid black;padding-left:5px">
+                <h4>Amt. in words. : <h4 id="in-words"></h4></h4>
+            </div>
+            <div class="amt-calc">
+                <div class="terms-condi-part">
+                    <h4>Terms & Conditions</h4>
+                    <h5>1.Goods once sold will not be returned back</h5>
+                    <h5>2.Subject to Raipur Judiciary Only</h5>
+                    <h5>3.Amount due should to paid with in 10 days from the bill/invoice date</h5>
+                </div>
+                <div class="recieveing">
+                    <div class="receiver_sign">
+                        <h4>Receiver's Signature:</h4>
+                    </div>
+                    <div class="store-seal">
+                        <h3>.</h3>
+                        <h3></h3>
+                        <h5>Store Seal</h5>
+                        <h3></h3>
+                    </div>
+                    <div class="str-nm-sign">
+                        <h5>For Agrawal Medical & General Store,Silyari</h5>
+                        <h1></h1>
+                        <h5>Authorized Signature</h5>
+                    </div>
+                </div>
+                <div class="cal-part">
+                    <h4>Sum Total &emsp; : <input id="bil-Ttl" style="width: 12%;" type="text">&emsp;Total Tax. Amt. : <input id="taxRs" style="width: 12%;" type="text"></h4>
+                    <h4>Discount Rs&emsp;: <input id="DiscRs" style="width: 12%;" type="text">&emsp; Round Off&emsp;&emsp;: <input id="ROff" style="width: 12%;" type="text"></h4>
+                    <h4>Grand Total &emsp;: <input id="g-ttl" style="width: 12%;" type="text">&emsp; Paid&emsp;&emsp; &emsp; &emsp;: <input id="at-paid" style="width: 12%;" type="text"></h4>
+                    <h4>Amt.Due&emsp; &emsp; : <input id="at-due" style="width: 12%;"type="text"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/addProd.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="./js/sale.js"></script>
+    <script src="./js/dom.js"></script>
+    <script src="./js/nearExp.js"></script>
+    <script src="./js/login.js"></script>
+</body>
+
+</html>

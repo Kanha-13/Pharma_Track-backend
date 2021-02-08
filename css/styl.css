@@ -1,0 +1,243 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+#back-wallpaper{
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    background-size: cover;
+}
+#head-container{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+.classDate table{
+    width: 100px;
+}
+.navbar{
+    display: flex;
+    position:fixed;
+    justify-content: center;
+    height: 40px;
+    width:99%;
+    border:2px solid black;
+    border-radius: 20px 20px 20px 20px;
+    background-color:	#f1ecff;
+    padding: 10px 10px 5px 5px;
+    z-index: 1;
+}
+.navbar button{
+    margin: auto;
+}
+
+.navbar h2{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 35px;
+}
+/* to make navbar float up  */
+.hidden{
+    height: 1px;
+}
+
+/* utilities */
+#head-container button{
+    border-radius: 30px;
+    height: 30px;
+    outline: transparent;
+}
+.tab-btn:hover,.active,.res-tr:hover{
+    background-color: #ba9fff;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px #cfbdff;
+
+}
+#head-container input{
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    background-color:#fff ;
+    border:2px solid #cfbdff;
+    border-radius: 5px;
+    height: 40px;
+    width: 170px;
+    outline: transparent;
+}
+#head-container input::-webkit-input-placeholder,input::-moz-placeholder{
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+#head-container label,.final-amt{
+    font-weight: bold;
+    font-size: 20px;
+    /* margin-right: 40px;
+    margin-left: 40px; */
+    margin: auto;
+
+}
+
+
+/* super container that contains all container  */
+.super-container{
+    z-index: 1;
+    opacity: 0.86;
+    margin: auto;
+    margin-top: 90px;
+    width: 900px;
+    background-color:	#f1ecff;
+    border: #c3abff solid 3px;
+}
+
+/* header common to all  */
+.header{
+    display: block;
+    margin: 0px;
+    padding: 20px 10px 10px 10px;
+    text-align: center;
+    background-color: #ba9fff;
+    font-size: 35px;
+}
+
+table{
+    margin: auto;
+    border:2px solid #cfbdff;
+    width: 900px;
+}
+
+th{
+    display: flex;
+    margin: auto;
+    width: 110px;
+}
+
+.head-tr{
+    font-size: 26px;
+    background-color: #ba9fff;
+    display: flex;
+    margin: auto;
+    font-weight: bold;
+    align-items: center;
+}
+.res-tr,#selectedSell-product{
+    display: flex;
+    font-size: 22px;
+}
+
+td{
+    width: 110px;
+    display: block;
+    margin: auto;
+    word-wrap: break-word;
+}
+/* from here different containers */
+
+/* add conatainer  */
+.addProd-form{
+    padding-top: 30px;
+    text-align: center;
+    margin: auto;
+}
+.basic-detail{
+    display: flex;
+    margin: auto;
+}
+.price-div{
+    display: flex;
+    margin: auto;
+}
+.date-div{
+    display: flex;
+    margin: auto;
+    place-content: center;
+    width: 600px;
+}
+.submit-btn{
+    display: block;
+    margin: auto;
+    width: 90px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    align-content: center;
+    text-align: center;
+    align-self: auto;
+    border:2px solid #cfbdff;
+}
+/* nearExp-prod container  */
+.alertProd{
+    background-color: rgb(206, 76, 76);
+    color: #fff;
+}
+#nearExp-find,.clearExp-btn,.searchRef-btn,#print-btn{
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 20px;
+    height: 40px;
+    width: 170px;
+    font-size: 15px;
+    font-weight: bold;
+    
+}
+
+/* sell container  */
+#selectedSell-product{
+    display: block;
+    background-color:#ba9fff;
+
+
+}
+.two-btn{
+    display: inline;
+    margin: 30px 0px 30px 190px;
+}
+#clr-btn:hover{
+    background-color: #b63636;
+
+}
+#checkOut-btn:hover{
+    background-color: #54b151;
+}
+#first-billing-step-container .bill-input{
+    width: 50px;
+    height: 30px;
+    margin: 0px 0px 0px 0px;
+    border: 0px solid transparent;
+}
+
+.final-amt-label
+{
+    text-align: center;
+}
+.first-bill-th{
+    width: 10%;
+}
+.first-bill-td{
+    width: 80px;
+}
+.first-bill-tr{
+    background-color: #c3abff;
+}
+
+#first-billing-step-container #invoNo{
+    height:30px;width:40px;
+    border:transparent;
+    display:inline;
+    font-weight:bold;
+    margin:0px 0px;
+    font-size:20px;
+    background:transparent;
+}
+
