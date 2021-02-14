@@ -82,6 +82,7 @@ body{
     /* margin-right: 40px;
     margin-left: 40px; */
     margin: auto;
+    text-align: center;
 
 }
 
@@ -92,7 +93,7 @@ body{
     opacity: 0.86;
     margin: auto;
     margin-top: 90px;
-    width: 900px;
+    width: 1200px;
     background-color:	#f1ecff;
     border: #c3abff solid 3px;
 }
@@ -110,7 +111,7 @@ body{
 table{
     margin: auto;
     border:2px solid #cfbdff;
-    width: 900px;
+    width: 1200px;
 }
 
 th{
@@ -178,7 +179,7 @@ td{
     background-color: rgb(206, 76, 76);
     color: #fff;
 }
-#nearExp-find,.clearExp-btn,.searchRef-btn,#print-btn{
+#nearExp-find,.clearExp-btn,.searchRef-btn,#print-btn,#billFind-btn{
     display: block;
     margin: auto;
     margin-bottom: 20px;
@@ -232,7 +233,7 @@ td{
 }
 
 #first-billing-step-container #invoNo{
-    height:30px;width:40px;
+    height:30px;width:100%;
     border:transparent;
     display:inline;
     font-weight:bold;
@@ -241,3 +242,21 @@ td{
     background:transparent;
 }
 
+
+
+/* find bill container  */
+.findBill-container .bill-finder-tool{
+    display: block;
+    justify-items:center;
+    border-bottom: 2px solid black;
+}
+
+.findBill-container #oldInvoNo{
+    height:30px;width:40px;
+    border:transparent;
+    display:inline;
+    font-weight:bold;
+    margin:0px 0px;
+    font-size:20px;
+    background:transparent;
+}

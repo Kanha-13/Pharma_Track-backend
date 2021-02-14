@@ -17,5 +17,6 @@ router.route('/product/toCart')
 //this route will reduce stock or updat stock and saves the bill of particular user
 router.route('/product/reduceStock')
   .post(auth,product.reduceStock)
-
+router.route('/product/OldBill')
+  .post(auth,product.oldBill)
 module.exports = router;

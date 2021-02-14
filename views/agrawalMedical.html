@@ -20,7 +20,7 @@
             <button class="tab-btn" id="add-nav">Add Product</button>
             <button class="tab-btn" id="sell-nav">Sell Product</button>
             <button class="tab-btn" id="nearExp-nav">Near Expiry</button>
-            <button class="tab-btn">Inventory</button>
+            <button class="tab-btn" id="findBill-nav">Find Bill</button>
             <button class="tab-btn">Sell/Purchase</button>
             <button class="tab-btn">Party History</button>
             <button class="tab-btn">Manage Inventory</button>
@@ -201,6 +201,39 @@
                 <div id="alertProd"></div>
                 <div id="nearExp-product"></div>
             </div>
+            <!-- finding customers old bills  -->
+            <div class="findBill-container" hidden> 
+                <h2 class="header">Patient Purchase History</h2>
+                <div class="bill-finder-tool">
+                    <form id="oldBillFind-form">
+                        <input id="PMobileNo" type="text" required placeholder="Patient's Mobile No.">
+                        <button type="submit" id="billFind-btn" class="tab-btn">Find</button>
+                    </form>
+                </div>
+                <div>
+                    <table>
+                        <tr class="head-tr">
+                            <th>Invoice&emsp;No.&emsp;</th>
+                            <th>Patient&emsp;Name&emsp;</th>
+                            <th>Mobile&emsp;No.&emsp;</th>
+                            <th>Address</th>
+                            <th>Age</th>
+                            <th>Bill&emsp;Date&emsp;</th>
+                            <th>Grand&emsp;Total&emsp;</th>
+                            <th>Paid</th>
+                            <th>Amount&emsp;Due&emsp;</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="after-findclick" hidden>
+                    <!-- <div id="InvoiceNo" style="display: flex;"><label for="invoiceNo">Invoice No.#<input id="oldInvoNo" value="" type="text"></label></div>
+                    <form >
+
+                    </form> -->
+
+                </div>
+                
+            </div>
         </div>
     </div>
     <!-- invoice container  -->
@@ -222,7 +255,7 @@
                     <h5>Dr.Name.&emsp;&emsp;&emsp;: <input id="drName" type="text"></h5>
                     <h5>Age &emsp;&emsp;&emsp;&emsp; &emsp;: <input id="age" type="text"></h5>
                     <h5>Address&emsp; &emsp; &emsp;: <input id="adrs" type="text"></h5>
-                    <h5>Date &emsp; &emsp;&emsp; &emsp; : <input id="bil-date" type="text"></h5>
+                    <h5>Date &emsp; &emsp;&emsp; &emsp; : <input id="bil-date" value="0" type="text"></h5>
                     <h5>Invoice No.&emsp;&emsp; : <input id="invo" style="font-weight: bold;" type="text"></h5>
                 </div>
             </div>
@@ -284,6 +317,7 @@
     <script src="./js/dom.js"></script>
     <script src="./js/nearExp.js"></script>
     <script src="./js/login.js"></script>
+    <script src="./js/billFind.js"></script>
 </body>
 
 </html>

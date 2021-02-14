@@ -25,6 +25,10 @@ $(document).ready(function () {
         {
             $('#add-nav').click()
         }
+        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['B']||keyPressed['b']))
+        {
+            $('#findBill-nav').click()
+        }
     })
     $(window).on('keyup',(event)=>{
         keyPressed[event.key]=false;
@@ -39,6 +43,7 @@ $(document).ready(function () {
         $(".addProd-container").hide();
         $(".sell-container").hide();
         $('#first-billing-step-container').hide()
+        $(".findBill-container").hide()
         $(".welcome-container").show();
     });
     $("#add-nav").click(function () {
@@ -47,6 +52,7 @@ $(document).ready(function () {
         $(".search-container").hide();
         $(".sell-container").hide();
         $('#first-billing-step-container').hide()
+        $(".findBill-container").hide()
         $(".addProd-container").show();
     });
     $("#search-nav").click(function () {
@@ -55,6 +61,7 @@ $(document).ready(function () {
         $(".addProd-container").hide();
         $(".sell-container").hide();
         $('#first-billing-step-container').hide()
+        $(".findBill-container").hide()
         $(".search-container").show();
     });
     $("#nearExp-nav").click(function () {
@@ -63,6 +70,7 @@ $(document).ready(function () {
         $(".sell-container").hide();
         $(".addProd-container").hide();
         $('#first-billing-step-container').hide()
+        $(".findBill-container").hide()
         $(".nearExp-container").show();
     });
     $("#sell-nav").click(function () {
@@ -71,8 +79,20 @@ $(document).ready(function () {
         $(".addProd-container").hide();
         $(".nearExp-container").hide();
         $('#first-billing-step-container').hide()
+        $(".findBill-container").hide()
         $(".sell-container").show();
     });
+    $("#findBill-nav").click(function () {
+        $(".welcome-container").hide();
+        $(".search-container").hide();
+        $(".addProd-container").hide();
+        $(".nearExp-container").hide();
+        $('#first-billing-step-container').hide()
+        $(".sell-container").hide();
+        $(".findBill-container").show()
+    });
+
+
     // for making active button
     $('.navbar').on('click', (btn) => {
         $(btn.target).addClass("active").siblings().removeClass('active');

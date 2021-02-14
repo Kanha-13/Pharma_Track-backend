@@ -1,7 +1,7 @@
 
 .print-sale-container{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    width: 100%;
+    width: 99.5%;
     height: 100%;
     background-color: #fff;
 }
@@ -49,7 +49,7 @@ input{
 }
 #ttl{
     border-right: none;
-    width: 9.5%;
+    width: 9.3%;
 }
 #qty{
     width: 7%;
@@ -58,16 +58,19 @@ input{
     width: 6.5%;
 }
 #bth,#hsc{
-    width: 9.3%;
+    width: 8.95%;
 }
 #exp{
-    width: 15%;
+    width: 14.95%;
 }
-#mrp,#rt{
-    width: 11.5%;
+#mrp{
+    width: 11.3%;
+}
+#rt{
+    width: 11.7%;
 }
 #im{
-    width: 30.5%;
+    width: 30.2%;
     text-align: center;
 }
 .discription-header{

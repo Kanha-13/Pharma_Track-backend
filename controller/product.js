@@ -41,7 +41,7 @@ module.exports ={
         var Medicines=[];
         for(var i=1;i<req.body.length;i++)
         {    
-            await products.updateOne({_id:req.body[i].pId},{$inc:{stock:-(req.body[i].Soldqnt)}})
+            const result= await products.updateOne({_id:req.body[i]._id},{$inc:{stock:-(req.body[i].Soldqnt)}})
             Medicines[i-1]=req.body[i]
         }
         const billDetail = {
@@ -49,6 +49,7 @@ module.exports ={
             invoiceNo:req.body[0].invoiceNo,
             prescribedBy:req.body[0].prescribedBy,
             grandTtl:req.body[0].gttl,
+            roundoff:req.body[0].roundoff,
             paid:req.body[0].paid,
             amtDue:req.body[0].amtDue,
             medicines:Medicines,
@@ -63,6 +64,9 @@ module.exports ={
         await newBill.save()
         res.status(201).send("New bill Generated and stock updated")
         
+    },
+    oldBill:async(req,res)=>{
+        res.status(200).send("ok")
     }
 }
 

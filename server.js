@@ -4,6 +4,7 @@ const Cors = require('cors');
 const product = require('./routes/product');
 const admin =require('./routes/admin');
 const cookieParser = require('cookie-parser');
+const billHistory = require('./routes/billHistory')
 
 //app config
 const app = express();
@@ -35,6 +36,6 @@ mongoose.connect(connection_url, {
 //api endpoint
 app.use(admin)
 app.use(product)
-
+app.use(billHistory)
 //listner
 app.listen(port,()=> console.log(`listening on localhost: ${port}`));

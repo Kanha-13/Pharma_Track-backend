@@ -18,8 +18,26 @@ const BillSchema = new mongoose.Schema({
         require:true,
     },
     billDetail:{
-        type:Object,
-        require:true,
+        amtDue:String,
+        roundoff:String,
+        date:Date,
+        grandTtl:String,
+        invoiceNo:String,
+        prescribedBy:String,
+        paid:String,
+        medicines:[{
+            
+                _id:{
+                    type: mongoose.Schema.Types.ObjectId,
+                    $ref: 'products'
+                },
+                Soldqnt:String,
+                disc:String,
+                total:String
+            }
+        ]
+
+
     },
 })
 

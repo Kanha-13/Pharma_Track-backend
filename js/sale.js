@@ -2,6 +2,7 @@ const sellProdSearch = document.getElementById('sellItem-find')
 const sellMactProd = document.getElementById('sell-product')
 //search and filter products
 const sellSearchProduct = async searchText => {
+    addedProd=[]
     if (products == '') {
         const res = await fetch('/product/', {
             method: 'GET',
@@ -109,12 +110,9 @@ $('#checkOut-btn').click(() => {
                                 <td class="first-bill-td" ><input id="${match._id}disc" oninput="calculateTtL(this.value,$('#${match._id}ttl'),$('#${match._id}qnt').val(),${match.mrp / match.qnty})" class="bill-input" type="text"></td>
                                 <td class="first-bill-td" ><input id="${match._id}ttl" class="bill-input ttlAmt" type="text"></td>
                                 </tr>
-                                
                             </table>
                             `).join('');
-
                     cartProd.innerHTML = html;
-
                 }
                 outputHtml(response);
                 return response;
@@ -128,19 +126,20 @@ $('#checkOut-btn').click(() => {
 })
 
 //first step calculation
+var gttlWitOutRO = 0;
 const firstCal = (qnt, mrp, ttl, d) => {
-    ttl[0].value = (qnt * mrp) - (((qnt * mrp) / 100) * d[0].value) || qnt * mrp;
+    ttl[0].value = ((qnt * mrp) - (((qnt * mrp) / 100) * d[0].value) || qnt * mrp).toFixed(3);
     var ttls = $(".ttlAmt")
     var gttl = 0;
     for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
     }
+    gttlWitOutRO = gttl;
     document.getElementById('grand-ttl').value = Math.round(gttl);
     document.getElementById('amt-paid').value = 0;
     document.getElementById('amt-due').value = Math.round(gttl);
     return
 }
-var gttlWitOutRO = 0;
 //second calculation
 const calculateTtL = (d, ttlId, qnt, mrp) => {
     ttlId[0].value = (qnt * mrp) - (((qnt * mrp) / 100) * d)
@@ -165,6 +164,7 @@ $("#grand-ttl").on('input', () => {
 $('#bill-print-form').submit(function (e) {
     e.preventDefault();
     // user details is store on the first index of data as object
+
     const Data = [];
     Data[0] = {
         patientName: $('#PName').val(),
@@ -176,13 +176,17 @@ $('#bill-print-form').submit(function (e) {
         gttl: $('#grand-ttl').val(),
         paid: $('#amt-paid').val(),
         amtDue: $('#amt-due').val(),
+        roundoff: (document.getElementById('grand-ttl').value - gttlWitOutRO).toFixed(3)
     }
     if (addedProd.length) {
         for (var i = 0; i < addedProd.length; i++) {
-            Data[i + 1] = { pId: addedProd[i], Soldqnt: document.getElementById(`${addedProd[i]}qnt`).value, disc: document.getElementById(`${addedProd[i]}disc`).value }
+            Data[i + 1] = { _id: addedProd[i], Soldqnt: document.getElementById(`${addedProd[i]}qnt`).value, disc: document.getElementById(`${addedProd[i]}disc`).value,total:document.getElementById(`${addedProd[i]}ttl`).value}
         }
-        // console.log(Data)
-        var url = "/product/reduceStock";
+        var url ='';
+        if(oldBill){
+            url='/product/OldBill';
+        }
+        else{url = "/product/reduceStock";}
         $.ajax({
             type: "POST",
             url: url,
@@ -203,8 +207,14 @@ $('#bill-print-form').submit(function (e) {
                 document.getElementById('g-ttl').value = Data[0].gttl
                 document.getElementById('at-paid').value = Data[0].paid
                 document.getElementById('at-due').value = Data[0].amtDue
-                const todaysDate = new Date()
-                document.getElementById('bil-date').value = (todaysDate.getDay() + '/' + (todaysDate.getMonth() + 1) + '/' + todaysDate.getFullYear())
+                if(document.getElementById('bil-date').value===0)
+                {
+                    const todaysDate = new Date()
+                    const date = todaysDate.getDate()
+                    const month = todaysDate.getMonth()
+                    const year = todaysDate.getFullYear()
+                    document.getElementById('bil-date').value = (date+"/"+(month+1)+"/"+year)
+                }
                 // console.log(document.getElementById('60153701ba1dcf376e0a70cbitm-Name'))
                 var counter = 0;
                 const html = addedProd.map(match => `
@@ -232,12 +242,11 @@ $('#bill-print-form').submit(function (e) {
                     const qnty = document.getElementById(element + 'Qnt').value
                     totalWithoutDisc = parseFloat(totalWithoutDisc) + (parseFloat(rate) + parseFloat(gst * rate / 100)) * qnty
                     RateTotal = (parseFloat(rate) * parseFloat(qnty)) + RateTotal;
-                    console.log(RateTotal)
-                    console.log(totalWithoutDisc)
                 });
                 document.getElementById('bil-Ttl').value = Math.round(totalWithoutDisc);
                 document.getElementById('DiscRs').value = Math.round(totalWithoutDisc) - document.getElementById('g-ttl').value
                 document.getElementById('taxRs').value = (totalWithoutDisc - RateTotal).toFixed(3);
+                if(!oldBill)
                 document.getElementById('ROff').value = (document.getElementById('g-ttl').value - gttlWitOutRO).toFixed(3)
                 addedProd = [];
                 window.print();
@@ -246,7 +255,11 @@ $('#bill-print-form').submit(function (e) {
                 document.getElementById('toCart').innerHTML = ''
                 $('#invoice-print').hide()
                 $('#head-container').show()
-                $('.sell-container').show()
+                if(oldBill)
+                $(".findBill-container").show()
+                else{$(".findBill-container").hide()
+                $('.sell-container').show()}
+                oldBill=false;
             },
             error: function () {
                 alert('Error: Sotock is not reduced');
