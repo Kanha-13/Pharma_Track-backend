@@ -31,13 +31,13 @@ $(document).ready(() => {
             url: url,
             contentType: 'application/json',
             success: function (response) {
-                $('#logout-btn').hide()
-                $('#login-btn').css("display","none")
-                location.reload()
-                return response;
+                $('#logout-btn').css("display","none")
+                $('#login-btn').css("display","block")
+                document.getElementById("loginForm").reset();
+                return "ok";
             },
             error: function (res) {
-                console.log(res)
+                alert(res)
             }
         });
     })

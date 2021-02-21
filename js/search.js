@@ -5,8 +5,6 @@ let products = '';
 const searchProducts =async searchText =>{
     if(products == '')
     {
-        // const PechanKon = document.cookie.split(';').map(cookie => cookie.split('=')).reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
-        // console.log(PechanKon.***REMOVED***)
         const res = await fetch('/product/',{
             method:'GET',
         })
@@ -21,20 +19,15 @@ const searchProducts =async searchText =>{
     let matches = await products.filter(product =>{
         // const regex = new RegExp(`^${searchText}`,'gi');
         const regex = new RegExp(`${searchText.trim()}`,'gi');
-
         //conditoion for match
         return product.itemName.match(regex) || product.company.match(regex);
     });
-
     if(searchText.length === 0){
         matches = [];
         matchProd.innerHTML = '';
     }
-
-
     //show result in html
     const outputHtml = matches =>{
-        if(matches.length > 0){
             const html = matches.map(match =>`
             <div>
             <table class="res-table">
@@ -51,10 +44,8 @@ const searchProducts =async searchText =>{
             </div>
             `).join('');
             matchProd.innerHTML =html;
-        }
     }
     outputHtml(matches);
-    // console.log(matches);
 }
 $('.searchRef-btn').click(()=>{
     document.getElementById('sell-product').innerHTML = ''

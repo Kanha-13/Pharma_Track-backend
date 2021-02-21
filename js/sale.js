@@ -54,11 +54,9 @@ const sellSearchProduct = async searchText => {
 }
 var addedProd = [];
 const fun = (ele) => {
-
     for (var i = 0; i < addedProd.length; i++) {
         if (addedProd[i] === String(ele.id)) return
     }
-
     const selectedTable = document.getElementById('selectedSell-product')
     const selectedRow = document.getElementById(ele.id)
     const parent = selectedRow.parentNode
@@ -68,7 +66,6 @@ const fun = (ele) => {
     addedProd.push(ele.id)
     return
 }
-
 
 $('#clr-btn').click(() => {
     document.getElementById('selectedSell-product').innerHTML = '';
@@ -100,15 +97,16 @@ $('#checkOut-btn').click(() => {
                     const html = response.Data.map(match => `
                             <table class="res-table">
                                 <tr class="res-tr first-bill-tr">
+                                <input id="${match._id}purRate" class="purRate-input" value="${(match.netRate/match.qnty).toFixed(4)}" style="display:none;"></input>
                                 <td id="${match._id}itm-Name" class="first-bill-td">${match.itemName}</td>
                                 <td id="${match._id}btch" class="first-bill-td">${match.batch}</td>
                                 <td id="${match._id}exp" class="first-bill-td">${new Date(match.expDate).toLocaleDateString()}</td>
-                                <td class="first-bill-td"><input min="0" max="${match.stock}" id="${match._id}qnt" required oninput="firstCal(this.value,${match.mrp / match.qnty},$('#${match._id}ttl'),$('#${match._id}disc'))" class="bill-input" type="number"></td>
+                                <td class="first-bill-td"><input min="0" max="${match.stock}" id="${match._id}qnt" required oninput="firstCal(this.value,${match.mrp / match.qnty},$('#${match._id}ttl'),$('#${match._id}disc'))" class="bill-input qntsOfItem" type="number"></td>
                                 <td class="first-bill-td" id="${match._id}mrp">${match.mrp}/-</td>
                                 <td class="first-bill-td" id="${match._id}rat">${(((match.mrp / match.qnty) * 100) / (100 + parseFloat(match.gst))).toFixed(3)}</td>
                                 <td id="${match._id}gst" class="first-bill-td" >${match.gst}%</td>
                                 <td class="first-bill-td" ><input id="${match._id}disc" oninput="calculateTtL(this.value,$('#${match._id}ttl'),$('#${match._id}qnt').val(),${match.mrp / match.qnty})" class="bill-input" type="text"></td>
-                                <td class="first-bill-td" ><input id="${match._id}ttl" class="bill-input ttlAmt" type="text"></td>
+                                <td class="first-bill-td" ><input id="${match._id}ttl" min="${match.netRate}" class="bill-input ttlAmt" type="text"></td>
                                 </tr>
                             </table>
                             `).join('');
@@ -127,29 +125,48 @@ $('#checkOut-btn').click(() => {
 
 //first step calculation
 var gttlWitOutRO = 0;
+var reduceProfit = 0;
+var reduceSell = 0;
 const firstCal = (qnt, mrp, ttl, d) => {
     ttl[0].value = ((qnt * mrp) - (((qnt * mrp) / 100) * d[0].value) || qnt * mrp).toFixed(3);
-    var ttls = $(".ttlAmt")
+    const ttls = $(".ttlAmt")
+    const qntys = $('.qntsOfItem')
+    const purRates=$('.purRate-input');
     var gttl = 0;
+    var profitInthisSell = 0
+    // console.log(document.getElementById('profitInthisBill').defaultValue)
+    // console.log(document.getElementById('profitInthisBill').value)
     for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
+        profitInthisSell =profitInthisSell+ ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value)*qntys[i].value)))
     }
     gttlWitOutRO = gttl;
     document.getElementById('grand-ttl').value = Math.round(gttl);
     document.getElementById('amt-paid').value = 0;
     document.getElementById('amt-due').value = Math.round(gttl);
+    document.getElementById('profitInthisBill').value = profitInthisSell.toFixed(4);
+    reduceProfit = document.getElementById('profitInthisBill').defaultValue - document.getElementById('profitInthisBill').value
+    reduceSell = document.getElementById('grand-ttl').defaultValue - document.getElementById('grand-ttl').value
     return
 }
 //second calculation
 const calculateTtL = (d, ttlId, qnt, mrp) => {
-    ttlId[0].value = (qnt * mrp) - (((qnt * mrp) / 100) * d)
+    ttlId[0].value = ((qnt * mrp) - (((qnt * mrp) / 100) * d)).toFixed(3)
     var ttls = $(".ttlAmt")
+    const qntys = $('.qntsOfItem')
+    const purRates=$('.purRate-input');
+    var profitInthisSell = 0
+    // console.log(document.getElementById('profitInthisBill').defaultValue)
+    // console.log(document.getElementById('profitInthisBill').value)
     var gttl = 0;
-    for (var i = 0; i < ttls.length; i++)
+    for (var i = 0; i < ttls.length; i++){
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
+        profitInthisSell =profitInthisSell+ ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value)*qntys[i].value)))
+    }
     gttlWitOutRO = gttl;
     document.getElementById('grand-ttl').value = Math.round(gttl);
     document.getElementById('amt-due').value = Math.round(gttl);
+    document.getElementById('profitInthisBill').value = profitInthisSell.toFixed(4);
     return
 }
 //calculation of amount due
@@ -163,8 +180,15 @@ $("#grand-ttl").on('input', () => {
 //form submit to print bill
 $('#bill-print-form').submit(function (e) {
     e.preventDefault();
+    var returnQnty=[];
+    
+    if(oldBill){
+        for (var i=0;i<addedProd.length;i++)
+        {
+            returnQnty.push([addedProd[i],$(`#${addedProd[i]}qnt`).attr('data-initial-value')-document.getElementById(addedProd[i]+'qnt').value])
+        }  
+    }
     // user details is store on the first index of data as object
-
     const Data = [];
     Data[0] = {
         patientName: $('#PName').val(),
@@ -176,21 +200,26 @@ $('#bill-print-form').submit(function (e) {
         gttl: $('#grand-ttl').val(),
         paid: $('#amt-paid').val(),
         amtDue: $('#amt-due').val(),
-        roundoff: (document.getElementById('grand-ttl').value - gttlWitOutRO).toFixed(3)
+        date:document.getElementById('bil-date').defaultValue,
+        roundoff: (document.getElementById('grand-ttl').value - gttlWitOutRO).toFixed(3),
+        profit:document.getElementById('profitInthisBill').value,
+        changeInProfit:reduceProfit,
+        changeInSell:reduceSell,
     }
+    
     if (addedProd.length) {
         for (var i = 0; i < addedProd.length; i++) {
             Data[i + 1] = { _id: addedProd[i], Soldqnt: document.getElementById(`${addedProd[i]}qnt`).value, disc: document.getElementById(`${addedProd[i]}disc`).value,total:document.getElementById(`${addedProd[i]}ttl`).value}
         }
         var url ='';
         if(oldBill){
-            url='/product/OldBill';
+            url='/patient/OldBill';
         }
         else{url = "/product/reduceStock";}
         $.ajax({
             type: "POST",
             url: url,
-            data: JSON.stringify(Data),// serializes the form's elements.
+            data: JSON.stringify([Data,returnQnty]),// serializes the form's elements.
             contentType: 'application/json',
             success: function async(response) {
                 document.getElementById('selectedSell-product').innerHTML = '';
@@ -207,7 +236,7 @@ $('#bill-print-form').submit(function (e) {
                 document.getElementById('g-ttl').value = Data[0].gttl
                 document.getElementById('at-paid').value = Data[0].paid
                 document.getElementById('at-due').value = Data[0].amtDue
-                if(document.getElementById('bil-date').value===0)
+                if(document.getElementById('bil-date').value==0)
                 {
                     const todaysDate = new Date()
                     const date = todaysDate.getDate()
@@ -215,7 +244,6 @@ $('#bill-print-form').submit(function (e) {
                     const year = todaysDate.getFullYear()
                     document.getElementById('bil-date').value = (date+"/"+(month+1)+"/"+year)
                 }
-                // console.log(document.getElementById('60153701ba1dcf376e0a70cbitm-Name'))
                 var counter = 0;
                 const html = addedProd.map(match => `
                     <div class="discription-header">
@@ -249,11 +277,13 @@ $('#bill-print-form').submit(function (e) {
                 if(!oldBill)
                 document.getElementById('ROff').value = (document.getElementById('g-ttl').value - gttlWitOutRO).toFixed(3)
                 addedProd = [];
+                $('#back-wallpaper').hide()
                 window.print();
                 document.getElementById("bill-print-form").reset()
                 $("#first-billing-step-container").hide()
                 document.getElementById('toCart').innerHTML = ''
                 $('#invoice-print').hide()
+                $('#back-wallpaper').show()
                 $('#head-container').show()
                 if(oldBill)
                 $(".findBill-container").show()

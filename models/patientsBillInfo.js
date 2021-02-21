@@ -25,6 +25,7 @@ const BillSchema = new mongoose.Schema({
         invoiceNo:String,
         prescribedBy:String,
         paid:String,
+        profitEarned:String,
         medicines:[{
             
                 _id:{
