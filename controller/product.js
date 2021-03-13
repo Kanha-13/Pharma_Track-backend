@@ -9,7 +9,6 @@ module.exports = {
 
         const entred = await companyProduct.find({ companyName: (data.company).toUpperCase() })
         if (entred.length == 0) {
-            console.log("in comp")
             await companyProduct.updateOne({ companyName: (data.company).toUpperCase() }, { companyName: (data.company).toUpperCase(), $push: { products: (data.itemName).toUpperCase(), wholeSellers: data.seller } }, { new: true, upsert: true })
             res.status(201).json({ message: "Product Added" })
             return
@@ -17,12 +16,10 @@ module.exports = {
         const prod = await companyProduct.find({ companyName: (data.company).toUpperCase(), products: (data.itemName).toUpperCase() })
         if (prod.length == 0) {
             const result = await companyProduct.updateOne({ companyName: (data.company).toUpperCase() }, { $push: { products: (data.itemName).toUpperCase() } })
-            console.log(result)
         }
         const wholeselr = await companyProduct.find({ companyName: (data.company).toUpperCase(), wholeSellers: data.seller })
         if (wholeselr.length == 0) {
             const result = await companyProduct.updateOne({ companyName: (data.company).toUpperCase() }, { $push: { wholeSellers: data.seller } })
-            console.log(result)
         }
         res.status(201).json({ message: "Product Added" })
     },
