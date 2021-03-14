@@ -2,7 +2,6 @@ $('#add-nav').click(async () => {
   const selectDiv = document.getElementById('seller')
   if (partyList === '') {
     const res = await fetch('/getPartyList')
-    console.log(res)
     if (res.status == 401 || res.status == 500 || res.status === 400) {
       alert(res.statusText + " Admin not logged in")
       return
