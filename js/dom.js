@@ -1,10 +1,16 @@
 $(document).ready(function () {
-    //to make admin logout oneces page closed or refreshed
+    //to make admin logout oneces page refreshed
     window.addEventListener('beforeunload', function (e) {
         e.preventDefault();
         $('#logout-btn').click()
         return "ok"
     })
+    //to make admin logout oneces page closed
+    window.onunload = function () {
+        e.preventDefault();
+        $('#logout-btn').click()
+        return "ok"
+    }
     //SHORT CUT KEY COMBINATIONS
     let keyPressed={}
     $(window).on('keydown',(event)=>{

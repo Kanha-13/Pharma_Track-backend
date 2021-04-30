@@ -1,5 +1,9 @@
 .welcome-container{
-  height: 600px;
+  height: 800px;
+  background-image: url("/img3.jpg");
+  background-color: #cccccc;
+  background-size: 1500px 900px;
+  border-radius: 20px 20px 20px 20px;
 }
 /* Full-width input fields */
 .welcome-container input[type=text], input[type=password] {

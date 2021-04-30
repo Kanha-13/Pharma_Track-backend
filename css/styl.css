@@ -28,9 +28,9 @@ body{
     margin-left: 0px;
     height: 90%;
     width:160px;
-    border:2px solid black;
+    border:2px solid #c49550;
     border-radius: 20px 20px 20px 20px;
-    background-color:	#f1ecff;
+    background-color:	#d2d7d7;
     padding: 10px 10px 5px 5px;
     z-index: 1;
     opacity: 0.86;
@@ -60,11 +60,11 @@ body{
     outline: transparent;
 }
 .tab-btn:hover,.active,.res-tr:hover{
-    background-color: #ba9fff;
+    background-color: #c49550;
     color: #fff;
     cursor: pointer;
-    box-shadow: 5px 5px 5px #cfbdff;
-
+    box-shadow: 5px 5px 5px #625644;
+    
 }
 #head-container input{
     display: block;
@@ -73,7 +73,7 @@ body{
     margin-top: 20px;
     text-align: center;
     background-color:#fff ;
-    border:2px solid #cfbdff;
+    border:2px solid #625644;
     border-radius: 5px;
     height: 40px;
     width: 170px;
@@ -90,7 +90,7 @@ body{
     margin-left: 40px; */
     margin: auto;
     text-align: center;
-
+    
 }
 
 
@@ -101,23 +101,26 @@ body{
     margin: auto;
     margin-left: 190px;
     width: 1200px;
-    background-color:	#f1ecff;
-    border: #c3abff solid 3px;
+    background-color:	#d2d7d7;
+    border: #c49550 solid 3px;
+    border-radius:25px 25px 25px 25px;
 }
 
 /* header common to all  */
 .header{
+    border-radius:25px 25px 0px 0px;
     display: block;
     margin: 0px;
     padding: 20px 10px 10px 10px;
     text-align: center;
-    background-color: #ba9fff;
+    background-color: #c49550;
     font-size: 35px;
+    font-family: 'Anton', sans-serif;
 }
 
 table{
     margin: auto;
-    border:2px solid #cfbdff;
+    border:2px solid #c49550;
     width: 1200px;
 }
 
@@ -129,7 +132,7 @@ th{
 
 .head-tr{
     font-size: 26px;
-    background-color: #ba9fff;
+    background-color: #c49550;
     display: flex;
     margin: auto;
     font-weight: bold;
@@ -179,7 +182,7 @@ td{
     align-content: center;
     text-align: center;
     align-self: auto;
-    border:2px solid #cfbdff;
+    border:2px solid #c49550;
 }
 #seller{
     display: block;
@@ -187,7 +190,7 @@ td{
     margin-bottom: 20px;
     margin-top: 20px;
     border-radius: 10px;
-    border:2px solid #cfbdff;
+    border:2px solid #625644;
     height: 40px;
     width: 250px;
     font-size: 15px;
@@ -220,7 +223,7 @@ td{
 /* sell container  */
 #selectedSell-product{
     display: block;
-    background-color:#ba9fff;
+    background-color:#d2d7d7;
 
 
 }
@@ -253,7 +256,7 @@ td{
     width: 80px;
 }
 .first-bill-tr{
-    background-color: #c3abff;
+    background-color: #d2d7d7;
 }
 
 #first-billing-step-container #invoNo{
@@ -318,7 +321,7 @@ select{
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
-    border: 2px solid #cfbdff;
+    border: 2px solid #625644;
 }
 
 /* sale purchase report  */

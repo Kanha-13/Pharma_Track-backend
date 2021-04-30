@@ -25,20 +25,20 @@ $(document).ready(() => {
         });
     })
     $("#logout-btn").on('click', () => {
-        const url = '/logOut';
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: 'application/json',
-            success: function (response) {
-                $('#logout-btn').css("display","none")
-                $('#login-btn').css("display","block")
-                document.getElementById("loginForm").reset();
-                return "ok";
-            },
-            error: function (res) {
-                alert(res)
-            }
-        });
-    })
+            const url = '/logOut';
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: 'application/json',
+                success: function (response) {
+                    $('#logout-btn').css("display","none")
+                    $('#login-btn').css("display","block")
+                    document.getElementById("loginForm").reset();
+                    return "ok";
+                },
+                error: function (res) {
+                    alert(res)
+                }
+            });
+        })
 })
