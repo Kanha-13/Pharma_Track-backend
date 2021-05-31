@@ -21,14 +21,15 @@
     cursor: pointer;
     width: 100%;
   }
-#login-btn,#logout-btn,#form-login-btn{
+#login-btn,#logout-btn,#form-login-btn,#form-signUp-btn,#backToLogin-btn,#signUpForm-signUp-btn{
   width: 80px;
   font-weight: bold;
   display: block;
   margin: auto;
   margin-top: 30px;
 }
-#login-btn:hover,#form-login-btn:hover{
+
+#login-btn:hover,#form-login-btn:hover,#signUpForm-signUp-btn:hover{
   background-color: rgb(96, 221, 96);
 }
 #logout-btn:hover{
@@ -40,101 +41,115 @@
 .welcome-container button:hover {
     opacity: 0.8;
   }
-  
-  /* Extra styles for the cancel button */
-  .welcome-container .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-  }
-  
-  /* Center the image and position the close button */
-  .welcome-container .imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    height: 130px;
-    position: relative;
-  }
-  
-  .welcome-container img.avatar {
-    width: 25%;
-    height: 100%;
-    border-radius: 50%;
-  }
-  
+#form-signUp-btn:hover,#backToLogin-btn:hover{
+  background-color:rgb(233, 218, 6)
+}
+
+/* Extra styles for the cancel button */
+.welcome-container .cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.welcome-container .imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  height: 130px;
+  position: relative;
+}
+
+.welcome-container img.avatar {
+  width: 25%;
+  height: 100%;
+  border-radius: 50%;
+}
+
 .welcome-container  .container {
-    padding: 16px;
-  }
+  padding: 16px;
+}
+
+.welcome-container span.psw {
+  float: right;
+  padding-top: 16px;
+}
+/* The Modal (background) */
+.welcome-container .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.welcome-container .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  border-radius: 12%;
+  width: 30%; /* Could be more or less, depending on screen size */
+  /* height: 510px; */
+}
+
+/* The Close Button (x) */
+.welcome-container .close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.welcome-container .close:hover,
+.welcome-container .close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.welcome-container .animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
   
-  .welcome-container span.psw {
-    float: right;
-    padding-top: 16px;
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+      display: block;
+      float: none;
   }
-  
-  /* The Modal (background) */
-  .welcome-container .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
+  .cancelbtn {
+      width: 100%;
   }
-  
-  /* Modal Content/Box */
-  .welcome-container .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    border-radius: 12%;
-    width: 30%; /* Could be more or less, depending on screen size */
-    height: 510px;
-  }
-  
-  /* The Close Button (x) */
-  .welcome-container .close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-  }
-  
-  .welcome-container .close:hover,
-  .welcome-container .close:focus {
-    color: red;
-    cursor: pointer;
-  }
-  
-  /* Add Zoom Animation */
-  .welcome-container .animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-  }
-  
-  @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-  }
-    
-  @keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-  }
-  
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-  }
+}
+
+/* signup form css setting  */
+#signUpForm{
+  display: flex;
+  padding: 0px 0px 55px 0px;
+  /* flex-direction: row; */
+  /* position: absolute; */
+  /* align-items: center; */
+}
+#signUpForm-signUp-btn:hover{
+  background-color: rgb(96, 221, 96);
+}

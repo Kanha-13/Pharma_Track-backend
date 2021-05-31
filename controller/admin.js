@@ -37,6 +37,9 @@ module.exports = {
             res.status(400).json({Error_message:"Enter a valid email addresss"})
         }
 
+    },
+    signUp:async(req,res)=>{
+        
     }
     
 }
