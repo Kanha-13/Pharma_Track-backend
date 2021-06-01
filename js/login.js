@@ -6,7 +6,7 @@ $(document).ready(() => {
         const Email = $('#email').val()
         const Pass = $('#pswd').val()
         const Data = { email: Email, password: Pass }
-        const url = '/login';
+        const url = '/userLogin';
         $.ajax({
             type: "POST",
             url: url,
@@ -63,23 +63,27 @@ $(document).ready(() => {
         const confirmPassword=$('#confirmNewPassword').val()
         if(validateEmail(userEmail)){
             if(password==confirmPassword){
-                const Data = { userName:userName,email: userEmail, password: password }
-                const url='/signUp'
+                const Data = { userName:userName,userEmail: userEmail, password: password}
+                const url='/userSignUp'
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: JSON.stringify(Data),// serializes the form's elements.
                     contentType: 'application/json',
-                    success: function (response) {
-                        $('.close').click()
-                        $('#login-btn').hide()
-                        $('#logout-btn').show().css("display", "block")
-        
-                        return response;
+                    success: function (res) {
+                        document.getElementById("signUpForm").reset();
+                        $('.credentials').css("display","none")
+                        $('#otpVerificationForm').css("display","block")
+                        document.getElementById('userId').value= res.userEmail
+                        alert(res.message)
+                        console.log(res.message)
                     },
                     error: function (res) {
-                        alert(res.responseJSON.Error_message)
-                        document.getElementById("loginForm").reset();
+                        $('.credentials').css("display","none")
+                        $('#otpVerificationForm').css("display","block")
+                        document.getElementById("signUpForm").reset();
+                        alert(res.responseJSON)
+                        console.log(res.responseJSON)
                     }
                 });
             }
@@ -94,6 +98,31 @@ $(document).ready(() => {
         }
 
     })
+    //otp verification
+    $("#otpSubmit-btn").on('click',()=>{
+        const otp=$('#signUpOtp').val()
+        const userEmail=document.getElementById('userId').value
+        const data={otp:otp,userEmail:userEmail}
+        const url='/userOTPverification'
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (res) {
+                $('.close').click()
+                $('#login-btn').hide()
+                alert(res.message)
+                $('#logout-btn').show().css("display", "block")
+            },
+            error: function (res) {
+                alert(res.message)
+                console(res.message)
+                document.getElementById("loginForm").reset();
+            }
+        });
+    })
+    
     //back to login page
     $("#backToLogin-btn").on('click', () => {
         $('#signUpForm').css("display", "none")

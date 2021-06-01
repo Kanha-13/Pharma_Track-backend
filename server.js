@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Cors = require('cors');
 const product = require('./routes/product');
 const admin =require('./routes/admin');
+const users=require('./routes/user')
 const cookieParser = require('cookie-parser');
 const billHistory = require('./routes/billHistory')
 const partyManage = require('./routes/partyPurchase')
@@ -35,6 +36,7 @@ mongoose.connect(connection_url, {
 
 //api endpoint
 app.use(admin)
+app.use(users)
 app.use(product)
 app.use(billHistory)
 app.use(partyManage)

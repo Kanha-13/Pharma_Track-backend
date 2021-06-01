@@ -8,6 +8,15 @@ const adminSchema = new mongoose.Schema({
     password:{
         type:String,
         require:true
+    },
+    adminName:{
+        type:String,
+        require:true
+    },
+    otpVerified:{
+        type:Boolean,
+        require:true,
+        default:false
     }
 })
 

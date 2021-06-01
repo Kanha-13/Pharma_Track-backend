@@ -1,8 +1,9 @@
-const adminAuth = require('../controller/admin');
+const userAuth = require('../controller/userAuth');
 const router = require('express-promise-router')();
 
-router.route('/adminLogin').post(adminAuth.login)
-router.route('/adminSignUp').post(adminAuth.signUp)
+router.route('/userLogin').post(userAuth.login)
+router.route('/userSignUp').post(userAuth.signUp)
+router.route('/userOTPverification').post(userAuth.otpVerification)
 //render the web site or forntend
 router.route('/').get((req,res)=>{res.render('agrawalMedical')})
 //clear the cookie

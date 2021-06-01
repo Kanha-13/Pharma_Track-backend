@@ -61,7 +61,7 @@
                     </form>
                     <!-- sign up form  -->
                     <form id="signUpForm" class="modal-content animate" style="display: none;">
-                        <div class="credentials">
+                        <div class="credentials" style="display: block;">
                             <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2><hr>
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
                             title="Close Modal">&times;</span>
@@ -73,23 +73,13 @@
                             <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
                             <h5 style="padding-left: 32%;">Already have an account?</h5>
                         </div>
-                        <!-- <div class="imgcontainer">
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                            title="Close Modal">&times;</span>
-                            <img src="kanha.jpg" alt="Avatar" class="avatar">
+                        <div id="otpVerificationForm" style="display: none;">
+                            <h2>OTP Verification</h2><hr>
+                            <h3 style="padding-left: 39%;">Enter OTP</h3>
+                            <input type="text" id="signUpOtp"><br>
+                            <input type="text" id="userId" hidden><br>
+                            <button class="tab-btn" id="otpSubmit-btn">Submit</button>
                         </div>
-                        
-                        <div class="container">
-                            <label style="padding-left:43% ;" for="email"><b>E-mail</b></label>
-                            <input id="email" type="text" placeholder="Enter E-mail" name="email" required>
-                            
-                            <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
-                            <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
-                            <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-                            <button id="form-signUp-btn" type="button" class="tab-btn" >Sign Up</button><br>
-                            <h4 style="padding-left:43% ;" for="">It's Free</h4>
-                        </div> -->
-
                     </form>
                 </div>
             </div>
