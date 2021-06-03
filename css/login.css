@@ -16,12 +16,8 @@
   }
   
   /* Set a style for all buttons */
-.welcome-container button {
-    margin: 8px 0;
-    cursor: pointer;
-    width: 100%;
-  }
-#login-btn,#logout-btn,#form-login-btn,#form-signUp-btn,#backToLogin-btn,#signUpForm-signUp-btn{
+  #login-btn,#logout-btn,#form-login-btn,.form-signUp-btn,#backToLogin-btn,#signUpForm-signUp-btn{
+  cursor: pointer;
   width: 80px;
   font-weight: bold;
   display: block;
@@ -41,7 +37,7 @@
 .welcome-container button:hover {
     opacity: 0.8;
   }
-#form-signUp-btn:hover,#backToLogin-btn:hover{
+.form-signUp-btn:hover,#backToLogin-btn:hover{
   background-color:rgb(233, 218, 6)
 }
 

@@ -35,9 +35,9 @@
             <div class="welcome-container">
                 <h2 class="header">Inventory Manager</h2>
                 <div class="login-logout-btn">
-                    <button id="login-btn" class="tab-btn"
-                        onclick="document.getElementById('id01').style.display='block'">Login</button>
+                    <button id="login-btn" class="tab-btn">Login</button>
                     <button id="logout-btn" style="display: none;" calss="tab-btn">LogOut</button>
+                    <button class="form-signUp-btn tab-btn" id="wlcm-wala-signUp-btn" type="button">Sign Up</button><br>
                 </div>
                 <!-- login pop up window -->
                 <div id="id01" class="modal">
@@ -55,7 +55,7 @@
                             <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
                             <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-                            <button id="form-signUp-btn" type="button" class="tab-btn" >Sign Up</button><br>
+                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button" >Sign Up</button><br>
                             <h4 style="padding-left:43% ;" for="">It's Free</h4>
                         </div>
                     </form>
@@ -70,15 +70,19 @@
                             <input required type="password" name="new-password" id="newPassword" placeholder="Enter Password">
                             <input required type="password" name="confirm-new-password" id="confirmNewPassword" placeholder="Confirm Password">
                             <button id="signUpForm-signUp-btn" type="submit" class="tab-btn">Sign Up</button>
+                            <p style="margin-left: 113px;">Already signed up but not verified</p>
+                            <button id="verifyAccount-btn" class="tab-btn" type="button" style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button><hr>
                             <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
-                            <h5 style="padding-left: 32%;">Already have an account?</h5>
+                            <h5 style="padding-left: 32%;">Already have an account?</h5><hr>
                         </div>
+                        <!-- otp verification form  -->
                         <div id="otpVerificationForm" style="display: none;">
-                            <h2>OTP Verification</h2><hr>
+                            <h2 style="margin-left: 130px;">OTP Verification</h2><hr>
                             <h3 style="padding-left: 39%;">Enter OTP</h3>
-                            <input type="text" id="signUpOtp"><br>
-                            <input type="text" id="userId" hidden><br>
-                            <button class="tab-btn" id="otpSubmit-btn">Submit</button>
+                            <input type="text" id="signUpOtp">
+                            <a style="text-decoration: none;color: black;" id="resendSignUpOtp">resend otp</a><br>
+                            <input type="text" id="userEmailId" style="display: none;"><br>
+                            <button type="button" class="tab-btn" id="otpSubmit-btn" style="margin-left: 178px;width: 100px;">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -103,7 +103,7 @@ body{
     width: 1200px;
     background-color:	#d2d7d7;
     border: #c49550 solid 3px;
-    border-radius:25px 25px 25px 25px;
+    border-radius:25px 25px 0px 0px;
 }
 
 /* header common to all  */
