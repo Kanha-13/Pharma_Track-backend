@@ -1,13 +1,12 @@
-
 $(document).ready(() => {
     //this will automatically trim the spaces to prevent blank credenticals
-    $('input[type="text"]').change(function(){
+    $('input[type="text"]').change(function () {
         this.value = $.trim(this.value);
     });
     // login page animation
     // Get the modal
     var modal = document.getElementById('id01');
-    
+
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -36,8 +35,8 @@ $(document).ready(() => {
             },
             error: function (res) {
                 alert(res.responseJSON.Error_message)
-                $("#email").css("border-color","red")
-                $("#pswd").css("border-color","red")
+                $("#email").css("border-color", "red")
+                $("#pswd").css("border-color", "red")
             }
         });
     })
@@ -60,21 +59,21 @@ $(document).ready(() => {
         });
     })
     //welcome container wala login btn
-    $('#login-btn').on('click',()=>{
+    $('#login-btn').on('click', () => {
         $('#signUpForm').css("display", "none")
         $('#loginForm').css("display", "block")
-        document.getElementById('id01').style.display='block'
+        document.getElementById('id01').style.display = 'block'
     })
 
     //signup button click action
     $(".form-signUp-btn,#wlcm-wala-signUp-btn").on('click', () => {
-        document.getElementById('id01').style.display='block'
+        document.getElementById('id01').style.display = 'block'
         $('#signUpForm').css("display", "block")
         $('.credentials').css("display", "block")
         $('#loginForm').css("display", "none")
         document.getElementById("loginForm").reset();
-        $("#email").css("border-color","#625644")
-        $("#pswd").css("border-color","#625644")
+        $("#email").css("border-color", "#625644")
+        $("#pswd").css("border-color", "#625644")
 
     })
 
@@ -82,18 +81,18 @@ $(document).ready(() => {
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
-      }
+    }
     //signup form submission
     $("#signUpForm").submit((e) => {
         e.preventDefault();
         const userName = $('#signUpUserName').val();
         const userEmail = $('#signUpEmail').val();
-        const password=$('#newPassword').val();
-        const confirmPassword=$('#confirmNewPassword').val()
-        if(validateEmail(userEmail)){
-            if(password==confirmPassword){
-                const Data = { userName:userName,userEmail: userEmail, password: password}
-                const url='/userSignUp'
+        const password = $('#newPassword').val();
+        const confirmPassword = $('#confirmNewPassword').val()
+        if (validateEmail(userEmail)) {
+            if (password == confirmPassword) {
+                const Data = { userName: userName, userEmail: userEmail, password: password }
+                const url = '/userSignUp'
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -101,48 +100,49 @@ $(document).ready(() => {
                     contentType: 'application/json',
                     success: function (res) {
                         document.getElementById("signUpForm").reset();
-                        $('#signUpEmail').css("border-color","#625644")
-                        $('.credentials').css("display","none")
-                        $('#otpVerificationForm').css("display","block")
-                        document.getElementById('userEmailId').value= res.userEmail
+                        $('#signUpEmail').css("border-color", "#625644")
+                        $('#otpVerificationForm').css("display", "block")
+                        document.getElementById('userEmailId').value = res.userEmail
+                        $("#signUpForm").css("display", "none")
                         alert(res.message)
                         console.log(res.message)
                     },
                     error: function (res) {
-                        $('#signUpEmail').css("border-color","red")
+                        $('#signUpEmail').css("border-color", "red")
                         alert(res.responseJSON)
                         console.log(res.responseJSON)
                     }
                 });
             }
-            else{
+            else {
                 alert("Password does not match confirm password!!");    //The pop up alert for an unmatch password
-                $('#newPassword').css("border-color","red")
-                $('#confirmNewPassword').css("border-color","red")
+                $('#newPassword').css("border-color", "red")
+                $('#confirmNewPassword').css("border-color", "red")
                 return false;
             }
         }
-        else{
+        else {
             alert("Invalid Email!!");    //The pop up alert for an unmatch password
-            $('#signUpEmail').css("border-color","red")
+            $('#signUpEmail').css("border-color", "red")
             return false;
         }
 
     })
     //otp verification
-    $("#otpSubmit-btn").on('click',()=>{
-        const otp=$('#signUpOtp').val()
-        const userEmail=document.getElementById('userEmailId').value
-        const data={otp:otp,userEmail:userEmail}
-        const url='/userOTPverification'
+    $("#otpSubmit-btn").on('click', () => {
+        const otp = $('#signUpOtp').val()
+        const userEmail = document.getElementById('userEmailId').value
+        document.getElementById('userEmailId').value = '';
+        const data = { otp: otp, userEmail: userEmail }
+        const url = '/userOTPverification'
         $.ajax({
             type: "POST",
             url: url,
             data: JSON.stringify(data),// serializes the form's elements.
             contentType: 'application/json',
             success: function (res) {
-                
-                $('#otpVerificationForm').css("display","none")
+
+                $('#otpVerificationForm').css("display", "none")
                 $('#logout-btn').show().css("display", "block")
                 $('.close').click()
                 $('#login-btn').hide()
@@ -153,20 +153,61 @@ $(document).ready(() => {
             error: function (res) {
                 alert(res.responseJSON.message)
                 console.log(res.responseJSON.message)
-                $('#signUpOtp').css("border-color","red")
+                $('#signUpOtp').css("border-color", "red")
                 $('#signUpOtp').val('');
             }
         });
     })
-    
+    function resendOTP() {
+        const data = { email: $('#userEmailId').val() }
+        const url = '/resendUserOTP';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (res) {
+                $("#verifyResendForm").css("display", "none");
+                $('#otpVerificationForm').css("display", "block");
+                $('#otpVerificationForm').css("display", "block")
+                $('#emailForResend').css("border-color", "#625644");
+                $("#verifyResendForm").css("display", "none")
+                alert(res.message)
+                console.log(res.message)
+            },
+            error: function (res) {
+                $('#emailForResend').css("border-color", "red");
+                // $('#verifyAccountButton').attr("disabled", true);
+                // setTimeout(function () {
+                //     $('#verifyAccountButton').removeAttr("disabled");
+                // }, 300000);
+                alert(res.responseJSON.message)
+                console.log(res.responseJSON.message)
+            }
+        });
+    }
     //resend otp if otp does not reach or if also otp expired
-    $("#resendSignUpOtp").on('click',()=>{
-        console.log("a clicked")
+    $("#resendSignUpOtp").on('click', () => {
+        console.log("here")
+        resendOTP();
     })
-
+    //resend opt for the users who forget or failed to varify themselves
+    $("#verifyAccount-btn").on('click', () => {
+        $("#signUpForm").css("display", "none");
+        $("#loginForm").css("display", "none");
+        $("#verifyResendForm").css("display", "block")
+        $('#signUpEmail').css("border-color", "#625644")
+        document.getElementById("signUpForm").reset();
+    })
+    //resend otp form
+    $("#verifyResendForm").submit((event) => {
+        event.preventDefault();
+        document.getElementById('userEmailId').value = $('#emailForResend').val()
+        resendOTP();
+    })
     //back to login page
     $("#backToLogin-btn").on('click', () => {
-        $('#signUpForm').css("display", "none")
-        $('#loginForm').css("display", "block")
+        $('#signUpForm').css("display", "none");
+        $('#loginForm').css("display", "block");
     })
 })

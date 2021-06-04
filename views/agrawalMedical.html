@@ -45,45 +45,66 @@
                     <form id="loginForm" class="modal-content animate">
                         <div class="imgcontainer">
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                            title="Close Modal">&times;</span>
+                                title="Close Modal">&times;</span>
                             <img src="kanha.jpg" alt="Avatar" class="avatar">
                         </div>
                         <div class="container">
                             <label style="padding-left:43% ;" for="email"><b>E-mail</b></label>
                             <input id="email" type="text" placeholder="Enter E-mail" name="email" required>
-                            
+
                             <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
                             <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button" >Sign Up</button><br>
+                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button">Sign
+                                Up</button><br>
                             <h4 style="padding-left:43% ;" for="">It's Free</h4>
                         </div>
                     </form>
                     <!-- sign up form  -->
                     <form id="signUpForm" class="modal-content animate" style="display: none;">
                         <div class="credentials" style="display: block;">
-                            <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2><hr>
+                            <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2>
+                            <hr>
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                            title="Close Modal">&times;</span>
-                            <input required type="text" name="userName" id="signUpUserName" placeholder="Enter Your Name">
+                                title="Close Modal">&times;</span>
+                            <input required type="text" name="userName" id="signUpUserName"
+                                placeholder="Enter Your Name">
                             <input required type="text" id="signUpEmail" placeholder="Enter Your Email">
-                            <input required type="password" name="new-password" id="newPassword" placeholder="Enter Password">
-                            <input required type="password" name="confirm-new-password" id="confirmNewPassword" placeholder="Confirm Password">
+                            <input required type="password" name="new-password" id="newPassword"
+                                placeholder="Enter Password">
+                            <input required type="password" name="confirm-new-password" id="confirmNewPassword"
+                                placeholder="Confirm Password">
                             <button id="signUpForm-signUp-btn" type="submit" class="tab-btn">Sign Up</button>
                             <p style="margin-left: 113px;">Already signed up but not verified</p>
-                            <button id="verifyAccount-btn" class="tab-btn" type="button" style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button><hr>
+                            <button id="verifyAccount-btn" class="tab-btn" type="button"
+                                style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button>
+                            <hr>
                             <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
-                            <h5 style="padding-left: 32%;">Already have an account?</h5><hr>
+                            <h5 style="padding-left: 32%;">Already have an account?</h5>
+                            <hr>
                         </div>
-                        <!-- otp verification form  -->
-                        <div id="otpVerificationForm" style="display: none;">
-                            <h2 style="margin-left: 130px;">OTP Verification</h2><hr>
+                    </form>
+                    <!-- otp verification form  -->
+                    <form id="otpVerificationForm" class="modal-content animate" style="display: none;">
+                        <div style="display: block;">
+                            <h2 style="margin-left: 130px;">OTP Verification</h2>
+                            <hr>
                             <h3 style="padding-left: 39%;">Enter OTP</h3>
                             <input type="text" id="signUpOtp">
-                            <a style="text-decoration: none;color: black;" id="resendSignUpOtp">resend otp</a><br>
+                            <a style="text-decoration: none;color: black;cursor: pointer;margin-left: 190px;"
+                                id="resendSignUpOtp">resend otp</a><br>
                             <input type="text" id="userEmailId" style="display: none;"><br>
-                            <button type="button" class="tab-btn" id="otpSubmit-btn" style="margin-left: 178px;width: 100px;">Submit</button>
+                            <button type="button" class="tab-btn" id="otpSubmit-btn"
+                                style="margin-left: 178px;width: 100px;">Submit</button>
                         </div>
+                    </form>
+                    <!-- resend otp form or verify account form  -->
+                    <form id="verifyResendForm" class="modal-content animate" style="display: none;">
+                        <h2 style="margin-left: 130px;">Resend OTP</h2>
+                        <hr>
+                        <input required type="text" id="emailForResend" placeholder="Enter you Email">
+                        <button id="verifyAccountButton" style="margin-left: 178px;" class="tab-btn"
+                            type="submit">Resend</button>
                     </form>
                 </div>
             </div>

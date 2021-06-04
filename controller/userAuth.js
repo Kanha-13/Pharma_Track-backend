@@ -18,7 +18,7 @@ module.exports = {
                 res.status(404).json({ Error_message: "User with this email not found" })
                 return 1
             }
-            else if(!user.otpVerified) {
+            else if (!user.otpVerified) {
                 res.status(404).json({ Error_message: "User already exist ,but not verified" })
                 return 1
             }
@@ -52,7 +52,7 @@ module.exports = {
         const password = req.body.password;
         const user = await User.findOne({ email: userEmail })
         if (user != null) {
-            if(user.otpVerified)
+            if (user.otpVerified)
                 res.status(400).json("User Alerady exist")
             else res.status(400).json("User already exist ,but not verified")
         }
@@ -76,26 +76,29 @@ module.exports = {
             }
             sgMail
                 .send(msg)
-                .then(async() => {
-                    await optSchema.create({ otp: otp, userId: newUser._id ,userEmail:newUser.email})
-                    setTimeout(async()=>{
-                        await optSchema.deleteOne({userEmail:newUser.email})
-                    }, 60000);
-                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 5 mins',userEmail:userEmail})
+                .then(async () => {
+                    await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
+                    setTimeout(async () => {
+                        await optSchema.deleteOne({ userEmail: newUser.email })
+                    }, 240000);
+                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 4 mins', userEmail: userEmail })
                 })
                 .catch((error) => {
                     console.error(error)
                     res.status(501).json(error)
                 })
+
         }
     },
-    otpVerification:async(req,res)=>{
-        const otp=req.body.otp;
-        const email=req.body.userEmail
-        const otpData= await optSchema.findOne({userEmail:email})
-        if(otpData.otp==otp){
-            const userData=  await User.updateOne({email:email},{$set:{otpVerified:true}})
-            console.log(userData)
+    otpVerification: async (req, res) => {
+        const otp = req.body.otp;
+        const email = req.body.userEmail
+        const otpData = await optSchema.findOne({ userEmail: email })
+        if (!otpData) {
+            res.status(404).json({ message: "OTP expired" })
+        }
+        else if (otpData.otp == otp) {
+            await User.updateOne({ email: email }, { $set: { otpVerified: true } })
             const token = jwt.sign({
                 email: email,
                 userId: otpData.userId.toString(),
@@ -103,15 +106,45 @@ module.exports = {
             }, '***REMOVED***', {
             });
             res.cookie('***REMOVED***', token, { httpOnly: true });
-            res.status(201).json({message:"OTP verified and user has been logged in"})
+            res.status(201).json({ message: "OTP verified and user has been logged in" })
             return
         }
-        else{
-            res.status(400).json({message:"OTP does not match"})
-        }
-        if(!otpData){
-            res.status(404).json({message:"OTP expired"})
+        else {
+            res.status(400).json({ message: "OTP does not match" })
         }
     },
-    // resend:async
+    resendUserOTP: async (req, res) => {
+        const user = await User.findOne({ email: req.body.email })
+        if (!user) return res.status(404).json({ message: "No user found with this email" })
+        if (await optSchema.findOne({ userEmail: user.email })) return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
+        if (user.otpVerified) return res.status(400).json({ message: "User already verified" })
+        else {
+            //generate otp of 6 digit
+            var digits = '0123456789';
+            let otp = '';
+            for (let i = 0; i < 6; i++) {
+                otp += digits[Math.floor(Math.random() * 10)];
+            }
+            sgMail.setApiKey('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')
+            const msg = {
+                to: user.email, // Change to your recipient
+                from: 'kanha.agr13@gmail.com', // Change to your verified sender
+                subject: 'Your OTP for Pharmacy ERP solution',
+                text: otp,
+            }
+            sgMail
+                .send(msg)
+                .then(async () => {
+                    await optSchema.create({ otp: otp, userId: user._id, userEmail: user.email })
+                    setTimeout(async () => {
+                        await optSchema.deleteOne({ userEmail: user.email })
+                    }, 240000);
+                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 4 mins', userEmail: user.email })
+                })
+                .catch((error) => {
+                    console.error(error)
+                    res.status(501).json(error)
+                })
+        }
+    }
 }
