@@ -4,7 +4,7 @@ const User = require('../models/users')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const cookie = require('cookie-parser');
-const { getMaxListeners } = require('../models/otp');
+const { getMaxListeners, findByIdAndUpdate } = require('../models/otp');
 module.exports = {
     login: async (req, res) => {
 
@@ -67,7 +67,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('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')
+            sgMail.setApiKey('***REMOVED***')
             const msg = {
                 to: userEmail, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -80,8 +80,8 @@ module.exports = {
                     await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
                     setTimeout(async () => {
                         await optSchema.deleteOne({ userEmail: newUser.email })
-                    }, 240000);
-                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 4 mins', userEmail: userEmail })
+                    }, 600000);
+                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: userEmail })
                 })
                 .catch((error) => {
                     console.error(error)
@@ -125,7 +125,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('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')
+            sgMail.setApiKey('***REMOVED***')
             const msg = {
                 to: user.email, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -138,13 +138,64 @@ module.exports = {
                     await optSchema.create({ otp: otp, userId: user._id, userEmail: user.email })
                     setTimeout(async () => {
                         await optSchema.deleteOne({ userEmail: user.email })
-                    }, 240000);
-                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 4 mins', userEmail: user.email })
+                    }, 600000);
+                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: user.email })
                 })
                 .catch((error) => {
                     console.error(error)
                     res.status(501).json(error)
                 })
         }
+    },
+    forgetPassword: async (req, res) => {
+        const email = req.body.email;
+        const user = await User.findOne({ email: email })
+        if (!user) return res.status(404).json({ message: "User with this email not found" })
+        if (!user.otpVerified) return res.status(400).json({ message: "User not verified" })
+        if (await optSchema.findOne({ userEmail: user.email })) return res.status(400).json({ message: "Too many many attempts. Wait for 10 mins,than try again" })
+        //generate otp of 6 digit
+        var digits = '0123456789';
+        let otp = '';
+        for (let i = 0; i < 6; i++) {
+            otp += digits[Math.floor(Math.random() * 10)];
+        }
+        sgMail.setApiKey('***REMOVED***')
+        const msg = {
+            to: user.email, // Change to your recipient
+            from: 'kanha.agr13@gmail.com', // Change to your verified sender
+            subject: 'Reset password OTP for Pharmacy ERP solution',
+            text: otp,
+        }
+        sgMail
+            .send(msg)
+            .then(async () => {
+                await optSchema.create({ otp: otp, userId: user._id, userEmail: user.email })
+                setTimeout(async () => {
+                    await optSchema.deleteOne({ userEmail: user.email })
+                }, 600000);
+                res.status(201).json({ message: 'Reset password otp sent to email and is valid for 10 mins', userEmail: user.email })
+            })
+            .catch((error) => {
+                console.error(error)
+                res.status(501).json(error)
+            })
+    },
+    resetPasswordOTPverification: async (req, res) => {
+        const email = req.body.email;
+        const otp = req.body.otp;
+        const otpData = await optSchema.findOne({ userEmail: email })
+        if (!otpData) return res.status(404).json({ message: "Invalid Email" })
+        if (!otpData.otp == otp) return res.status(400).json({ message: "OTP dose not match!" })
+        else {
+            res.status(200).json({ message: "Reset your password", requestId: otpData._id })
+        }
+    },
+    newPasswordReset: async (req, res) => {
+        const reqId = req.body.reId
+        const otpData = await optSchema.findById({ _id: reqId })
+        if (!otpData) return res.status(400).json({ message: "Fake credentials" })
+        const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10);
+        console.log(await User.updateOne({ email: otpData.userEmail }, { $set: { password: hashedPassword } }))
+        res.status(201).json({ message: "Password reset successfully. Login to continue" })
     }
 }

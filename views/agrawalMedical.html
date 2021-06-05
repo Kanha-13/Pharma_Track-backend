@@ -54,10 +54,32 @@
 
                             <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
                             <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
+                            <a id="forgetPasswordLink">Forget Password</a>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
                             <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button">Sign
                                 Up</button><br>
                             <h4 style="padding-left:43% ;" for="">It's Free</h4>
+                        </div>
+                    </form>
+                    <!-- forget password form  -->
+                    <form id="forgetPasswordForm" class="modal-content animate">
+                        <div>
+                            <h2>Reset Password</h2>
+                            <hr>
+                            <input id="emailForForgetPassword" required type="text" placeholder="Enter you Email">
+                            <button class="tab-btn" type="submit">Reset</button>
+                            <input type="text" id="forgetPasswordOTP" placeholder="Enter OTP">
+                            <button id="forgetOTPSubmit-btn" class="tab-btn" disabled type="button">Submit Otp</button>
+                        </div>
+                    </form>
+                    <!-- new password reset form  -->
+                    <form id="resetNewPasswordForm" class="modal-content animate">
+                        <div>
+                            <h2>Enter New Password</h2>
+                            <hr>
+                            <input id="newResetPassword" required type="text" placeholder="Enter Password">
+                            <input id="confirmNewResetPassword" required type="text" placeholder="Confirm Password">
+                            <button class="tab-btn" type="submit">Reset Password</button>
                         </div>
                     </form>
                     <!-- sign up form  -->

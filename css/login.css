@@ -149,3 +149,8 @@
 #signUpForm-signUp-btn:hover{
   background-color: rgb(96, 221, 96);
 }
+
+/* forget password css  */
+#forgetPasswordLink{
+  cursor: pointer;
+}

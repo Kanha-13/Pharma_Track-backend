@@ -31,6 +31,8 @@ $(document).ready(() => {
                 $('#login-btn').hide()
                 $('#logout-btn').show().css("display", "block")
                 $('#wlcm-wala-signUp-btn').hide()
+                $("#email").css("border-color", "#625644")
+                $("#pswd").css("border-color", "#625644")
                 return response;
             },
             error: function (res) {
@@ -60,7 +62,11 @@ $(document).ready(() => {
     })
     //welcome container wala login btn
     $('#login-btn').on('click', () => {
+        $("#email").css("border-color", "#625644")
+        $("#pswd").css("border-color", "#625644")
         $('#signUpForm').css("display", "none")
+        $("#forgetPasswordForm").css("display", "none")
+        $("#resetNewPasswordForm").css("display", "none")
         $('#loginForm').css("display", "block")
         document.getElementById('id01').style.display = 'block'
     })
@@ -71,6 +77,8 @@ $(document).ready(() => {
         $('#signUpForm').css("display", "block")
         $('.credentials').css("display", "block")
         $('#loginForm').css("display", "none")
+        $("#forgetPasswordForm").css("display", "none")
+        $("#resetNewPasswordForm").css("display", "none")
         document.getElementById("loginForm").reset();
         $("#email").css("border-color", "#625644")
         $("#pswd").css("border-color", "#625644")
@@ -177,10 +185,6 @@ $(document).ready(() => {
             },
             error: function (res) {
                 $('#emailForResend').css("border-color", "red");
-                // $('#verifyAccountButton').attr("disabled", true);
-                // setTimeout(function () {
-                //     $('#verifyAccountButton').removeAttr("disabled");
-                // }, 300000);
                 alert(res.responseJSON.message)
                 console.log(res.responseJSON.message)
             }
@@ -188,7 +192,6 @@ $(document).ready(() => {
     }
     //resend otp if otp does not reach or if also otp expired
     $("#resendSignUpOtp").on('click', () => {
-        console.log("here")
         resendOTP();
     })
     //resend opt for the users who forget or failed to varify themselves
@@ -207,7 +210,99 @@ $(document).ready(() => {
     })
     //back to login page
     $("#backToLogin-btn").on('click', () => {
+        $("#email").css("border-color", "#625644")
+        $("#pswd").css("border-color", "#625644")
         $('#signUpForm').css("display", "none");
         $('#loginForm').css("display", "block");
+    })
+
+    //forget password
+    $("#forgetPasswordLink").on('click', () => {
+        $("#forgetPasswordForm").css("display", "block")
+        $('#signUpForm').css("display", "none");
+        $('#loginForm').css("display", "none");
+        $("#forgetOTPSubmit-btn").attr("disabled", true);
+    })
+    $("#forgetPasswordForm").submit((event) => {
+        event.preventDefault();
+        const data = { email: $("#emailForForgetPassword").val() }
+        const url = "/forgetPassword"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (res) {
+                $("#forgetOTPSubmit-btn").removeAttr("disabled");
+                alert(res.message)
+                console.log(res.message)
+            },
+            error: function (res) {
+                alert(res.responseJSON.message)
+                console.log(res.responseJSON.message)
+            }
+        });
+    })
+    $("#forgetOTPSubmit-btn").on('click', () => {
+        const otp = $("#forgetPasswordOTP").val()
+        const data = { email: $("#emailForForgetPassword").val(), otp: otp };
+        const url = '/resetPasswordOTPverification'
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (res) {
+                $("#resetNewPasswordForm").css("display", "block")
+                $("#forgetPasswordOTP").css("border-color", "#625644")
+                $("#forgetPasswordForm").css("display", "none")
+                document.getElementById('userEmailId').value = res.requestId
+                document.getElementById("forgetPasswordOTP").value = ""
+                $("#newResetPassword").val() = ""
+                $("#confirmNewResetPassword").val() = ""
+                alert(res.message)
+                console.log(res.message)
+            },
+            error: function (res) {
+                $("#forgetPasswordOTP").css("border-color", "red")
+                alert(res.responseJSON.message)
+                console.log(res.responseJSON.message)
+            }
+        });
+    })
+    $("#resetNewPasswordForm").submit((e) => {
+        e.preventDefault();
+        if ($("#confirmNewResetPassword").val() == $("#newResetPassword").val()) {
+            const reqId = document.getElementById('userEmailId').value;
+            const url = '/newPasswordReset';
+            const data = { newPassword: $("#newResetPassword").val(), reId: reqId };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),// serializes the form's elements.
+                contentType: 'application/json',
+                success: function (res) {
+                    $("#resetNewPasswordForm").css("display", "none")
+                    $("#forgetPasswordForm").css("display", "none")
+                    document.getElementById('userEmailId').value = res.requestId
+                    $("#confirmNewResetPassword").css("border-color", "#625644")
+                    $("#newResetPassword").css("border-color", "#625644")
+                    document.getElementById('id01').style.display = 'none'
+                    alert(res.message)
+                    console.log(res.message)
+                },
+                error: function (res) {
+                    alert(res.responseJSON.message)
+                    console.log(res.responseJSON.message)
+                }
+            });
+        }
+        else {
+            $("#confirmNewResetPassword").css("border-color", "red")
+            $("#newResetPassword").css("border-color", "red")
+            alert("Both password does not match")
+            console.log("Both password does not match")
+        }
+
     })
 })
