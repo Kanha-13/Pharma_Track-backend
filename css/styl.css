@@ -6,7 +6,7 @@ body{
 #head-container{
     margin: 0;
     padding: 20px;
-    width: 100vw;
+    width: 90vw;
     height: auto;
 }
 .classDate table{
@@ -15,6 +15,7 @@ body{
 @media only screen and (max-width: 1200px){
     #back-wallpaper{
         display: none;
+        height: 90vh;
     }
 }
 @media only screen and (min-width: 1200px) {
@@ -141,6 +142,7 @@ body{
         z-index: 1;
         opacity: 0.86;
         margin-left: 17vw;
+        margin-right: 0;
         width: 75vw;
         height: 93vh;
         background-color:	#d2d7d7;
