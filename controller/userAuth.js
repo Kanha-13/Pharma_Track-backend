@@ -3,8 +3,6 @@ const sgMail = require('@sendgrid/mail')
 const User = require('../models/users')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
-const cookie = require('cookie-parser');
-const { getMaxListeners, findByIdAndUpdate } = require('../models/otp');
 module.exports = {
     login: async (req, res) => {
 
@@ -28,10 +26,10 @@ module.exports = {
                     email: user.email,
                     userId: user._id.toString(),
                     date: new Date(),
-                }, '', {
+                }, process.env.SECRETE_JWT_KEY, {
 
                 });
-                res.cookie('', token, { httpOnly: true });
+                res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
                 res.send("Ho gaya").status(200)
 
             }
@@ -67,7 +65,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('')
+            sgMail.setApiKey(process.env.SENDGRID_KA_API)
             const msg = {
                 to: userEmail, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -103,9 +101,9 @@ module.exports = {
                 email: email,
                 userId: otpData.userId.toString(),
                 date: new Date(),
-            }, '', {
+            }, process.env.SECRETE_JWT_KEY, {
             });
-            res.cookie('', token, { httpOnly: true });
+            res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
             res.status(201).json({ message: "OTP verified and user has been logged in" })
             return
         }
@@ -125,7 +123,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('')
+            sgMail.setApiKey(process.env.SENDGRID_KA_API)
             const msg = {
                 to: user.email, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -159,7 +157,7 @@ module.exports = {
         for (let i = 0; i < 6; i++) {
             otp += digits[Math.floor(Math.random() * 10)];
         }
-        sgMail.setApiKey('')
+        sgMail.setApiKey(process.env.SENDGRID_KA_API)
         const msg = {
             to: user.email, // Change to your recipient
             from: 'kanha.agr13@gmail.com', // Change to your verified sender

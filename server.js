@@ -5,16 +5,14 @@ const product = require('./routes/product');
 const admin = require('./routes/admin');
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
-const billHistory = require('./routes/billHistory')
-const partyManage = require('./routes/partyPurchase')
-const salePurchase = require('./routes/salePurchase')
-
+const billHistory = require('./routes/billHistory');
+const partyManage = require('./routes/partyPurchase');
+const salePurchase = require('./routes/salePurchase');
+require('dotenv').config();
 //app config
 const app = express();
 const port = process.env.PORT || 5001;
-const connection_url = ''
-
-
+const connection_url = process.env.MONGODB_KA_API;
 //middlewares
 app.use(express.json());
 app.use(express.static(__dirname))
@@ -34,7 +32,7 @@ mongoose.connect(connection_url, {
     console.log(err)
 })
 
-//api endpoint
+// api endpoint
 app.use(admin)
 app.use(users)
 app.use(product)

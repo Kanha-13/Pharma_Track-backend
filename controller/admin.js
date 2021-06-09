@@ -54,7 +54,6 @@ module.exports = {
             const hashedPassword = bcrypt.hashSync(password, 10);
             const data = { adminName: adminName, otpVerified: false, email: adminEmail, password: hashedPassword }
             const newAdmin = await admin.create(data);
-            console.log(newAdmin)
             //generate otp of 6 digit
             var digits = '0123456789';
             let otp = '';
@@ -62,7 +61,7 @@ module.exports = {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
             //rmv
-            sgMail.setApiKey('')
+            sgMail.setApiKey(process.env.SENDGRID_KA_API)
             const msg = {
                 to: userEmail, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
