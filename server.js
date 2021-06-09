@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Cors = require('cors');
 const product = require('./routes/product');
-const admin =require('./routes/admin');
-const users=require('./routes/user')
+const admin = require('./routes/admin');
+const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
 const billHistory = require('./routes/billHistory')
 const partyManage = require('./routes/partyPurchase')
@@ -12,7 +12,7 @@ const salePurchase = require('./routes/salePurchase')
 //app config
 const app = express();
 const port = process.env.PORT || 5001;
-const connection_url =  '***REMOVED***'
+const connection_url = ''
 
 
 //middlewares
@@ -43,4 +43,4 @@ app.use(partyManage)
 app.use(salePurchase)
 
 //listner
-app.listen(port,()=> console.log(`listening on localhost: ${port}`));
+app.listen(port, () => console.log(`listening on localhost: ${port}`));

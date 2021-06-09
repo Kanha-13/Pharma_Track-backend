@@ -28,10 +28,10 @@ module.exports = {
                     email: user.email,
                     userId: user._id.toString(),
                     date: new Date(),
-                }, '***REMOVED***', {
+                }, '', {
 
                 });
-                res.cookie('***REMOVED***', token, { httpOnly: true });
+                res.cookie('', token, { httpOnly: true });
                 res.send("Ho gaya").status(200)
 
             }
@@ -67,7 +67,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('***REMOVED***')
+            sgMail.setApiKey('')
             const msg = {
                 to: userEmail, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -103,9 +103,9 @@ module.exports = {
                 email: email,
                 userId: otpData.userId.toString(),
                 date: new Date(),
-            }, '***REMOVED***', {
+            }, '', {
             });
-            res.cookie('***REMOVED***', token, { httpOnly: true });
+            res.cookie('', token, { httpOnly: true });
             res.status(201).json({ message: "OTP verified and user has been logged in" })
             return
         }
@@ -125,7 +125,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('***REMOVED***')
+            sgMail.setApiKey('')
             const msg = {
                 to: user.email, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -159,7 +159,7 @@ module.exports = {
         for (let i = 0; i < 6; i++) {
             otp += digits[Math.floor(Math.random() * 10)];
         }
-        sgMail.setApiKey('***REMOVED***')
+        sgMail.setApiKey('')
         const msg = {
             to: user.email, // Change to your recipient
             from: 'kanha.agr13@gmail.com', // Change to your verified sender

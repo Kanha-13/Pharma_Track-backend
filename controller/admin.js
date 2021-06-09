@@ -23,10 +23,10 @@ module.exports = {
                     email: Admin.email,
                     userId: Admin._id.toString(),
                     date: new Date(),
-                }, '***REMOVED***', {
+                }, '', {
 
                 });
-                res.cookie('***REMOVED***', token, { httpOnly: true });
+                res.cookie('', token, { httpOnly: true });
                 res.send("Ho gaya").status(200)
 
             }
@@ -61,7 +61,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey('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')
+            sgMail.setApiKey('')
             const msg = {
                 to: userEmail, // Change to your recipient
                 from: 'kanha.agr13@gmail.com', // Change to your verified sender
@@ -70,8 +70,8 @@ module.exports = {
             }
             sgMail
                 .send(msg)
-                .then(async() => {
-                    await optSchema.create({ otp: otp, userId: newAdmin._id ,userEmail:newAdmin.email})
+                .then(async () => {
+                    await optSchema.create({ otp: otp, userId: newAdmin._id, userEmail: newAdmin.email })
                     res.status(201).json({ message: 'Otp Sent to Email' })
                 })
                 .catch((error) => {
