@@ -61,6 +61,7 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
+            //rmv
             sgMail.setApiKey('')
             const msg = {
                 to: userEmail, // Change to your recipient

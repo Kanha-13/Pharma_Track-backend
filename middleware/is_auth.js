@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req,res,next)=>
 {
-    const check  = req.cookies.***REMOVED***
+    const check  = req.cookies.meriPechan
     if(!check)
     {
         const error = new Error('Not Authenticated');
@@ -14,7 +14,7 @@ module.exports = (req,res,next)=>
    
     let decodedToken;
     try{    
-            decodedToken = jwt.verify(token,'***REMOVED***');
+            decodedToken = jwt.verify(token,'kyaptakonhaikahaseaayahai');
     } catch(err)
     {
         err.statusCode = 600;

@@ -7,7 +7,7 @@ const deletesearchProducts =async searchText =>{
     if(deleteproducts == '')
     {
         // const PechanKon = document.cookie.split(';').map(cookie => cookie.split('=')).reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
-        // console.log(PechanKon.***REMOVED***)
+        // console.log(PechanKon.meriPechan)
         const res = await fetch('/product/',{
             method:'GET',
         })

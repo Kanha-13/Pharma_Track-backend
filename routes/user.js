@@ -12,5 +12,5 @@ router.route('/newPasswordReset').post(userAuth.newPasswordReset)
 //render the web site or forntend
 router.route('/').get((req, res) => { res.render('agrawalMedical') })
 //clear the cookie
-router.route('/logOut').post((req, res) => { res.clearCookie('***REMOVED***'); res.status(200).send("done") })
+router.route('/logOut').post((req, res) => { res.clearCookie('meriPechan'); res.status(200).send("done") })
 module.exports = router;
