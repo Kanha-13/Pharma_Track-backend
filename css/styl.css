@@ -22,7 +22,7 @@ body{
     #back-wallpaper{
         position: absolute;
         width:100%;
-        height: auto;
+        height: 100vh;
         z-index: -1;
         margin: 0px;
         padding: 0px;
@@ -30,6 +30,17 @@ body{
     }
 }
 @media only screen and (min-width: 1000px) {
+    .super-container{
+        z-index: 1;
+        opacity: 0.86;
+        margin-left: 17vw;
+        margin-right: 0;
+        width: 75vw;
+        height: 93vh;
+        background-color:	#d2d7d7;
+        border: #c49550 solid 3px;
+        border-radius:25px 25px 25px 25px;
+    }
     .navbar{
         display: inline-grid;
         position:fixed;
@@ -134,23 +145,6 @@ body{
     text-align: center;
     
 }
-
-
-/* super container that contains all container  */
-@media only screen and (min-width: 540px){
-    .super-container{
-        z-index: 1;
-        opacity: 0.86;
-        margin-left: 17vw;
-        margin-right: 0;
-        width: 75vw;
-        height: 93vh;
-        background-color:	#d2d7d7;
-        border: #c49550 solid 3px;
-        border-radius:25px 25px 0px 0px;
-    }
-}
-
 /* header common to all  */
 .header{
     border-radius:25px 25px 0px 0px;
@@ -167,41 +161,39 @@ body{
         word-break: break-all;
     }
 }
-@media only screen and (min-width: 1100px) {
-
-    table{
-        margin: auto;
-        border:2px solid #c49550;
-        width: 75vw;
-    }
-    
-    th{
-        display: flex;
-        margin: auto;
-        width: 7vw;
-        word-break: normal;
-    }
-    
-    .head-tr{
-        font-size: 26px;
-        background-color: #c49550;
-        display: flex;
-        margin: auto;
-        font-weight: bold;
-        align-items: center;
-    }
-    .res-tr,#selectedSell-product{
-        display: flex;
-        font-size: 22px;
-    }
-    
-    td{
-        width: 110px;
-        display: block;
-        margin: auto;
-        word-wrap: break-word;
-    }
+table{
+    margin: auto;
+    border:2px solid #c49550;
+    width: 75vw;
 }
+
+th{
+    display: flex;
+    margin: auto;
+    width: 110px;
+    word-break: normal;
+}
+
+.head-tr{
+    font-size: 26px;
+    background-color: #c49550;
+    display: flex;
+    margin: auto;
+    font-weight: bold;
+    align-items: center;
+}
+.res-tr,#selectedSell-product{
+    display: flex;
+    font-size: 22px;
+}
+
+td{
+    width: 110px;
+    display: block;
+    margin: auto;
+    word-wrap: break-word;
+}
+
 /* from here different containers */
 
 /* add conatainer  */
@@ -271,6 +263,15 @@ body{
     font-size: 15px;
     font-weight: bold;
     
+}
+
+/* search result  */
+#match-product{
+    padding:5px;
+    background-color:#d2d7d7;
+    height: 53vh;
+    overflow: auto;
+    text-align:justify;
 }
 
 /* sell container  */
