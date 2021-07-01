@@ -48,11 +48,12 @@ $(document).ready(() => {
             type: "POST",
             url: url,
             contentType: 'application/json',
-            success: function (response) {
+            success: function (res) {
                 $('#logout-btn').css("display", "none")
                 $('#login-btn').css("display", "block")
                 $('#wlcm-wala-signUp-btn').show()
                 document.getElementById("loginForm").reset();
+                window.location.reload()
                 return "ok";
             },
             error: function (res) {

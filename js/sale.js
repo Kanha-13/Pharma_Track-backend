@@ -2,7 +2,7 @@ const sellProdSearch = document.getElementById('sellItem-find')
 const sellMactProd = document.getElementById('sell-product')
 //search and filter products
 const sellSearchProduct = async searchText => {
-    addedProd=[]
+    addedProd = []
     if (products == '') {
         const res = await fetch('/product/', {
             method: 'GET',
@@ -66,7 +66,6 @@ const fun = (ele) => {
     addedProd.push(ele.id)
     return
 }
-
 $('#clr-btn').click(() => {
     document.getElementById('selectedSell-product').innerHTML = '';
     addedProd = [];
@@ -97,7 +96,7 @@ $('#checkOut-btn').click(() => {
                     const html = response.Data.map(match => `
                             <table class="res-table">
                                 <tr class="res-tr first-bill-tr">
-                                <input id="${match._id}purRate" class="purRate-input" value="${(match.netRate/match.qnty).toFixed(4)}" style="display:none;"></input>
+                                <input id="${match._id}purRate" class="purRate-input" value="${(match.netRate / match.qnty).toFixed(4)}" style="display:none;"></input>
                                 <td id="${match._id}itm-Name" class="first-bill-td">${match.itemName}</td>
                                 <td id="${match._id}btch" class="first-bill-td">${match.batch}</td>
                                 <td id="${match._id}exp" class="first-bill-td">${new Date(match.expDate).toLocaleDateString()}</td>
@@ -131,14 +130,14 @@ const firstCal = (qnt, mrp, ttl, d) => {
     ttl[0].value = ((qnt * mrp) - (((qnt * mrp) / 100) * d[0].value) || qnt * mrp).toFixed(3);
     const ttls = $(".ttlAmt")
     const qntys = $('.qntsOfItem')
-    const purRates=$('.purRate-input');
+    const purRates = $('.purRate-input');
     var gttl = 0;
     var profitInthisSell = 0
     // console.log(document.getElementById('profitInthisBill').defaultValue)
     // console.log(document.getElementById('profitInthisBill').value)
     for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
-        profitInthisSell =profitInthisSell+ ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value)*qntys[i].value)))
+        profitInthisSell = profitInthisSell + ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value) * qntys[i].value)))
     }
     gttlWitOutRO = gttl;
     document.getElementById('grand-ttl').value = Math.round(gttl);
@@ -154,14 +153,14 @@ const calculateTtL = (d, ttlId, qnt, mrp) => {
     ttlId[0].value = ((qnt * mrp) - (((qnt * mrp) / 100) * d)).toFixed(3)
     var ttls = $(".ttlAmt")
     const qntys = $('.qntsOfItem')
-    const purRates=$('.purRate-input');
+    const purRates = $('.purRate-input');
     var profitInthisSell = 0
     // console.log(document.getElementById('profitInthisBill').defaultValue)
     // console.log(document.getElementById('profitInthisBill').value)
     var gttl = 0;
-    for (var i = 0; i < ttls.length; i++){
+    for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
-        profitInthisSell =profitInthisSell+ ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value)*qntys[i].value)))
+        profitInthisSell = profitInthisSell + ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value) * qntys[i].value)))
     }
     gttlWitOutRO = gttl;
     document.getElementById('grand-ttl').value = Math.round(gttl);
@@ -180,13 +179,12 @@ $("#grand-ttl").on('input', () => {
 //form submit to print bill
 $('#bill-print-form').submit(function (e) {
     e.preventDefault();
-    var returnQnty=[];
-    
-    if(oldBill){
-        for (var i=0;i<addedProd.length;i++)
-        {
-            returnQnty.push([addedProd[i],$(`#${addedProd[i]}qnt`).attr('data-initial-value')-document.getElementById(addedProd[i]+'qnt').value])
-        }  
+    var returnQnty = [];
+
+    if (oldBill) {
+        for (var i = 0; i < addedProd.length; i++) {
+            returnQnty.push([addedProd[i], $(`#${addedProd[i]}qnt`).attr('data-initial-value') - document.getElementById(addedProd[i] + 'qnt').value])
+        }
     }
     // user details is store on the first index of data as object
     const Data = [];
@@ -200,26 +198,26 @@ $('#bill-print-form').submit(function (e) {
         gttl: $('#grand-ttl').val(),
         paid: $('#amt-paid').val(),
         amtDue: $('#amt-due').val(),
-        date:document.getElementById('bil-date').defaultValue,
+        date: document.getElementById('bil-date').defaultValue,
         roundoff: (document.getElementById('grand-ttl').value - gttlWitOutRO).toFixed(3),
-        profit:document.getElementById('profitInthisBill').value,
-        changeInProfit:reduceProfit,
-        changeInSell:reduceSell,
+        profit: document.getElementById('profitInthisBill').value,
+        changeInProfit: reduceProfit,
+        changeInSell: reduceSell,
     }
-    
+
     if (addedProd.length) {
         for (var i = 0; i < addedProd.length; i++) {
-            Data[i + 1] = { _id: addedProd[i], Soldqnt: document.getElementById(`${addedProd[i]}qnt`).value, disc: document.getElementById(`${addedProd[i]}disc`).value,total:document.getElementById(`${addedProd[i]}ttl`).value}
+            Data[i + 1] = { _id: addedProd[i], Soldqnt: document.getElementById(`${addedProd[i]}qnt`).value, disc: document.getElementById(`${addedProd[i]}disc`).value, total: document.getElementById(`${addedProd[i]}ttl`).value }
         }
-        var url ='';
-        if(oldBill){
-            url='/patient/OldBill';
+        var url = '';
+        if (oldBill) {
+            url = '/patient/OldBill';
         }
-        else{url = "/product/reduceStock";}
+        else { url = "/product/reduceStock"; }
         $.ajax({
             type: "POST",
             url: url,
-            data: JSON.stringify([Data,returnQnty]),// serializes the form's elements.
+            data: JSON.stringify([Data, returnQnty]),// serializes the form's elements.
             contentType: 'application/json',
             success: function async(response) {
                 document.getElementById('selectedSell-product').innerHTML = '';
@@ -236,13 +234,12 @@ $('#bill-print-form').submit(function (e) {
                 document.getElementById('g-ttl').value = Data[0].gttl
                 document.getElementById('at-paid').value = Data[0].paid
                 document.getElementById('at-due').value = Data[0].amtDue
-                if(document.getElementById('bil-date').value==0)
-                {
+                if (document.getElementById('bil-date').value == 0) {
                     const todaysDate = new Date()
                     const date = todaysDate.getDate()
                     const month = todaysDate.getMonth()
                     const year = todaysDate.getFullYear()
-                    document.getElementById('bil-date').value = (date+"/"+(month+1)+"/"+year)
+                    document.getElementById('bil-date').value = (date + "/" + (month + 1) + "/" + year)
                 }
                 var counter = 0;
                 const html = addedProd.map(match => `
@@ -272,32 +269,33 @@ $('#bill-print-form').submit(function (e) {
                     RateTotal = (parseFloat(rate) * parseFloat(qnty)) + RateTotal;
                 });
                 //function for converting digit to words
-                function numberToWords(number) {  
-                    var digit = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];  
-                    var elevenSeries = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];  
-                    var countingByTens = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];  
-                    var shortScale = ['', 'thousand', 'million', 'billion', 'trillion'];  
-              
-                    number = number.toString(); 
-                    number = number.replace(/[\, ]/g, ''); 
-                    if (number != parseFloat(number)) return 'not a number'; 
-                    var x = number.indexOf('.'); if (x == -1) x = number.length; 
-                    if (x > 15) return 'too big'; var n = number.split(''); 
-                    var str = ''; var sk = 0; 
-                    for (var i = 0; i < x; i++) { if ((x - i) % 3 == 2) { if (n[i] == '1') { str += elevenSeries[Number(n[i + 1])] + ' '; i++; sk = 1; } else if (n[i] != 0) { str += countingByTens[n[i] - 2] + ' '; sk = 1; } } else if (n[i] != 0) { str += digit[n[i]] + ' '; if ((x - i) % 3 == 0) str += 'hundred '; sk = 1; } if ((x - i) % 3 == 1) { if (sk) str += shortScale[(x - i - 1) / 3] + ' '; sk = 0; } } 
-                    if (x != number.length) { var y = number.length; 
-                    str += 'point '; 
-                    for (var i = x + 1; i < y; i++) str += digit[n[i]] + ' '; 
-                } 
-                str = str.replace(/\number+/g, ' '); return str.trim() + ".";  
-              
-                } 
-                document.getElementById('in-words').innerhtml=numberToWords(parseInt(document.getElementById('g-ttl').value))
+                function numberToWords(number) {
+                    var digit = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+                    var elevenSeries = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+                    var countingByTens = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+                    var shortScale = ['', 'thousand', 'million', 'billion', 'trillion'];
+
+                    number = number.toString();
+                    number = number.replace(/[\, ]/g, '');
+                    if (number != parseFloat(number)) return 'not a number';
+                    var x = number.indexOf('.'); if (x == -1) x = number.length;
+                    if (x > 15) return 'too big'; var n = number.split('');
+                    var str = ''; var sk = 0;
+                    for (var i = 0; i < x; i++) { if ((x - i) % 3 == 2) { if (n[i] == '1') { str += elevenSeries[Number(n[i + 1])] + ' '; i++; sk = 1; } else if (n[i] != 0) { str += countingByTens[n[i] - 2] + ' '; sk = 1; } } else if (n[i] != 0) { str += digit[n[i]] + ' '; if ((x - i) % 3 == 0) str += 'hundred '; sk = 1; } if ((x - i) % 3 == 1) { if (sk) str += shortScale[(x - i - 1) / 3] + ' '; sk = 0; } }
+                    if (x != number.length) {
+                        var y = number.length;
+                        str += 'point ';
+                        for (var i = x + 1; i < y; i++) str += digit[n[i]] + ' ';
+                    }
+                    str = str.replace(/\number+/g, ' '); return str.trim() + ".";
+
+                }
+                document.getElementById('in-words').innerhtml = numberToWords(parseInt(document.getElementById('g-ttl').value))
                 document.getElementById('bil-Ttl').value = Math.round(totalWithoutDisc);
                 document.getElementById('DiscRs').value = Math.round(totalWithoutDisc) - document.getElementById('g-ttl').value
                 document.getElementById('taxRs').value = (totalWithoutDisc - RateTotal).toFixed(3);
-                if(!oldBill)
-                document.getElementById('ROff').value = (document.getElementById('g-ttl').value - gttlWitOutRO).toFixed(3)
+                if (!oldBill)
+                    document.getElementById('ROff').value = (document.getElementById('g-ttl').value - gttlWitOutRO).toFixed(3)
                 addedProd = [];
                 $('#back-wallpaper').hide()
                 window.print();
@@ -307,11 +305,13 @@ $('#bill-print-form').submit(function (e) {
                 $('#invoice-print').hide()
                 $('#back-wallpaper').show()
                 $('#head-container').show()
-                if(oldBill)
-                $(".findBill-container").show()
-                else{$(".findBill-container").hide()
-                $('.sell-container').show()}
-                oldBill=false;
+                if (oldBill)
+                    $(".findBill-container").show()
+                else {
+                    $(".findBill-container").hide()
+                    $('.sell-container').show()
+                }
+                oldBill = false;
             },
             error: function () {
                 alert('Error: Sotock is not reduced');

@@ -1,74 +1,83 @@
 $(document).ready(function () {
+    //logout function for refresh and window tab close
+    const logoutAfterRefresh = () => {
+        const url = '/logOut';
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: 'application/json',
+            success: function (res) {
+                $('#logout-btn').css("display", "none")
+                $('#login-btn').css("display", "block")
+                $('#wlcm-wala-signUp-btn').show()
+                document.getElementById("loginForm").reset();
+                return "ok";
+            },
+            error: function (res) {
+                alert(res)
+            }
+        });
+    }
     //to make admin logout oneces page refreshed
     window.addEventListener('beforeunload', function (e) {
         e.preventDefault();
-        $('#logout-btn').click()
+        logoutAfterRefresh();
         return "ok"
     })
     //to make admin logout oneces page closed
     window.onunload = function () {
         e.preventDefault();
-        $('#logout-btn').click()
+        logoutAfterRefresh();
         return "ok"
     }
     //SHORT CUT KEY COMBINATIONS
-    let keyPressed={}
-    $(window).on('keydown',(event)=>{
-        keyPressed[event.key]=true;
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['S']||keyPressed['s']))
-        {
+    let keyPressed = {}
+    $(window).on('keydown', (event) => {
+        keyPressed[event.key] = true;
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['S'] || keyPressed['s'])) {
             event.preventDefault()
             $('#sell-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['E']||keyPressed['e']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['E'] || keyPressed['e'])) {
             event.preventDefault()
             $('#nearExp-nav').click()
-           
+
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['F']||keyPressed['f']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['F'] || keyPressed['f'])) {
             event.preventDefault()
             $('#search-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['H']||keyPressed['h']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['H'] || keyPressed['h'])) {
             event.preventDefault()
             $('#home-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['A']||keyPressed['a']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['A'] || keyPressed['a'])) {
             event.preventDefault()
             $('#add-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['B']||keyPressed['b']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['B'] || keyPressed['b'])) {
             event.preventDefault()
             $('#findBill-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['D']||keyPressed['d']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['D'] || keyPressed['d'])) {
             event.preventDefault()
             $('#manageInvent-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['P']||keyPressed['p']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['P'] || keyPressed['p'])) {
             event.preventDefault()
             $('#purEntry-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['M']||keyPressed['m']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['M'] || keyPressed['m'])) {
             event.preventDefault()
             $('#partyManage-nav').click()
         }
-        if(keyPressed['Control']&&keyPressed['Shift']&&(keyPressed['R']||keyPressed['r']))
-        {
+        if (keyPressed['Control'] && keyPressed['Shift'] && (keyPressed['R'] || keyPressed['r'])) {
             event.preventDefault()
             $('#sellPur-nav').click()
         }
     })
-    $(window).on('keyup',(event)=>{
-        keyPressed[event.key]=false;
+    $(window).on('keyup', (event) => {
+        keyPressed[event.key] = false;
     })
 
 
@@ -152,7 +161,7 @@ $(document).ready(function () {
         $(".report-container").hide()
         $(".findBill-container").show()
     });
-    $("#manageInvent-nav").click(function (){
+    $("#manageInvent-nav").click(function () {
         $(".welcome-container").hide();
         $(".search-container").hide();
         $(".addProd-container").hide();
@@ -165,7 +174,7 @@ $(document).ready(function () {
         $(".report-container").hide()
         $(".manageInvent-container").show()
     })
-    $("#purEntry-nav").click(function (){
+    $("#purEntry-nav").click(function () {
         $(".welcome-container").hide();
         $(".search-container").hide();
         $(".addProd-container").hide();
@@ -178,7 +187,7 @@ $(document).ready(function () {
         $(".report-container").hide()
         $(".purchase-container").show()
     })
-    $("#partyManage-nav").click(function (){
+    $("#partyManage-nav").click(function () {
         $(".welcome-container").hide();
         $(".search-container").hide();
         $(".addProd-container").hide();
@@ -191,7 +200,7 @@ $(document).ready(function () {
         $(".report-container").hide()
         $(".partyManage-container").show()
     })
-    $("#sellPur-nav").click(function (){
+    $("#sellPur-nav").click(function () {
         $(".welcome-container").hide();
         $(".search-container").hide();
         $(".addProd-container").hide();
@@ -204,7 +213,7 @@ $(document).ready(function () {
         $(".partyManage-container").hide()
         $(".report-container").show()
     })
-    
+
     // for making active button
     $('.navbar').on('click', (btn) => {
         $(btn.target).addClass("active").siblings().removeClass('active');

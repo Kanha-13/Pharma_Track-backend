@@ -55,6 +55,8 @@ const searchProducts = async searchText => {
     }
     outputHtml(matches);
 }
+const refreshSearch = () => {
+}
 $('.searchRef-btn').click(() => {
     document.getElementById('sell-product').innerHTML = ''
     document.getElementById('match-product').innerHTML = ''
