@@ -328,7 +328,11 @@ td{
     margin-bottom: 5px;
     align-self: center;
 }
-
+/* find credit balance of party  */
+#creditBalanceCheckForm{
+    display: flex;
+    flex-direction: column;
+}
 /* find bill container  */
 .findBill-container .bill-finder-tool{
     display: block;

@@ -209,8 +209,18 @@
                     <table id="companyListDiv"></table>
                 </div>
                 <div class="creditRemaining" hidden>
-                    <label for="inputPartyForCreditFind">Enter Party</label>
-                    <select name="partySelect" id="inputPartyForCreditFind" required></select>
+                    <form action="" id="creditBalanceCheckForm">
+                        <select name="partySelect"
+                            style="border: 2px solid black;width: 25%;align-self: center;background-color: white;margin-bottom: 15px;border-radius: 5px;"
+                            id="selectPartyInCreditBalance" required></select>
+                        <button type="submit" id="searchCredit" style="width: 25%;align-self: center;"
+                            class="tab-btn">Search for
+                            Credit</button>
+                        <input type="text"
+                            style="background-color: rgb(204 164 105);font-size: 20px;font-weight: bolder;"
+                            id="remainingBalance">
+                    </form>
+
                 </div>
             </div>
             <!-- sale purchase report  -->

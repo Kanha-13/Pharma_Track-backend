@@ -12,7 +12,7 @@ const partyProfileSchema = new mongoose.Schema({
         type: String,
     },
     balance: {
-        type: String
+        type: Number
     }
 })
 

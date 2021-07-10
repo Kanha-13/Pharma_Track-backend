@@ -34,6 +34,11 @@ module.exports = {
     },
     getcompanyPartyList: async (req, res) => {
         res.status(200).json(await companyList.find({}))
+    },
+    getCreditBalance: async (req, res) => {
+        const party = await partyProfile.findOne({ partyName: req.body.partyName })
+        res.status(200).json({ balance: party.balance })
     }
+
 }
 

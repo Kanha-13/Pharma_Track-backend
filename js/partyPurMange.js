@@ -30,7 +30,7 @@ $(document).ready(() => {
             $('.creditRemaining').hide()
             $('.companyWholeSellerList').show()
         }
-        if ($('#partyManageSelcet').val() === 'companyList') {
+        if ($('#partyManageSelcet').val() === 'creditBalance') {
             $('.updateNewCompanyDiv').hide()
             $('.addNewPartyDiv').hide()
             $('.partyPurchaseHistoryDiv').hide()
@@ -97,6 +97,7 @@ $(document).ready(() => {
         const selectDiv = document.getElementById('selectParty')
         const selectInUpdateParty = document.getElementById('selectPartyInupdateParty')
         const selectPartyInHistory = document.getElementById('selectPartyInHistory')
+        const selectPartyInCreditBalance = document.getElementById('selectPartyInCreditBalance')
         if (partyList === '') {
             const res = await fetch('/getPartyList')
             if (res.status == 401 || res.status == 500 || res.status === 400) {
@@ -107,15 +108,11 @@ $(document).ready(() => {
             const html = Party.map(match => `<option value="${match.partyName}">${match.partyName}</option>`)
             const Default = '<option value=""><==== Select Party ====></option>'
             partyList = Default + html;
-            selectDiv.innerHTML = partyList
-            selectInUpdateParty.innerHTML = partyList
-            selectPartyInHistory.innerHTML = partyList
         }
-        else {
-            selectDiv.innerHTML = partyList;
-            selectInUpdateParty.innerHTML = partyList
-            selectPartyInHistory.innerHTML = partyList
-        }
+        selectDiv.innerHTML = partyList;
+        selectInUpdateParty.innerHTML = partyList
+        selectPartyInHistory.innerHTML = partyList
+        selectPartyInCreditBalance.innerHTML = partyList
     })
     //for purchase entry
     $('#purchaseEntry-form').submit(function (e) {
@@ -156,7 +153,6 @@ $(document).ready(() => {
             from: $('#historyDatefrom').val(),
             to: $('#historyDateto').val(),
         }
-        const partyHistory = document.getElementById('partyHistoryDetail')
         $.ajax({
             type: "POST",
             url: url,
@@ -192,6 +188,9 @@ $(document).ready(() => {
             const regex = new RegExp(`${text.trim()}`, 'gi');
             //conditoion for match
             return lists.companyName.match(regex)
+            // && lists.wholeSellers.filter(seller => {
+            //     seller.match(regex)
+            // })
         });
         if (text.length === 0) {
             matches = [];
@@ -208,5 +207,30 @@ $(document).ready(() => {
         partyCompanyList = ''
         document.getElementById('companyListDiv').innerHTML = ''
         document.getElementById('CompanySellerName').value = ''
+    })
+
+    // this is for getting credit balance of a party 
+    $('#creditBalanceCheckForm').submit(function (e) {
+        e.preventDefault()
+        const URL = '/creditBalance'
+        const Data = {
+            partyName: $("#selectPartyInCreditBalance").val()
+        }
+        $.ajax({
+            type: "POST",
+            url: URL,
+            data: JSON.stringify(Data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response)
+                document.getElementById('remainingBalance').value = response.balance
+            },
+            error: function (res) {
+                if (res.status == 401 || res.status == 500 || res.status === 400) {
+                    alert(res.statusText + " Admin not logged in")
+                    return
+                }
+            }
+        });
     })
 })
