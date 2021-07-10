@@ -18,7 +18,7 @@ input{
 .outer-most-boundry{
     border: 3px solid black;
     width: 100%;
-    height: 530px;
+    height: 540px;
     border-collapse: collapse;
 }
 .upper-head-tax{
@@ -48,26 +48,32 @@ input{
     width: 6.9%;
 }
 #ttl{
-    border-right: none;
-    width: 9.3%;
+    width: 11%;
 }
 #qty{
     width: 7%;
 }
 #ct,#st,#dis{
-    width: 6.5%;
+    width: 5%;
 }
-#bth,#hsc{
-    width: 8.95%;
+#bth{
+    width: 21%;
+}
+#pk{
+    width: 6%;
+}
+
+#hsn{
+    width: 6%;
 }
 #exp{
-    width: 14.95%;
+    width: 5%;
 }
 #mrp{
-    width: 11.3%;
+    width: 7%;
 }
 #rt{
-    width: 11.7%;
+    width: 8%;
 }
 #im{
     width: 30.2%;
@@ -82,6 +88,7 @@ input{
     height: 189px;
     border-bottom: 2px solid black;
 }
+
 /* data part table */
 .res-input{
     text-align: center;
@@ -90,23 +97,46 @@ input{
     border: 1px solid black;
     border-top:none ;
     border-bottom:none ;
-
 }
 
-.cinput,.sinput,.qinput,.dinput{
+.cinput{
     width: 5%;
 }
-.tinput{
+.binput{
+    width: 22%;
+}
+.sinput{
+    width: 5%;
+}
+.sninput{
+    width: 6.7%;
+}
+.pkinput{
+    width: 6%;
+}
+.minput{
     width: 7%;
 }
-.einput{
-    width: 12%;
+.qinput{
+    width: 7%;
 }
-.rinput,.minput{
-    width: 9%;
+.dinput{
+    width: 5%;
+}
+.hinput{
+    width:6% ;
+}
+.tinput{
+    width: 11%;
+}
+.einput{
+    width: 5%;
+}
+.rinput{
+    width: 8%;
 }
 .iinput{
-    width: 25%;
+    width: 32.2%;
 }
 .item-desc{
     border-right: 2px solid black;

@@ -219,4 +219,16 @@ $(document).ready(function () {
         $(btn.target).addClass("active").siblings().removeClass('active');
         $('.navbar').removeClass("active")
     })
+
 });
+
+//to toggle between the category bottle/tablets so that we can have different type of packing
+function changePacking() {
+    const checked = $("input[name='category']:checked").val();
+    if (checked === "bottle") {
+        $('#qnty').attr({ "type": "text", "placeholder": "ml-mg-piece" })
+    }
+    else {
+        $('#qnty').attr({ "type": "number", "placeholder": "Tablet / Strip" })
+    }
+}

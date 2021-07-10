@@ -6,25 +6,36 @@ $(document).ready(() => {
             $('.updateNewCompanyDiv').hide()
             $('.partyPurchaseHistoryDiv').hide()
             $('.companyWholeSellerList').hide()
+            $('.creditRemaining').hide()
             $('.addNewPartyDiv').show()
         }
         if ($('#partyManageSelcet').val() === 'updateParty') {
             $('.addNewPartyDiv').hide()
             $('.partyPurchaseHistoryDiv').hide()
             $('.companyWholeSellerList').hide()
+            $('.creditRemaining').hide()
             $('.updateNewCompanyDiv').show()
         }
         if ($('#partyManageSelcet').val() === 'partyHistory') {
             $('.updateNewCompanyDiv').hide()
             $('.addNewPartyDiv').hide()
             $('.companyWholeSellerList').hide()
+            $('.creditRemaining').hide()
             $('.partyPurchaseHistoryDiv').show()
         }
         if ($('#partyManageSelcet').val() === 'companyList') {
             $('.updateNewCompanyDiv').hide()
             $('.addNewPartyDiv').hide()
             $('.partyPurchaseHistoryDiv').hide()
+            $('.creditRemaining').hide()
             $('.companyWholeSellerList').show()
+        }
+        if ($('#partyManageSelcet').val() === 'companyList') {
+            $('.updateNewCompanyDiv').hide()
+            $('.addNewPartyDiv').hide()
+            $('.partyPurchaseHistoryDiv').hide()
+            $('.companyWholeSellerList').hide()
+            $('.creditRemaining').show()
         }
     })
     // this function is for adding new party 
@@ -113,6 +124,7 @@ $(document).ready(() => {
         const Data = {
             partyName: $("#selectParty").children("option:selected").val(),
             totalPurchaseOf: $("#purchaseAmt").val(),
+            payMode: $("#payMode").val(),
             purDate: $('#dateInPurEntry').val(),
             billNo: $('#billNoInPurEntry').val()
         }
@@ -194,7 +206,7 @@ $(document).ready(() => {
     //for refreshing company list
     $('#companyListRef').on('click', () => {
         partyCompanyList = ''
-        document.getElementById('companyListDiv').innerHTML=''
+        document.getElementById('companyListDiv').innerHTML = ''
         document.getElementById('CompanySellerName').value = ''
     })
 })

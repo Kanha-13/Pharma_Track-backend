@@ -5,7 +5,7 @@ const companyProduct = require('../models/partyCompanyList')
 module.exports = {
     addProd: async (req, res) => {
         const data = req.body;
-        await products.updateOne({ itemName: data.itemName, batch: data.batch, company: data.company, mrp: data.mrp, qnty: data.qnty }, { $inc: { stock: data.stock }, itemName: data.itemName, batchNo: data.batchNo, company: data.company, type: data.type, location: data.location, mrp: data.mrp, rate: data.rate, gst: data.gst, netRate: data.netRate, mnfDate: data.mnfDate, expDate: data.expDate, $push: { seller: data.seller, purDate: data.purDate, billNo: data.billNo } }, { new: true, upsert: true });
+        await products.updateOne({ itemName: data.itemName, batch: data.batch, company: data.company, mrp: data.mrp, qnty: data.qnty }, { $inc: { stock: data.stock }, itemName: data.itemName, batchNo: data.batchNo, company: data.company, type: data.type, location: data.location, mrp: data.mrp, rate: data.rate, gst: data.gst, netRate: data.netRate, mnfDate: data.mnfDate, expDate: data.expDate, hsn_sac: data.hsn_sac, category: data.category, $push: { seller: data.seller, purDate: data.purDate, billNo: data.billNo } }, { new: true, upsert: true });
 
         const entred = await companyProduct.find({ companyName: (data.company).toUpperCase() })
         if (entred.length == 0) {
@@ -68,14 +68,13 @@ module.exports = {
         var newBill = new patientsBill({
             patientName: req.body[0][0].patientName,
             mobileNo: req.body[0][0].mobileNo,
-            age: req.body[0][0].age,
+            // age: req.body[0][0].age,
             address: req.body[0][0].address,
             billDetail: billDetail,
         })
         await newBill.save()
         await salePurprof.updateOne({ date: new Date(Date.UTC(todaysdate.getFullYear(), todaysdate.getMonth(), todaysdate.getDate(), 0, 0, 0)) }, { $inc: { purchaseAmount: 0, sellAmount: req.body[0][0].gttl, profit: req.body[0][0].profit } }, { new: true, upsert: true })
         res.status(201).send("New bill Generated and stock updated")
-
     }
 }
 

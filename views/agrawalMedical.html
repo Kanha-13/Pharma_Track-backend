@@ -13,7 +13,6 @@
 </head>
 
 <body>
-    <img id="back-wallpaper" src="/backGround.jpg" alt="">
     <div id="head-container" class="container">
         <div class="navbar">
             <!-- <h2>Agrawal Medical Store</h2> -->
@@ -37,16 +36,16 @@
                 <div class="login-logout-btn">
                     <button id="login-btn" class="tab-btn">Login</button>
                     <button id="logout-btn" style="display: none;" calss="tab-btn">LogOut</button>
-                    <button class="form-signUp-btn tab-btn" id="wlcm-wala-signUp-btn" type="button">Sign Up</button><br>
                 </div>
                 <!-- login pop up window -->
                 <div id="id01" class="modal">
                     <!-- login form  -->
+                    <!-- <form id="loginForm" class="modal-content animate"> -->
                     <form id="loginForm" class="modal-content animate">
                         <div class="imgcontainer">
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
                                 title="Close Modal">&times;</span>
-                            <img src="kanha.jpg" alt="Avatar" class="avatar">
+                            <img src="../views/profilePicture.jpg" alt="Avatar" class="avatar">
                         </div>
                         <div class="container">
                             <label style="padding-left:43% ;" for="email"><b>E-mail</b></label>
@@ -54,80 +53,9 @@
 
                             <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
                             <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
-                            <a id="forgetPasswordLink" style="margin-left: 150px;">Forget Password</a>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button">Sign
-                                Up</button><br>
-                            <h4 style="padding-left:43% ;" for="">It's Free</h4>
+
                         </div>
-                    </form>
-                    <!-- forget password form  -->
-                    <form id="forgetPasswordForm" class="modal-content animate">
-                        <div>
-                            <h2 style="margin-left: 140px;">Reset Password</h2>
-                            <hr>
-                            <input id="emailForForgetPassword" required type="text" placeholder="Enter you Email">
-                            <button style="margin-left: 155px;width:150px" class="tab-btn" type="submit">Reset</button>
-                            <input type="text" id="forgetPasswordOTP" placeholder="Enter OTP">
-                            <button style="margin-left: 155px;width:150px" id="forgetOTPSubmit-btn" class="tab-btn"
-                                disabled type="button">Submit Otp</button><br>
-                        </div>
-                    </form>
-                    <!-- new password reset form  -->
-                    <form id="resetNewPasswordForm" class="modal-content animate">
-                        <div>
-                            <h2>Enter New Password</h2>
-                            <hr>
-                            <input id="newResetPassword" required type="text" placeholder="Enter Password">
-                            <input id="confirmNewResetPassword" required type="text" placeholder="Confirm Password">
-                            <button class="tab-btn" type="submit">Reset Password</button>
-                        </div>
-                    </form>
-                    <!-- sign up form  -->
-                    <form id="signUpForm" class="modal-content animate" style="display: none;">
-                        <div class="credentials" style="display: block;">
-                            <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2>
-                            <hr>
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                                title="Close Modal">&times;</span>
-                            <input required type="text" name="userName" id="signUpUserName"
-                                placeholder="Enter Your Name">
-                            <input required type="text" id="signUpEmail" placeholder="Enter Your Email">
-                            <input required type="password" name="new-password" id="newPassword"
-                                placeholder="Enter Password">
-                            <input required type="password" name="confirm-new-password" id="confirmNewPassword"
-                                placeholder="Confirm Password">
-                            <button id="signUpForm-signUp-btn" type="submit" class="tab-btn">Sign Up</button>
-                            <p style="margin-left: 113px;">Already signed up but not verified</p>
-                            <button id="verifyAccount-btn" class="tab-btn" type="button"
-                                style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button>
-                            <hr>
-                            <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
-                            <h5 style="padding-left: 32%;">Already have an account?</h5>
-                            <hr>
-                        </div>
-                    </form>
-                    <!-- otp verification form  -->
-                    <form id="otpVerificationForm" class="modal-content animate" style="display: none;">
-                        <div style="display: block;">
-                            <h2 style="margin-left: 130px;">OTP Verification</h2>
-                            <hr>
-                            <h3 style="padding-left: 39%;">Enter OTP</h3>
-                            <input type="text" id="signUpOtp">
-                            <a style="text-decoration: none;color: black;cursor: pointer;margin-left: 190px;"
-                                id="resendSignUpOtp">resend otp</a><br>
-                            <input type="text" id="userEmailId" style="display: none;"><br>
-                            <button type="button" class="tab-btn" id="otpSubmit-btn"
-                                style="margin-left: 178px;width: 100px;">Submit</button>
-                        </div>
-                    </form>
-                    <!-- resend otp form or verify account form  -->
-                    <form id="verifyResendForm" class="modal-content animate" style="display: none;">
-                        <h2 style="margin-left: 130px;">Resend OTP</h2>
-                        <hr>
-                        <input required type="text" id="emailForResend" placeholder="Enter you Email">
-                        <button id="verifyAccountButton" style="margin-left: 178px;" class="tab-btn"
-                            type="submit">Resend</button>
                     </form>
                 </div>
             </div>
@@ -136,52 +64,66 @@
                 <h2 class="header">Search Product</h2>
                 <input type="text" id="search" placeholder="Enter product name">
                 <button class="searchRef-btn tab-btn">Refresh</button>
-                <!-- <table>
-                    <tr class="head-tr">
-                        <th>Item&emsp;Name&emsp; </th>
-                        <th>Brand&emsp; </th>
-                        <th>Pk.Qnty&emsp; </th>
-                        <th>MRP&emsp; </th>
-                        <th>Stock&emsp;tabs/btl&emsp;</th>
-                        <th>Location</th>
-                    </tr>
-                </table> -->
                 <div id="match-product"></div>
             </div>
             <!-- add product container  -->
             <div class="addProd-container" hidden>
                 <h2 class="header">Add Product</h2>
                 <form method="POST" id="addProd-form" autocomplete="off" class="addProd-form">
-                    <div class="basic-detail">
-                        <input type="text" required name="itemName" id="itemName" placeholder="Product Name">
-                        <input type="text" required name="company" id="company" placeholder="Company Name">
+                    <div class="labeldiv">
+                        <label class="addProdLabels" for="itemName">Product Name</label>
+                        <label class="addProdLabels" for="company">Company Name</label>
+                        <label class="addProdLabels" for="tabs">Tablet</label>
+                        <label class="addProdLabels" for="btls">Bottle/Pieces</label>
+                        <label class="addProdLabels" for="price">MRP</label>
+                        <label class="addProdLabels" for="hsn">HSN/SAC</label>
+                        <label class="addProdLabels" for="mnfDate">Mnf Date</label>
+                        <label class="addProdLabels" for="expDate">Exp Date</label>
+                        <label class="addProdLabels" for="purDate">Pur Date</label>
                     </div>
-                    <div class="basic-detail">
-                        <input type="number" required name="qnty" id="qnty" placeholder="Tab pr Strip/Btl">
-                        <input type="number" required name="stock" id="stock" placeholder="Strips/Bottles">
-                    </div>
-                    <div class="basic-detail price-div">
-                        <input type="text" required name="price" id="price" placeholder="MRP">
-                        <input type="text" required name="purPrice" id="rate" placeholder="Rate">
-                        <input type="text" required name="purPrice" id="gst" placeholder="GST%">
-                        <input type="text" required name="purPrice" id="netRate" placeholder="Net Rate">
+                    <div class="companyRelatedDetail">
 
+                        <input type="text" required name="itemName" id="itemName" placeholder="Product Name"
+                            oninput={findProdToAdd(this)}>
+                        <div id="inventory-product-List"
+                            style="height: 75%;overflow: scroll;display: none;position: absolute;background-color: antiquewhite;margin-top: 5%;">
+                        </div>
+                        <input type="text" required name="company" id="company" placeholder="Company Name">
+                        <input type="radio" id="tabs" style="width: 50px;" name="category" value="tablet" required
+                            onclick={changePacking()}>
+                        <input type="radio" id="btls" style="width: 50px;" name="category" value="bottle"
+                            onclick={changePacking()}>
+                        <input type="text" required name="price" id="price" placeholder="MRP">
+                        <input type="text" required name="hsn" id="hsn-addProd" placeholder="HSN/SAC">
+                        <input type="month" required name="mnfDate" id="mnfDate" placeholder="Manufacture Date">
+                        <input type="month" required name="expDate" id="expDate" placeholder="Expiry Date">
+                        <input type="month" required name="purDate" id="purDate" placeholder="Purchase Date">
                     </div>
-                    <div class="date-div">
-                        <label for="mnfDate" class="man-lab">Manufac Date</label>
-                        <label for="expDate" class="exp-lab">Expiry Date</label>
-                        <label for="purDate" class="pur-lab">Purchase Date</label>
+                    <div class="labeldiv">
+                        <label class="addProdLabels" for="qnty">Packing</label>
+                        <label class="addProdLabels" for="stock">Quantity</label>
+                        <label class="addProdLabels" for="rate">Rate</label>
+                        <label class="addProdLabels" for="gst">GST</label>
+                        <label class="addProdLabels" for="netRate">Net RATE</label>
+                        <label class="addProdLabels" for="seller">Party</label>
+                        <label class="addProdLabels" for="billNo">Bill Number</label>
+                        <label class="addProdLabels" for="batch">Batch Number</label>
+                        <label class="addProdLabels" for="location">Storage Location</label>
                     </div>
-                    <div class="date-div" id="date-id">
-                        <input type="date" required name="mnfDate" id="mnfDate" placeholder="Manufacture Date">
-                        <input type="date" required name="expDate" id="expDate" placeholder="Expiry Date">
-                        <input type="date" required name="purDate" id="purDate" placeholder="Purchase Date">
-                    </div>
-                    <select name="seller" id="seller" class="selectPartyInAddProd" required></select>
-                    <input type="text" required name="billNo" id="billNo" placeholder="Bill no.">
-                    <input type="text" required name="batch" id="batch" placeholder="Batch number">
-                    <input type="text" required name="location" id="location" placeholder="Storage Location">
-                    <button class="submit-btn tab-btn" id="sub-btn" type="submit">Save</button>
+                    <div class="purchasingRelatedDetail">
+                        <!-- this input is for packing size -->
+                        <input type="number" required name="qnty" id="qnty" placeholder="Packing">
+                        <!-- here stock means Quantity -->
+                        <input type="number" required name="stock" id="stock" placeholder="Strips/Bottles">
+                        <input type="text" required name="purPrice" id="rate" placeholder="Rate">
+                        <input type="text" required name="gst" id="gst" placeholder="GST%">
+                        <input type="text" required name="netRate" id="netRate" placeholder="Net Rate">
+                        <select name="seller" id="seller" class="selectPartyInAddProd" required></select>
+                        <input type="text" required name="billNo" id="billNo" placeholder="Bill no.">
+                        <input type="text" required name="batch" id="batch" placeholder="Batch number">
+                        <input type="text" required name="location" id="location" placeholder="Storage Location">
+                        <button class="submit-btn tab-btn" id="sub-btn" type="submit">Save</button>
+                    </div>l
                 </form>
             </div>
             <!-- purchase entry container -->
@@ -192,6 +134,12 @@
                     <select name="partySelect" id="selectParty" required></select>
                     <label for="purchaseAmt">Purchase Amout</label>
                     <input required type="number" min="0" id="purchaseAmt">
+                    <label for="">Mode of payment</label>
+                    <select name="" id="payMode" required>
+                        <option value="">Select mode</option>
+                        <option value="cash">Cash</option>
+                        <option value="credit">Credit</option>
+                    </select>
                     <label for="dateInpurEntry">Purchase Date</label>
                     <input required type="date" id="dateInPurEntry">
                     <label for="billNoInpurEntry">Bill No.</label>
@@ -211,6 +159,7 @@
                         <option value="updateParty">Update New Company</option>
                         <option value="partyHistory">Party Purchase History</option>
                         <option value="companyList">Brand Whole Seller List</option>
+                        <option value="creditBalance">Credit Balance</option>
                     </select>
                 </div>
                 <div class="addNewPartyDiv" hidden>
@@ -258,6 +207,10 @@
                         </tr>
                     </table>
                     <table id="companyListDiv"></table>
+                </div>
+                <div class="creditRemaining" hidden>
+                    <label for="inputPartyForCreditFind">Enter Party</label>
+                    <select name="partySelect" id="inputPartyForCreditFind" required></select>
                 </div>
             </div>
             <!-- sale purchase report  -->
@@ -322,16 +275,6 @@
             <!-- sell container  -->
             <div class="sell-container" hidden>
                 <h2 class="header">Sale Entry</h2>
-                <table>
-                    <tr class="head-tr">
-                        <th>Item&emsp;Name&emsp; </th>
-                        <th>Pk.Qnty&emsp; </th>
-                        <th>MRP&emsp; </th>
-                        <th>GST%&emsp;</th>
-                        <th>Stock&emsp;tabs/btl&emsp;</th>
-                        <th>Location</th>
-                    </tr>
-                </table>
                 <div id="selectedSell-product" style="pointer-events: none;"></div>
                 <button id="checkOut-btn" class="searchRef-btn tab-btn">Check Out</button>
                 <input type="text" id="sellItem-find" placeholder="Enter product name">
@@ -342,12 +285,13 @@
             <!-- billing first step  -->
             <div id="first-billing-step-container" hidden>
                 <h2 class="header">Sale Bill</h2>
-                <div id="invoiceNo" style="display: flex;"><label for="invoiceNo">Invoice No.#<input id="invoNo"
-                            value="" type="text"></label></div>
+                <div id="invoiceNo" style="display: flex;"><label class="cartLabel" for="invoiceNo">Invoice No.#<input
+                            id="invoNo" value="" type="text"></label></div>
                 <form method="POST" autocomplete="off" id="bill-print-form">
                     <table>
                         <tr class="head-tr">
                             <th class="first-bill-th">Item&emsp;Name&emsp;</th>
+                            <th class="first-bill-th">Pack</th>
                             <th class="first-bill-th">Batch&emsp;No.&emsp;</th>
                             <th class="first-bill-th">Exp.&emsp;Date&emsp;</th>
                             <th class="first-bill-th">Qnty&emsp;tabs/btl&emsp;</th>
@@ -361,11 +305,11 @@
                     </table>
                     <div id="toCart"></div>
                     <div style="display: flex;margin-top:20px">
-                        <label for="PName">Patient Name</label>
-                        <label for="mobile">Mobile No.</label>
-                        <label for="address">Address</label>
-                        <label for="age">Age</label>
-                        <label for="drName">Prescribed By</label>
+                        <label class="cartLabel" for="PName">Patient Name</label>
+                        <label class="cartLabel" for="mobile">Mobile No.</label>
+                        <label class="cartLabel" for="address">Address</label>
+                        <!-- <label for="age">Age</label> -->
+                        <label class="cartLabel" for="drName">Prescribed By</label>
                     </div>
                     <div style="display: flex;">
                         <input id="PName" class="userDetail" type="text" value="" name="pName"
@@ -373,20 +317,20 @@
                         <input id="mobNo" class="userDetail" type="text" value="" name="mobile"
                             placeholder="Mobile No.">
                         <input id="ads" class="userDetail" type="text" value="" name="address" placeholder="Address">
-                        <input id="Page" class="userDetail" type="text" value="" name="age" placeholder="Age">
+                        <!-- <input id="Page" class="userDetail" type="text" value="" name="age" placeholder="Age"> -->
                         <input id="dr" class="userDetail" type="text" value="" name="drName"
                             placeholder="Prescribed By">
                     </div>
 
                     <div style="display: flex;margin-top:20px">
-                        <label for="gttl">Grand Total</label>
-                        <label for="amtPaid">Paid</label>
-                        <label for="amtDue">Amount Due</label>
+                        <label class="cartLabel" for="gttl">Grand Total</label>
+                        <label class="cartLabel" for="amtPaid">Paid</label>
+                        <label class="cartLabel" for="amtDue">Amount Due</label>
                     </div>
                     <div style="display: flex;">
-                        <input name="gttl" id="grand-ttl" type="text" value="0" class="final-amt">
+                        <input name="gttl" id="grand-ttl" type="text" readonly value="0" class="final-amt">
                         <input name="amtPaid" type="text" id="amt-paid" value="0" class="final-amt">
-                        <input name="amtDue" type="text" id="amt-due" value="0" class="final-amt">
+                        <input name="amtDue" type="text" id="amt-due" readonly value="0" class="final-amt">
                         <input type="text" id="profitInthisBill" value="0" style="display: none;">
                     </div>
                     <!-- <a id="go-print-bill" href="http://localhost:5500/front-end/new_sale.html" hidden></a> -->
@@ -403,40 +347,13 @@
                         <button id="oldBillRef-btn" type="reset" class="tab-btn">Refresh</button>
                     </form>
                 </div>
-                <div>
-                    <table>
-                        <tr class="head-tr">
-                            <th>Invoice&emsp;No.&emsp;</th>
-                            <th>Patient&emsp;Name&emsp;</th>
-                            <th>Mobile&emsp;No.&emsp;</th>
-                            <th>Address</th>
-                            <th>Age</th>
-                            <th>Bill&emsp;Date&emsp;</th>
-                            <th>Grand&emsp;Total&emsp;</th>
-                            <th>Paid</th>
-                            <th>Amount&emsp;Due&emsp;</th>
-                        </tr>
-                    </table>
-                </div>
-                <div id="after-findclick" hidden></div>
+                <div id="after-findclick" hidden style="overflow: scroll;"></div>
             </div>
             <!-- near expiry container -->
             <div class="nearExp-container" hidden>
                 <h2 class="header">Near Expiry</h2>
                 <button id="nearExp-find" class="tab-btn">Search Near Expiry</button>
                 <button class="tab-btn clearExp-btn">Clear</button>
-                <table>
-                    <tr class="head-tr">
-                        <th>Item&emsp;Name&emsp; </th>
-                        <th>Brand&emsp; </th>
-                        <th>Pk.Qnty&emsp; </th>
-                        <th>MRP&emsp; </th>
-                        <th>Exp.Date&emsp; </th>
-                        <th>Stock&emsp;tabs/btl&emsp;</th>
-                        <th>Location</th>
-                    </tr>
-                </table>
-
                 <div id="alertProd"></div>
                 <div id="nearExp-product"></div>
             </div>
@@ -462,18 +379,6 @@
                 <button id="deleteMatch-product" class="tab-btn">Print-n-Delete</button>
                 <input type="text" id="deleteProd-find" placeholder="Enter product name">
                 <button id="deleteRef-btn" class="tab-btn">Refresh</button>
-                <table id="deleteRes-table">
-                    <tr class="head-tr">
-                        <th>Item&emsp;Name&emsp; </th>
-                        <th>Brand&emsp; </th>
-                        <th>Pk.Qnty&emsp; </th>
-                        <th>MRP&emsp; </th>
-                        <th>Exp.Date&emsp; </th>
-                        <th>Stock&emsp;tabs/btl&emsp;</th>
-                        <th>Party&emsp;</th>
-                        <th>Location</th>
-                    </tr>
-                </table>
                 <div id="delete-product"></div>
             </div>
         </div>
@@ -495,7 +400,7 @@
                     <h5>Patient Name&emsp;: <input id="pName" type="text"></h5>
                     <h5>Mobile No. &emsp; &emsp;: <input id="mob" type="text"></h5>
                     <h5>Dr.Name.&emsp;&emsp;&emsp;: <input id="drName" type="text"></h5>
-                    <h5>Age &emsp;&emsp;&emsp;&emsp; &emsp;: <input id="age" type="text"></h5>
+                    <!-- <h5>Age &emsp;&emsp;&emsp;&emsp; &emsp;: <input id="age" type="text"></h5> -->
                     <h5>Address&emsp; &emsp; &emsp;: <input id="adrs" type="text"></h5>
                     <h5>Date &emsp; &emsp;&emsp; &emsp; : <input id="bil-date" value="0" type="text"></h5>
                     <h5>Invoice No.&emsp;&emsp; : <input id="invo" style="font-weight: bold;" type="text"></h5>
@@ -504,21 +409,22 @@
             <div class="discription-header" style="font-weight: bolder;border-bottom:2px solid black">
                 <h4 id="sno" class="item-desc">S.No</h4>
                 <h4 id="im" class="item-desc">Item Name</h4>
-                <h4 id="qty" class="item-desc">Qty.</h4>
-                <h4 id="exp" class="item-desc">Exp. (mm-dd-yy)</h4>
+                <h4 id="pk" class="item-desc">Pack. tab/ml</h4>
+                <h4 id="exp" class="item-desc">Exp.</h4>
                 <h4 id="bth" class="item-desc">Batch</h4>
-                <h4 id="hsc" class="item-desc">HSN /SAC</h4>
+                <h4 id="hsn" class="item-desc">HSN. /SAC</h4>
                 <h4 id="mrp" class="item-desc">MRP</h4>
+                <h4 id="qty" class="item-desc">Qty.</h4>
                 <h4 id="rt" class="item-desc">Rate</h4>
-                <h4 id="ct" class="item-desc">CGST %</h4>
-                <h4 id="st" class="item-desc">SGST %</h4>
-                <h4 id="dis" class="item-desc">Disc . %</h4>
+                <h4 id="ct" class="item-desc">CGST &emsp;%</h4>
+                <h4 id="st" class="item-desc">SGST &emsp;%</h4>
+                <h4 id="dis" class="item-desc">Disc &emsp;%</h4>
                 <h4 id="ttl" class="item-desc">Total</h4>
             </div>
             <div id="res-items-to-print"></div>
 
             <div class="amt-words" style="border-bottom: 2px solid black;padding-left:5px">
-                <h4>Amt. in words. : <h4 id="in-words"></h4>
+                <h4 style="display: inline;">Amt. in words. : <h4 style="display: inline;" id="in-words"></h4>
                 </h4>
             </div>
             <div class="amt-calc">
@@ -527,6 +433,7 @@
                     <h5>1.Goods once sold will not be returned back</h5>
                     <h5>2.Subject to Raipur Judiciary Only</h5>
                     <h5>3.Amount due should to paid with in 10 days from the bill/invoice date</h5>
+                    <h5>4.Consult with doctor before using any medicine</h5>
                 </div>
                 <div class="recieveing">
                     <div class="receiver_sign">

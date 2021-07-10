@@ -27,10 +27,20 @@ const sellSearchProduct = async searchText => {
         sellMactProd.innerHTML = '';
     }
 
-
     //show result in html
     const outputHtml = matches => {
         if (matches.length > 0) {
+            const tableHead =
+                `<table>
+                            <tr class="head-tr">
+                                <th>Item&emsp;Name&emsp; </th>
+                                <th>Pack.&emsp; </th>
+                                <th>MRP&emsp; </th>
+                                <th>GST%&emsp;</th>
+                                <th>Stock&emsp;tabs/btl&emsp;</th>
+                                <th>Location</th>
+                            </tr>
+                        </table>`
             const html = matches.map(match => `
             <div class="sell-tr">
             <table class="res-table" id="${match._id}" onClick="fun(this)">
@@ -46,7 +56,7 @@ const sellSearchProduct = async searchText => {
             </table>
             </div>
             `).join('');
-            sellMactProd.innerHTML = html;
+            sellMactProd.innerHTML = tableHead + html;
         }
     }
     outputHtml(matches);
@@ -90,21 +100,22 @@ $('#checkOut-btn').click(() => {
                 $('#first-billing-step-container').show();
                 const cartProd = document.getElementById('toCart')
                 const outputHtml = response => {
-                    // console.log(response)
 
                     document.getElementById('invoNo').value = response.invoCount;
                     const html = response.Data.map(match => `
                             <table class="res-table">
                                 <tr class="res-tr first-bill-tr">
-                                <input id="${match._id}purRate" class="purRate-input" value="${(match.netRate / match.qnty).toFixed(4)}" style="display:none;"></input>
+                                <td id="${match._id}hsn" class="first-bill-td" style="display:none;">${match.hsn_sac}</td>
+                                <input id="${match._id}purRate" class="purRate-input" value="${(match.category === "tablet") ? (match.netRate / match.qnty).toFixed(3) : (match.netRate / 1).toFixed(3)}" style="display:none;"></input>
                                 <td id="${match._id}itm-Name" class="first-bill-td">${match.itemName}</td>
+                                <td id="${match._id}pk" class="first-bill-td">${match.qnty}</td>
                                 <td id="${match._id}btch" class="first-bill-td">${match.batch}</td>
-                                <td id="${match._id}exp" class="first-bill-td">${new Date(match.expDate).toLocaleDateString()}</td>
-                                <td class="first-bill-td"><input min="0" max="${match.stock}" id="${match._id}qnt" required oninput="firstCal(this.value,${match.mrp / match.qnty},$('#${match._id}ttl'),$('#${match._id}disc'))" class="bill-input qntsOfItem" type="number"></td>
+                                <td id="${match._id}exp" class="first-bill-td">${(new Date(match.expDate).getMonth() + 1) + '/' + new Date(match.expDate).getFullYear() % 2000}</td>
+                                <td class="first-bill-td"><input min="0" max="${match.stock}" id="${match._id}qnt" required oninput="firstCal(this.value,${(match.category === "tablet") ? (match.mrp / match.qnty) : (match.mrp)},$('#${match._id}ttl'),$('#${match._id}disc'))" class="bill-input qntsOfItem" type="number"></td>
                                 <td class="first-bill-td" id="${match._id}mrp">${match.mrp}/-</td>
-                                <td class="first-bill-td" id="${match._id}rat">${(((match.mrp / match.qnty) * 100) / (100 + parseFloat(match.gst))).toFixed(3)}</td>
+                                <td class="first-bill-td" id="${match._id}rat">${(match.category === "tablet") ? (((match.mrp / match.qnty) * 100) / (100 + parseFloat(match.gst))).toFixed(3) : (((match.mrp) * 100) / (100 + parseFloat(match.gst))).toFixed(3)}</td>
                                 <td id="${match._id}gst" class="first-bill-td" >${match.gst}%</td>
-                                <td class="first-bill-td" ><input id="${match._id}disc" oninput="calculateTtL(this.value,$('#${match._id}ttl'),$('#${match._id}qnt').val(),${match.mrp / match.qnty})" class="bill-input" type="text"></td>
+                                <td class="first-bill-td" ><input id="${match._id}disc" oninput="calculateTtL(this.value,$('#${match._id}ttl'),$('#${match._id}qnt').val(),${(match.category === "tablet") ? (match.mrp / match.qnty) : (match.mrp)})" class="bill-input" type="text"></td>
                                 <td class="first-bill-td" ><input id="${match._id}ttl" min="${match.netRate}" class="bill-input ttlAmt" type="text"></td>
                                 </tr>
                             </table>
@@ -133,8 +144,6 @@ const firstCal = (qnt, mrp, ttl, d) => {
     const purRates = $('.purRate-input');
     var gttl = 0;
     var profitInthisSell = 0
-    // console.log(document.getElementById('profitInthisBill').defaultValue)
-    // console.log(document.getElementById('profitInthisBill').value)
     for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
         profitInthisSell = profitInthisSell + ((parseFloat(ttls[i].value) - (parseFloat(purRates[i].value) * qntys[i].value)))
@@ -155,8 +164,6 @@ const calculateTtL = (d, ttlId, qnt, mrp) => {
     const qntys = $('.qntsOfItem')
     const purRates = $('.purRate-input');
     var profitInthisSell = 0
-    // console.log(document.getElementById('profitInthisBill').defaultValue)
-    // console.log(document.getElementById('profitInthisBill').value)
     var gttl = 0;
     for (var i = 0; i < ttls.length; i++) {
         gttl = parseFloat(ttls[i].value) + parseFloat(gttl);
@@ -192,7 +199,7 @@ $('#bill-print-form').submit(function (e) {
         patientName: $('#PName').val(),
         mobileNo: $('#mobNo').val(),
         address: $('#ads').val(),
-        age: $('#Page').val(),
+        // age: $('#Page').val(),
         prescribedBy: $('#dr').val(),
         invoiceNo: $('#invoNo').val(),
         gttl: $('#grand-ttl').val(),
@@ -228,7 +235,7 @@ $('#bill-print-form').submit(function (e) {
                 document.getElementById('invo').value = Data[0].invoiceNo
                 document.getElementById('pName').value = Data[0].patientName
                 document.getElementById('mob').value = Data[0].mobileNo
-                document.getElementById('age').value = Data[0].age
+                // document.getElementById('age').value = Data[0].age
                 document.getElementById('adrs').value = Data[0].address
                 document.getElementById('drName').value = Data[0].prescribedBy
                 document.getElementById('g-ttl').value = Data[0].gttl
@@ -244,13 +251,14 @@ $('#bill-print-form').submit(function (e) {
                 var counter = 0;
                 const html = addedProd.map(match => `
                     <div class="discription-header">
-                                <input class="sinput res-input" value="${counter = parseInt(counter) + 1}" type="text">
+                                <input class="sninput res-input" value="${counter = parseInt(counter) + 1}" type="text">
                                 <input class="iinput res-input" value="${$('#' + match + 'itm-Name')[0].outerText}"  type="text">
-                                <input id="${match}Qnt" class="qinput res-input" value="${document.getElementById(match + 'qnt').value}" type="text">
+                                <input class="pkinput res-input" value="${$('#' + match + 'pk')[0].outerText}" type="text">
                                 <input class="einput res-input" value="${$('#' + match + 'exp')[0].outerText}" type="text">
                                 <input class="binput res-input" value="${$('#' + match + 'btch')[0].outerText}"  type="text">
-                                <input class="hinput res-input" value="${match}" type="text">
+                                <input class="hinput res-input" value="${$('#' + match + 'hsn')[0].outerText}" type="text">
                                 <input class="minput res-input" value="${$('#' + match + 'mrp')[0].outerText}" type="text">
+                                <input id="${match}Qnt" class="qinput res-input" value="${document.getElementById(match + 'qnt').value}" type="text">
                                 <input id="${match}item-rate" class="rinput res-input" value="${$('#' + match + 'rat')[0].outerText}" type="text">
                                 <input id="${match}item-gst" class="cinput res-input" value="${parseFloat($('#' + match + 'gst')[0].outerText) / 2}" type="text">
                                 <input class="sinput res-input" value="${parseFloat($('#' + match + 'gst')[0].outerText) / 2}" type="text">
@@ -290,7 +298,7 @@ $('#bill-print-form').submit(function (e) {
                     str = str.replace(/\number+/g, ' '); return str.trim() + ".";
 
                 }
-                document.getElementById('in-words').innerhtml = numberToWords(parseInt(document.getElementById('g-ttl').value))
+                $('#in-words').text(numberToWords(parseInt(document.getElementById('g-ttl').value)))
                 document.getElementById('bil-Ttl').value = Math.round(totalWithoutDisc);
                 document.getElementById('DiscRs').value = Math.round(totalWithoutDisc) - document.getElementById('g-ttl').value
                 document.getElementById('taxRs').value = (totalWithoutDisc - RateTotal).toFixed(3);

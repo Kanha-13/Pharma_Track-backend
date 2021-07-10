@@ -14,8 +14,7 @@ $(document).ready(() => {
             expDate: date,
             alertDate: alertDate,
         };
-        if (matches == '')
-        {
+        if (matches == '') {
             $.ajax({
                 type: "POST",
                 url: url,
@@ -25,6 +24,18 @@ $(document).ready(() => {
                     matches = [response[0], response[1]];
                     const outputHtml = matches => {
                         if (matches.length > 0) {
+                            const tableHead = `
+                            <table>
+                                <tr class="head-tr">
+                                    <th>Item&emsp;Name&emsp; </th>
+                                    <th>Brand&emsp; </th>
+                                    <th>Pk.Qnty&emsp; </th>
+                                    <th>MRP&emsp; </th>
+                                    <th>Exp.Date&emsp; </th>
+                                    <th>Stock&emsp;tabs/btl&emsp;</th>
+                                    <th>Location</th>
+                                </tr>
+                            </table>`
                             const alertHtml = matches[0].map(match => `
                             <div>
                                 <table class="res-table">
@@ -57,7 +68,7 @@ $(document).ready(() => {
                             </table>
                             </div>
                             `).join('');
-                            alertProd.innerHTML = alertHtml;
+                            alertProd.innerHTML = tableHead + alertHtml;
                             expDiv.innerHTML = Html;
                         }
                     }
@@ -71,7 +82,7 @@ $(document).ready(() => {
                     }
                 }
             });
-        }    
+        }
     })
     $('.clearExp-btn').click(() => {
         matches = ''

@@ -30,7 +30,7 @@ const searchProducts = async searchText => {
             <tr class="head-tr">
                 <th>Item&emsp;Name&emsp; </th>
                 <th>Company&emsp; </th>
-                <th>Pk.Qnty&emsp; </th>
+                <th>Pack.&emsp; </th>
                 <th>MRP&emsp; </th>
                 <th>Stock&emsp;tabs/btl&emsp;</th>
                 <th>Location</th>

@@ -1,6 +1,5 @@
 .welcome-container{
   height: 93vh;
-  background-image: url("/img3.jpg");
   background-color: #cccccc;
   background-size: 1500px 900px;
   border-radius: 20px 20px 20px 20px;
@@ -50,16 +49,16 @@
 
 /* Center the image and position the close button */
 .welcome-container .imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  height: 130px;
-  position: relative;
+  margin-top: 48px;
+  overflow: hidden;
+  height: 160px;
+  margin-left: 31%;
+  border-radius: 50%;
+  margin-right: 31%;
 }
 
 .welcome-container img.avatar {
-  width: 25%;
-  height: 100%;
-  border-radius: 50%;
+  height: 390px;
 }
 
 .welcome-container  .container {
@@ -72,7 +71,7 @@
 }
 /* The Modal (background) */
 .welcome-container .modal {
-  display: none; /* Hidden by default */
+  /* display: none; Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -111,22 +110,6 @@
   cursor: pointer;
 }
 
-/* Add Zoom Animation */
-.welcome-container .animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-  
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
-}
-
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -154,3 +137,5 @@
 #forgetPasswordLink{
   cursor: pointer;
 }
+
+/* profile image  */
