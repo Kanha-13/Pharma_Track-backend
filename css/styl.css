@@ -36,7 +36,7 @@ body{
         margin-left: 17vw;
         margin-right: 0;
         width: 75vw;
-        height: 93vh;
+        height: 95vh;
         background-color:	#d2d7d7;
         border: #c49550 solid 3px;
         border-radius:25px 25px 25px 25px;
@@ -57,7 +57,8 @@ body{
     }
     .navbar button{
         margin: auto;
-        width: 10vw;
+        width: 11vw;
+        height: 40px;
         font-weight: bold;
     }
   }
@@ -329,10 +330,16 @@ td{
     align-self: center;
 }
 /* find credit balance of party  */
-#creditBalanceCheckForm{
+/* pay remaining balance */
+#creditBalanceCheckForm,#InvoicePaymentForm{
     display: flex;
     flex-direction: column;
+    width: 50%;
+    border: 5px solid #cca469;
+    border-radius: 25px;
 }
+
+
 /* find bill container  */
 .findBill-container .bill-finder-tool{
     display: block;

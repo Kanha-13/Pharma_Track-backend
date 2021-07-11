@@ -10,6 +10,10 @@ const partyPurchaseSchema = new mongoose.Schema({
     },
     date: Date,
     billNo: Array,
+    // billDetail: {
+    //     billnO: String,
+    //     payMode: String,
+    // },
 })
 
 module.exports = mongoose.model('partyPurchase', partyPurchaseSchema);

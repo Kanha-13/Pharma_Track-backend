@@ -3,6 +3,7 @@ const router = require('express-promise-router')();
 const auth = require('../middleware/is_auth')
 
 
+router.route('/payRemainingBalance').post(auth, partyManage.payCreditBalance)
 router.route('/creditBalance').post(auth, partyManage.getCreditBalance)
 router.route('/partyManage').post(auth, partyManage.addNewParty)
 router.route('/purchaseEntry').post(auth, partyManage.purchaseEntry)

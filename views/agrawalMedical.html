@@ -16,16 +16,17 @@
     <div id="head-container" class="container">
         <div class="navbar">
             <!-- <h2>Agrawal Medical Store</h2> -->
-            <button class="tab-btn" id="home-nav">Home</button>
-            <button class="tab-btn" id="search-nav">Search Product</button>
-            <button class="tab-btn" id="add-nav">Add Product</button>
-            <button class="tab-btn" id="sell-nav">Sell Product</button>
-            <button class="tab-btn" id="purEntry-nav">Purchase Entry</button>
-            <button class="tab-btn" id="partyManage-nav">Party Manage</button>
-            <button class="tab-btn" id="sellPur-nav">Sell/Purchase</button>
-            <button class="tab-btn" id="findBill-nav">Find Bill</button>
-            <button class="tab-btn" id="nearExp-nav">Near Expiry</button>
-            <button class="tab-btn" id="manageInvent-nav">Manage Inventory</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="home-nav">Home</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="search-nav">Search Product</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="add-nav">Add Product</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="sell-nav">Sell Product</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="purEntry-nav">Purchase Entry</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="partyManage-nav">Party Manage</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="sellPur-nav">Sell/Purchase</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="findBill-nav">Find Bill</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="nearExp-nav">Near Expiry</button>
+            <button class="tab-btn" style="height: 5.5vh;">Stock Alert</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="manageInvent-nav">Manage Inventory</button>
         </div>
         <!-- <div class="hidden"></div> -->
         <div class="super-container">
@@ -209,18 +210,37 @@
                     <table id="companyListDiv"></table>
                 </div>
                 <div class="creditRemaining" hidden>
-                    <form action="" id="creditBalanceCheckForm">
-                        <select name="partySelect"
-                            style="border: 2px solid black;width: 25%;align-self: center;background-color: white;margin-bottom: 15px;border-radius: 5px;"
-                            id="selectPartyInCreditBalance" required></select>
-                        <button type="submit" id="searchCredit" style="width: 25%;align-self: center;"
-                            class="tab-btn">Search for
-                            Credit</button>
-                        <input type="text"
-                            style="background-color: rgb(204 164 105);font-size: 20px;font-weight: bolder;"
-                            id="remainingBalance">
-                    </form>
-
+                    <div style="display: flex;padding: 20px 20px;">
+                        <form action="" id="creditBalanceCheckForm">
+                            <h3 style="align-self: center;">Check Remaining Balance</h3>
+                            <select name="partySelect"
+                                style="border: 2px solid black;width: 72%;align-self: center;background-color: white;margin-bottom: 15px;border-radius: 5px;"
+                                id="selectPartyInCreditBalance" required></select>
+                            <button type="submit" id="searchCredit" style="width: 70%;align-self: center;"
+                                class="tab-btn">Search for
+                                Credit</button>
+                            <label for="">Remaining Amount</label>
+                            <input type="text"
+                                style="background-color: rgb(204 164 105);font-size: 20px;font-weight: bolder;"
+                                id="remainingBalance">
+                        </form>
+                        <hr>
+                        <form id="InvoicePaymentForm">
+                            <h3 style="align-self: center;">Pay Remaining Balance</h3>
+                            <select name="partySelect"
+                                style="border: 2px solid black;width: 72%;align-self: center;background-color: white;margin-bottom: 15px;border-radius: 5px;"
+                                id="selectPartyInInvoicePayment" required></select>
+                            <label for="amountPaidOfInvoiceBill">Amount.</label>
+                            <input type="text" id="amountPaidOfInvoiceBi4ll">
+                            <label for="dateOfPay">Paid On</label>
+                            <input type="date">
+                            <label for="remark">Remark</label>
+                            <input type="text" placeholder="Enter Remark">
+                            <button type="submit"
+                                style="width: 25%;margin-bottom: 20px;align-self: center;background-color: rgb(65, 238, 65);"
+                                class="tab-btn">Pay</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- sale purchase report  -->
@@ -295,8 +315,8 @@
             <!-- billing first step  -->
             <div id="first-billing-step-container" hidden>
                 <h2 class="header">Sale Bill</h2>
-                <div id="invoiceNo" style="display: flex;"><label class="cartLabel" for="invoiceNo">Invoice No.#<input
-                            id="invoNo" value="" type="text"></label></div>
+                <div id="invoiceNo" style="display: flex;"><label class="cartLabel" for="invoiceNo">Invoice
+                        No.#<input id="invoNo" value="" type="text"></label></div>
                 <form method="POST" autocomplete="off" id="bill-print-form">
                     <table>
                         <tr class="head-tr">
@@ -366,6 +386,13 @@
                 <button class="tab-btn clearExp-btn">Clear</button>
                 <div id="alertProd"></div>
                 <div id="nearExp-product"></div>
+            </div>
+            <!-- stock alert container  -->
+            <div class="stockAlertContainer" hidden>
+                <h2 class="header">Stock Alert</h2>
+                <button id="lessStock-find" class="tab-btn">Get Stock Alert</button>
+                <button class="tab-btn clearStock-alert-btn">Clear</button>
+                <div id="stockAlert"></div>
             </div>
             <!-- manage inventory container  -->
             <div class="manageInvent-container" hidden>
@@ -462,12 +489,14 @@
                     </div>
                 </div>
                 <div class="cal-part">
-                    <h4>Sum Total &emsp; : <input id="bil-Ttl" style="width: 12%;" type="text">&emsp;Total Tax. Amt. :
+                    <h4>Sum Total &emsp; : <input id="bil-Ttl" style="width: 12%;" type="text">&emsp;Total Tax. Amt.
+                        :
                         <input id="taxRs" style="width: 12%;" type="text">
                     </h4>
                     <h4>Discount Rs&emsp;: <input id="DiscRs" style="width: 12%;" type="text">&emsp; Round
                         Off&emsp;&emsp;: <input id="ROff" style="width: 12%;" type="text"></h4>
-                    <h4>Grand Total &emsp;: <input id="g-ttl" style="width: 12%;" type="text">&emsp; Paid&emsp;&emsp;
+                    <h4>Grand Total &emsp;: <input id="g-ttl" style="width: 12%;" type="text">&emsp;
+                        Paid&emsp;&emsp;
                         &emsp; &emsp;: <input id="at-paid" style="width: 12%;" type="text"></h4>
                     <h4>Amt.Due&emsp; &emsp; : <input id="at-due" style="width: 12%;" type="text"></h4>
                 </div>

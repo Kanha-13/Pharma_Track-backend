@@ -233,4 +233,30 @@ $(document).ready(() => {
             }
         });
     })
+
+    // this is for paying credit balance 
+    $("#InvoicePaymentForm").submit(function (e) {
+        e.preventDefault()
+        const URL = "/payRemainingBalance"
+        const Data = {
+            partyName: $("#selectPartyInInvoicePayment"),
+            amount: $("#amountPaidOfInvoiceBi4ll")
+        }
+        $.ajax({
+            type: "POST",
+            url: URL,
+            data: JSON.stringify(Data),// serializes the form's elements.
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response)
+                document.getElementById('remainingBalance').value = response.balance
+            },
+            error: function (res) {
+                if (res.status == 401 || res.status == 500 || res.status === 400) {
+                    alert(res.statusText + " Admin not logged in")
+                    return
+                }
+            }
+        });
+    })
 })

@@ -75,6 +75,11 @@ module.exports = {
         await newBill.save()
         await salePurprof.updateOne({ date: new Date(Date.UTC(todaysdate.getFullYear(), todaysdate.getMonth(), todaysdate.getDate(), 0, 0, 0)) }, { $inc: { purchaseAmount: 0, sellAmount: req.body[0][0].gttl, profit: req.body[0][0].profit } }, { new: true, upsert: true })
         res.status(201).send("New bill Generated and stock updated")
+    },
+    goingOutOfStock: async (req, res) => {
+        var alertProd = await products.find({ category: "tablet", stock: { $lte: 30 } })
+        alertProd.push(await products.find({ category: "bottle", stock: { $lte: 5 } }))
+        res.status(200).json(alertProd)
     }
 }
 
