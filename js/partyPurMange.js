@@ -98,6 +98,7 @@ $(document).ready(() => {
         const selectInUpdateParty = document.getElementById('selectPartyInupdateParty')
         const selectPartyInHistory = document.getElementById('selectPartyInHistory')
         const selectPartyInCreditBalance = document.getElementById('selectPartyInCreditBalance')
+        const selectPartyInInvoicePayment = document.getElementById("selectPartyInInvoicePayment")
         if (partyList === '') {
             const res = await fetch('/getPartyList')
             if (res.status == 401 || res.status == 500 || res.status === 400) {
@@ -113,6 +114,7 @@ $(document).ready(() => {
         selectInUpdateParty.innerHTML = partyList
         selectPartyInHistory.innerHTML = partyList
         selectPartyInCreditBalance.innerHTML = partyList
+        selectPartyInInvoicePayment.innerHTML = partyList
     })
     //for purchase entry
     $('#purchaseEntry-form').submit(function (e) {
@@ -222,7 +224,6 @@ $(document).ready(() => {
             data: JSON.stringify(Data),// serializes the form's elements.
             contentType: 'application/json',
             success: function (response) {
-                console.log(response)
                 document.getElementById('remainingBalance').value = response.balance
             },
             error: function (res) {
@@ -239,8 +240,8 @@ $(document).ready(() => {
         e.preventDefault()
         const URL = "/payRemainingBalance"
         const Data = {
-            partyName: $("#selectPartyInInvoicePayment"),
-            amount: $("#amountPaidOfInvoiceBi4ll")
+            partyName: $("#selectPartyInInvoicePayment").val(),
+            amount: $("#amountPaidOfInvoiceBi4ll").val()
         }
         $.ajax({
             type: "POST",
@@ -248,8 +249,7 @@ $(document).ready(() => {
             data: JSON.stringify(Data),// serializes the form's elements.
             contentType: 'application/json',
             success: function (response) {
-                console.log(response)
-                document.getElementById('remainingBalance').value = response.balance
+                alert(response)
             },
             error: function (res) {
                 if (res.status == 401 || res.status == 500 || res.status === 400) {

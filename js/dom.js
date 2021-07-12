@@ -94,6 +94,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".welcome-container").show();
     });
     $("#add-nav").click(function () {
@@ -107,6 +108,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".addProd-container").show();
     });
     $("#search-nav").click(function () {
@@ -120,6 +122,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".search-container").show();
     });
     $("#nearExp-nav").click(function () {
@@ -133,6 +136,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".nearExp-container").show();
     });
     $("#sell-nav").click(function () {
@@ -146,6 +150,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".sell-container").show();
     });
     $("#findBill-nav").click(function () {
@@ -159,6 +164,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".findBill-container").show()
     });
     $("#manageInvent-nav").click(function () {
@@ -172,6 +178,7 @@ $(document).ready(function () {
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".manageInvent-container").show()
     })
     $("#purEntry-nav").click(function () {
@@ -185,6 +192,7 @@ $(document).ready(function () {
         $(".manageInvent-container").hide()
         $(".partyManage-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".purchase-container").show()
     })
     $("#partyManage-nav").click(function () {
@@ -198,6 +206,7 @@ $(document).ready(function () {
         $(".manageInvent-container").hide()
         $(".purchase-container").hide()
         $(".report-container").hide()
+        $(".stockAlert-container").hide()
         $(".partyManage-container").show()
     })
     $("#sellPur-nav").click(function () {
@@ -211,9 +220,23 @@ $(document).ready(function () {
         $(".manageInvent-container").hide()
         $(".purchase-container").hide()
         $(".partyManage-container").hide()
+        $(".stockAlert-container").hide()
         $(".report-container").show()
     })
-
+    $("#stockAlert-nav").click(function () {
+        $(".welcome-container").hide();
+        $(".search-container").hide();
+        $(".addProd-container").hide();
+        $(".nearExp-container").hide();
+        $('#first-billing-step-container').hide()
+        $(".sell-container").hide();
+        $(".findBill-container").hide()
+        $(".manageInvent-container").hide()
+        $(".purchase-container").hide()
+        $(".partyManage-container").hide()
+        $(".report-container").hide()
+        $(".stockAlert-container").show()
+    })
     // for making active button
     $('.navbar').on('click', (btn) => {
         $(btn.target).addClass("active").siblings().removeClass('active');

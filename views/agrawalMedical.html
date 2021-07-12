@@ -25,7 +25,7 @@
             <button class="tab-btn" style="height: 5.5vh;" id="sellPur-nav">Sell/Purchase</button>
             <button class="tab-btn" style="height: 5.5vh;" id="findBill-nav">Find Bill</button>
             <button class="tab-btn" style="height: 5.5vh;" id="nearExp-nav">Near Expiry</button>
-            <button class="tab-btn" style="height: 5.5vh;">Stock Alert</button>
+            <button class="tab-btn" style="height: 5.5vh;" id="stockAlert-nav">Stock Alert</button>
             <button class="tab-btn" style="height: 5.5vh;" id="manageInvent-nav">Manage Inventory</button>
         </div>
         <!-- <div class="hidden"></div> -->
@@ -37,11 +37,11 @@
                 <div class="login-logout-btn">
                     <button id="login-btn" class="tab-btn">Login</button>
                     <button id="logout-btn" style="display: none;" calss="tab-btn">LogOut</button>
+                    <button class="form-signUp-btn tab-btn" id="wlcm-wala-signUp-btn" type="button">Sign Up</button><br>
                 </div>
                 <!-- login pop up window -->
                 <div id="id01" class="modal">
                     <!-- login form  -->
-                    <!-- <form id="loginForm" class="modal-content animate"> -->
                     <form id="loginForm" class="modal-content animate">
                         <div class="imgcontainer">
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
@@ -54,9 +54,80 @@
 
                             <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
                             <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
+                            <a id="forgetPasswordLink" style="margin-left: 150px;">Forget Password</a>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-
+                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button">Sign
+                                Up</button><br>
+                            <h4 style="padding-left:43% ;" for="">It's Free</h4>
                         </div>
+                    </form>
+                    <!-- forget password form  -->
+                    <form id="forgetPasswordForm" class="modal-content animate">
+                        <div>
+                            <h2 style="margin-left: 140px;">Reset Password</h2>
+                            <hr>
+                            <input id="emailForForgetPassword" required type="text" placeholder="Enter you Email">
+                            <button style="margin-left: 155px;width:150px" class="tab-btn" type="submit">Reset</button>
+                            <input type="text" id="forgetPasswordOTP" placeholder="Enter OTP">
+                            <button style="margin-left: 155px;width:150px" id="forgetOTPSubmit-btn" class="tab-btn"
+                                disabled type="button">Submit Otp</button><br>
+                        </div>
+                    </form>
+                    <!-- new password reset form  -->
+                    <form id="resetNewPasswordForm" class="modal-content animate">
+                        <div>
+                            <h2>Enter New Password</h2>
+                            <hr>
+                            <input id="newResetPassword" required type="text" placeholder="Enter Password">
+                            <input id="confirmNewResetPassword" required type="text" placeholder="Confirm Password">
+                            <button class="tab-btn" type="submit">Reset Password</button>
+                        </div>
+                    </form>
+                    <!-- sign up form  -->
+                    <form id="signUpForm" class="modal-content animate" style="display: none;">
+                        <div class="credentials" style="display: block;">
+                            <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2>
+                            <hr>
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                                title="Close Modal">&times;</span>
+                            <input required type="text" name="userName" id="signUpUserName"
+                                placeholder="Enter Your Name">
+                            <input required type="text" id="signUpEmail" placeholder="Enter Your Email">
+                            <input required type="password" name="new-password" id="newPassword"
+                                placeholder="Enter Password">
+                            <input required type="password" name="confirm-new-password" id="confirmNewPassword"
+                                placeholder="Confirm Password">
+                            <button id="signUpForm-signUp-btn" type="submit" class="tab-btn">Sign Up</button>
+                            <p style="margin-left: 113px;">Already signed up but not verified</p>
+                            <button id="verifyAccount-btn" class="tab-btn" type="button"
+                                style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button>
+                            <hr>
+                            <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
+                            <h5 style="padding-left: 32%;">Already have an account?</h5>
+                            <hr>
+                        </div>
+                    </form>
+                    <!-- otp verification form  -->
+                    <form id="otpVerificationForm" class="modal-content animate" style="display: none;">
+                        <div style="display: block;">
+                            <h2 style="margin-left: 130px;">OTP Verification</h2>
+                            <hr>
+                            <h3 style="padding-left: 39%;">Enter OTP</h3>
+                            <input type="text" id="signUpOtp">
+                            <a style="text-decoration: none;color: black;cursor: pointer;margin-left: 190px;"
+                                id="resendSignUpOtp">resend otp</a><br>
+                            <input type="text" id="userEmailId" style="display: none;"><br>
+                            <button type="button" class="tab-btn" id="otpSubmit-btn"
+                                style="margin-left: 178px;width: 100px;">Submit</button>
+                        </div>
+                    </form>
+                    <!-- resend otp form or verify account form  -->
+                    <form id="verifyResendForm" class="modal-content animate" style="display: none;">
+                        <h2 style="margin-left: 130px;">Resend OTP</h2>
+                        <hr>
+                        <input required type="text" id="emailForResend" placeholder="Enter you Email">
+                        <button id="verifyAccountButton" style="margin-left: 178px;" class="tab-btn"
+                            type="submit">Resend</button>
                     </form>
                 </div>
             </div>
@@ -124,7 +195,7 @@
                         <input type="text" required name="batch" id="batch" placeholder="Batch number">
                         <input type="text" required name="location" id="location" placeholder="Storage Location">
                         <button class="submit-btn tab-btn" id="sub-btn" type="submit">Save</button>
-                    </div>l
+                    </div>
                 </form>
             </div>
             <!-- purchase entry container -->
@@ -388,7 +459,7 @@
                 <div id="nearExp-product"></div>
             </div>
             <!-- stock alert container  -->
-            <div class="stockAlertContainer" hidden>
+            <div class="stockAlert-container" hidden>
                 <h2 class="header">Stock Alert</h2>
                 <button id="lessStock-find" class="tab-btn">Get Stock Alert</button>
                 <button class="tab-btn clearStock-alert-btn">Clear</button>
@@ -514,6 +585,7 @@
     <script src="./js/deleteProd.js"></script>
     <script src="./js/partyPurMange.js"></script>
     <script src="./js/salePurchase.js"></script>
+    <script src="./js/stockAlert.js"></script>
 </body>
 
 </html>
