@@ -78,7 +78,7 @@ module.exports = {
     },
     goingOutOfStock: async (req, res) => {
         var alertProd = await products.find({ category: "tablet", stock: { $lte: 30 } })
-        alertProd.push(await products.find({ category: "bottle", stock: { $lte: 5 } }))
+        alertProd = [...alertProd, ...await products.find({ category: "bottle", stock: { $lte: 5 } })]
         res.status(200).json(alertProd)
     }
 }

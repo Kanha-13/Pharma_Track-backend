@@ -17,11 +17,11 @@ $(document).ready(() => {
                 return
             }
             matches = await res.json()
-            if (matches[0].length === 0) {
+            if (matches.length === 0) {
                 alert("Stocks are sufficient 😃")
             }
             const outputHtml = matches => {
-                if (matches[0].length > 0) {
+                if (matches.length > 0) {
                     const tableHead = `
                             <table>
                                 <tr class="head-tr">
@@ -34,7 +34,7 @@ $(document).ready(() => {
                                     <th>Location</th>
                                 </tr>
                             </table>`
-                    const alertHtml = matches[0].map(match => `
+                    const alertHtml = matches.map(match => `
                             <div>
                                 <table class="res-table">
                                     <tr class="res-tr alertProd">
@@ -50,7 +50,6 @@ $(document).ready(() => {
                                 </table>
                             </div>
                             `).join('');
-
                     alertProd.innerHTML = tableHead + alertHtml;
                 }
             }
