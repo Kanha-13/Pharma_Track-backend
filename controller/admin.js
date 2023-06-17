@@ -1,6 +1,5 @@
 const admin = require('../models/admin');
 const optSchema = require('../models/otp');
-const sgMail = require('@sendgrid/mail')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const cookie = require('cookie-parser');
@@ -60,24 +59,26 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            //rmv
-            sgMail.setApiKey(process.env.SENDGRID_KA_API)
-            const msg = {
-                to: userEmail, // Change to your recipient
-                from: 'kanha.agr13@gmail.com', // Change to your verified sender
-                subject: 'Your OTP for Pharmacy ERP solution',
-                text: otp,
+            try {
+                const callback = async (error, data, response) => {
+                    if (error) {
+                        res.status(501).json({ message: "something went wrong!" })
+                    } else {
+                        console.log('Email sent successfully');
+                        await optSchema.create({ otp: otp, userId: newAdmin._id, newAdmin: newAdmin.email })
+                        setTimeout(async () => {
+                            await optSchema.deleteOne({ userEmail: newAdmin.email })
+                        }, 600000);
+                        res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: newAdmin.email })
+                    }
+                };
+
+                await sendEmail(newAdmin.email, otp, callback).then(async () => {
+                })
+            } catch (error) {
+                console.log(error)
+                res.status(501).json({ message: "something went wrong!" })
             }
-            sgMail
-                .send(msg)
-                .then(async () => {
-                    await optSchema.create({ otp: otp, userId: newAdmin._id, userEmail: newAdmin.email })
-                    res.status(201).json({ message: 'Otp Sent to Email' })
-                })
-                .catch((error) => {
-                    console.error(error)
-                    res.status(501).json(error)
-                })
         }
     }
 }
