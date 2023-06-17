@@ -13,6 +13,15 @@
 </head>
 
 <body>
+    <!-- MODAL FOR VERSION 2.0 -->
+    <div id="v2-div" class="modal-content animate">
+        <div class="v2.0-popup">
+            <h2>welcome to Pharmacy ERP Solution v1.0</h2>
+            <p>Version 2.0 is under development you can access that <a href="https://pharmacy-v2.firebaseapp.com/" style="color: #000000;">here</a></p>
+            <p>OR</p>
+            <button id="continue-v1">Continue with V1.0</button>
+        </div>
+    </div>
     <div id="head-container" class="container">
         <div class="navbar">
             <!-- <h2>Agrawal Medical Store</h2> -->
@@ -30,7 +39,6 @@
         </div>
         <!-- <div class="hidden"></div> -->
         <div class="super-container">
-
             <!-- welcome container  -->
             <div class="welcome-container">
                 <h2 class="header">Inventory Manager</h2>
@@ -43,22 +51,25 @@
                 <div id="id01" class="modal">
                     <!-- login form  -->
                     <form id="loginForm" class="modal-content animate">
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                                title="Close Modal">&times;</span>
-                            <img src="../views/profilePicture.jpg" alt="Avatar" class="avatar">
-                        </div>
                         <div class="container">
-                            <label style="padding-left:43% ;" for="email"><b>E-mail</b></label>
-                            <input id="email" type="text" placeholder="Enter E-mail" name="email" required>
+                            <h2 style="margin-left: 13%;" class="signUpFormLabel" for="">Log In</h2>
+                            <hr style="width: 80%;">
+                            <label style="padding-left:13%;width:72%;" for="email">E-mail</label>
+                            <input style="height: 4vh;width: 73%;margin-top: 5px;" id="email" type="text"
+                                placeholder="Enter E-mail" name="email" required>
 
-                            <label style="padding-left:40% ;" for="psw"><b>Password</b></label>
-                            <input id="pswd" type="password" placeholder="Enter Password" name="psw" required>
-                            <a id="forgetPasswordLink" style="margin-left: 150px;">Forget Password</a>
+                            <label style="padding-left:13%;width:72%;" for="psw">Password</label>
+                            <input style="height: 4vh;width: 73%;margin-top: 5px;" id="pswd" type="password"
+                                placeholder="Enter Password" name="psw" required>
+                            <a id="forgetPasswordLink" style="margin-left: 13%;">Forget Password</a>
                             <button id="form-login-btn" class="tab-btn" type="submit">Login</button>
-                            <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn" type="button">Sign
-                                Up</button><br>
-                            <h4 style="padding-left:43% ;" for="">It's Free</h4>
+                            <div
+                                style="display: flex;flex-direction: column;justify-content: space-evenly;align-items: center;width: 70%;padding: 0% 15%;">
+                                <p style="margin: 2vh 0px 0px;">Don't have account?</p>
+                                <button class="form-signUp-btn tab-btn" id="login-form-wala-signup-btn"
+                                    type="button">Sign Up</button>
+                            </div>
+                            <br>
                         </div>
                     </form>
                     <!-- forget password form  -->
@@ -66,11 +77,12 @@
                         <div>
                             <h2 style="margin-left: 140px;">Reset Password</h2>
                             <hr>
-                            <input id="emailForForgetPassword" required type="text" placeholder="Enter you Email">
+                            <input style="width: 70%;" id="emailForForgetPassword" required type="text"
+                                placeholder="Enter you Email">
                             <button style="margin-left: 155px;width:150px" class="tab-btn" type="submit">Reset</button>
-                            <input type="text" id="forgetPasswordOTP" placeholder="Enter OTP">
-                            <button style="margin-left: 155px;width:150px" id="forgetOTPSubmit-btn" class="tab-btn"
-                                disabled type="button">Submit Otp</button><br>
+                            <input style="width: 70%;" type="text" id="forgetPasswordOTP" placeholder="Enter OTP">
+                            <button style="margin-left: 155px;margin-bottom: 2vh;width:150px" id="forgetOTPSubmit-btn"
+                                class="tab-btn" disabled type="button">Submit Otp</button><br>
                         </div>
                     </form>
                     <!-- new password reset form  -->
@@ -85,9 +97,9 @@
                     </form>
                     <!-- sign up form  -->
                     <form id="signUpForm" class="modal-content animate" style="display: none;">
-                        <div class="credentials" style="display: block;">
-                            <h2 style="padding-left: 39%;" class="signUpFormLabel" for="">Sign Up</h2>
-                            <hr>
+                        <div class="credentials">
+                            <h2 class="signUpFormLabel" for="">Sign Up</h2>
+                            <hr style="width: 80%;">
                             <span onclick="document.getElementById('id01').style.display='none'" class="close"
                                 title="Close Modal">&times;</span>
                             <input required type="text" name="userName" id="signUpUserName"
@@ -98,36 +110,32 @@
                             <input required type="password" name="confirm-new-password" id="confirmNewPassword"
                                 placeholder="Confirm Password">
                             <button id="signUpForm-signUp-btn" type="submit" class="tab-btn">Sign Up</button>
-                            <p style="margin-left: 113px;">Already signed up but not verified</p>
+                            <hr style="width: 80%;">
+                            <p style="margin: 1vh 0%;">Already signed up but not verified</p>
                             <button id="verifyAccount-btn" class="tab-btn" type="button"
-                                style="margin-left: 150px;width: 154px;font-weight: bold;">Verify Account</button>
-                            <hr>
+                                style="width: 154px;font-weight: bold;">Verify Account</button>
+                            <p style="margin: 2vh 0% 0%;">Already have an account?</p>
                             <button id="backToLogin-btn" type="button" class="tab-btn">Login</button><br>
-                            <h5 style="padding-left: 32%;">Already have an account?</h5>
-                            <hr>
                         </div>
                     </form>
                     <!-- otp verification form  -->
                     <form id="otpVerificationForm" class="modal-content animate" style="display: none;">
-                        <div style="display: block;">
-                            <h2 style="margin-left: 130px;">OTP Verification</h2>
-                            <hr>
-                            <h3 style="padding-left: 39%;">Enter OTP</h3>
-                            <input type="text" id="signUpOtp">
-                            <a style="text-decoration: none;color: black;cursor: pointer;margin-left: 190px;"
-                                id="resendSignUpOtp">resend otp</a><br>
-                            <input type="text" id="userEmailId" style="display: none;"><br>
-                            <button type="button" class="tab-btn" id="otpSubmit-btn"
-                                style="margin-left: 178px;width: 100px;">Submit</button>
-                        </div>
+                        <h2>OTP Verification</h2>
+                        <hr style="width: 100%;" />
+                        <h3>Enter OTP</h3>
+                        <input style="width: 70%;" placeholder="Enter otp" type="text" id="signUpOtp">
+                        <a style="text-decoration: none;color: black;cursor: pointer;" id="resendSignUpOtp">resend
+                            otp</a><br>
+                        <input type="text" id="userEmailId" style="display: none;"><br>
+                        <button type="button" class="tab-btn" id="otpSubmit-btn" style="width: 100px;">Submit</button>
                     </form>
                     <!-- resend otp form or verify account form  -->
                     <form id="verifyResendForm" class="modal-content animate" style="display: none;">
-                        <h2 style="margin-left: 130px;">Resend OTP</h2>
-                        <hr>
-                        <input required type="text" id="emailForResend" placeholder="Enter you Email">
-                        <button id="verifyAccountButton" style="margin-left: 178px;" class="tab-btn"
-                            type="submit">Resend</button>
+                        <h2>Resend OTP</h2>
+                        <hr style="width: 100%;" />
+                        <input style="width: 70%;" required type="text" id="emailForResend"
+                            placeholder="Enter you Email">
+                        <button id="verifyAccountButton" class="tab-btn" type="submit">Resend</button>
                     </form>
                 </div>
             </div>

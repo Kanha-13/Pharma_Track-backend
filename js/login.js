@@ -6,16 +6,20 @@ $(document).ready(() => {
     // login page animation
     // Get the modal
     var modal = document.getElementById('id01');
+    var version2 = document.getElementById('continue-v1');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            $('#verifyResendForm').css("display", "none");
+            $('#otpVerificationForm').css("display", "none");
         }
     }
 
     // login form -login button click action 
     $("#loginForm").submit(function (e) {
+        document.getElementById("form-login-btn").disabled = true;
         e.preventDefault();
         const Email = $('#email').val()
         const Pass = $('#pswd').val()
@@ -37,6 +41,7 @@ $(document).ready(() => {
             },
             error: function (res) {
                 alert(res.responseJSON.Error_message)
+                document.getElementById("form-login-btn").disabled = false;
                 $("#email").css("border-color", "red")
                 $("#pswd").css("border-color", "red")
             }
@@ -69,14 +74,14 @@ $(document).ready(() => {
         $("#forgetPasswordForm").css("display", "none")
         $("#resetNewPasswordForm").css("display", "none")
         $('#loginForm').css("display", "block")
-        document.getElementById('id01').style.display = 'block'
+        document.getElementById('id01').style.display = 'flex'
     })
 
     //signup button click action
     $(".form-signUp-btn,#wlcm-wala-signUp-btn").on('click', () => {
-        document.getElementById('id01').style.display = 'block'
-        $('#signUpForm').css("display", "block")
-        $('.credentials').css("display", "block")
+        document.getElementById('id01').style.display = 'flex'
+        $('#signUpForm').css("display", "flex")
+        $('.credentials').css("display", "flex")
         $('#loginForm').css("display", "none")
         $("#forgetPasswordForm").css("display", "none")
         $("#resetNewPasswordForm").css("display", "none")
@@ -93,6 +98,7 @@ $(document).ready(() => {
     }
     //signup form submission
     $("#signUpForm").submit((e) => {
+        document.getElementById("signUpForm-signUp-btn").disabled = true;
         e.preventDefault();
         const userName = $('#signUpUserName').val();
         const userEmail = $('#signUpEmail').val();
@@ -110,7 +116,7 @@ $(document).ready(() => {
                     success: function (res) {
                         document.getElementById("signUpForm").reset();
                         $('#signUpEmail').css("border-color", "#625644")
-                        $('#otpVerificationForm').css("display", "block")
+                        $('#otpVerificationForm').css("display", "flex")
                         document.getElementById('userEmailId').value = res.userEmail
                         $("#signUpForm").css("display", "none")
                         alert(res.message)
@@ -119,6 +125,7 @@ $(document).ready(() => {
                     error: function (res) {
                         $('#signUpEmail').css("border-color", "red")
                         alert(res.responseJSON)
+                        document.getElementById("signUpForm-signUp-btn").disabled = false;
                         console.log(res.responseJSON)
                     }
                 });
@@ -177,8 +184,7 @@ $(document).ready(() => {
             contentType: 'application/json',
             success: function (res) {
                 $("#verifyResendForm").css("display", "none");
-                $('#otpVerificationForm').css("display", "block");
-                $('#otpVerificationForm').css("display", "block")
+                $('#otpVerificationForm').css("display", "flex");
                 $('#emailForResend').css("border-color", "#625644");
                 $("#verifyResendForm").css("display", "none")
                 alert(res.message)
@@ -199,7 +205,7 @@ $(document).ready(() => {
     $("#verifyAccount-btn").on('click', () => {
         $("#signUpForm").css("display", "none");
         $("#loginForm").css("display", "none");
-        $("#verifyResendForm").css("display", "block")
+        $("#verifyResendForm").css("display", "flex")
         $('#signUpEmail').css("border-color", "#625644")
         document.getElementById("signUpForm").reset();
     })

@@ -65,14 +65,25 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            if (await sendEmail(userEmail, otp)) {
-                await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
-                setTimeout(async () => {
-                    await optSchema.deleteOne({ userEmail: newUser.email })
-                }, 600000);
-                res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: userEmail })
-            } else {
-                res.status(501).json({ message: "something went wrong!" })
+            try {
+                const callback = async (error, data, response) => {
+                    if (error) {
+                        res.status(501).json({ message: "something went wrong!" })
+                    } else {
+                        console.log('Email sent successfully');
+                        await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
+                        setTimeout(async () => {
+                            await optSchema.deleteOne({ userEmail: newUser.email })
+                        }, 600000);
+                        res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: newUser.email })
+                    }
+                };
+
+                await sendEmail(newUser.email, otp, callback).then(async () => {
+                })
+            } catch (error) {
+                console.log(error)
+                res.status(501).json("something went wrong!")
             }
         }
     },
@@ -91,6 +102,7 @@ module.exports = {
                 date: new Date(),
             }, process.env.SECRETE_JWT_KEY, {
             });
+            await optSchema.deleteOne({ userEmail: email })
             res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
             res.status(201).json({ message: "OTP verified and user has been logged in" })
             return
@@ -129,7 +141,7 @@ module.exports = {
                 })
             } catch (error) {
                 console.log(error)
-                res.status(501).json({ message: "something went wrong!" })
+                res.status(501).json("something went wrong!")
             }
         }
     },
@@ -163,7 +175,7 @@ module.exports = {
             })
         } catch (error) {
             console.log(error)
-            res.status(501).json({ message: "something went wrong!" })
+            res.status(501).json("something went wrong!")
         }
     },
     resetPasswordOTPverification: async (req, res) => {

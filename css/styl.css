@@ -1,27 +1,31 @@
-body{
+body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
     padding: 0;
 }
-#head-container{
+
+#head-container {
     margin: 0;
     padding: 20px;
     width: 90vw;
     height: auto;
 }
-.classDate table{
+
+.classDate table {
     width: 100px;
 }
-@media only screen and (max-width: 1200px){
-    #back-wallpaper{
+
+@media only screen and (max-width: 1200px) {
+    #back-wallpaper {
         display: none;
         height: 90vh;
     }
 }
+
 @media only screen and (min-width: 1200px) {
-    #back-wallpaper{
+    #back-wallpaper {
         position: absolute;
-        width:100%;
+        width: 100%;
         height: 100vh;
         z-index: -1;
         margin: 0px;
@@ -29,109 +33,121 @@ body{
         background-size: cover;
     }
 }
+
 @media only screen and (min-width: 1000px) {
-    .super-container{
+    .super-container {
         z-index: 1;
         opacity: 0.86;
         margin-left: 17vw;
         margin-right: 0;
         width: 75vw;
         height: 95vh;
-        background-color:	#d2d7d7;
+        background-color: #d2d7d7;
         border: #c49550 solid 3px;
-        border-radius:25px 25px 25px 25px;
+        border-radius: 25px 25px 25px 25px;
     }
-    .navbar{
+
+    .navbar {
         display: inline-grid;
-        position:fixed;
+        position: fixed;
         margin: auto;
         margin-left: 0px;
         height: 93vh;
-        width:11vw;
-        border:2px solid #c49550;
+        width: 11vw;
+        border: 2px solid #c49550;
         border-radius: 20px 20px 20px 20px;
-        background-color:	#d2d7d7;
+        background-color: #d2d7d7;
         padding: 10px 10px 5px 5px;
         z-index: 1;
         opacity: 0.86;
     }
-    .navbar button{
+
+    .navbar button {
         margin: auto;
         width: 11vw;
         height: 40px;
         font-weight: bold;
     }
-  }
+}
 
-.navbar h2{
+.navbar h2 {
     margin-top: 5px;
     margin-bottom: 20px;
     padding-left: 20px;
     font-weight: bold;
     font-size: 35px;
 }
+
 /* to make navbar float up  */
-.hidden{
+.hidden {
     height: 1px;
 }
 
 /* utilities */
-#head-container button{
+#head-container button {
     border-radius: 30px;
     height: 30px;
     outline: transparent;
 }
-.tab-btn:hover,.active,.res-tr:hover{
+
+.tab-btn:hover,
+.active,
+.res-tr:hover {
     background-color: #c49550;
     color: #fff;
     cursor: pointer;
     box-shadow: 5px 5px 5px #625644;
-    
+
 }
-@media only screen and (max-width: 1200px){
-    #head-container input{
+
+@media only screen and (max-width: 1200px) {
+    #head-container input {
         display: block;
         margin: auto;
         margin-bottom: 20px;
         margin-top: 20px;
         text-align: center;
-        background-color:#fff ;
-        border:2px solid #625644;
+        background-color: #fff;
+        border: 2px solid #625644;
         border-radius: 5px;
         height: 3vh;
         width: 15vw;
         outline: transparent;
     }
 }
-@media only screen and (min-width: 1200px){
 
-    #head-container input{
+@media only screen and (min-width: 1200px) {
+
+    #head-container input {
         display: block;
         margin: auto;
         font-size: 20px;
         margin-bottom: 20px;
         margin-top: 20px;
         text-align: center;
-        background-color:#fff ;
-        border:2px solid #625644;
+        background-color: #fff;
+        border: 2px solid #625644;
         height: 25px;
         /* width: 170px; */
         outline: transparent;
     }
 }
 
-#head-container input::-webkit-input-placeholder,input::-moz-placeholder{
+#head-container input::-webkit-input-placeholder,
+input::-moz-placeholder {
     font-weight: bolder;
     color: rgb(0, 0, 0);
 }
-#head-container label,.final-amt{
+
+.final-amt {
     font-weight: bold;
     font-size: 20px;
     text-align: center;
 }
+
 /* header common to all  */
-.header{
-    border-radius:25px 25px 0px 0px;
+.header {
+    border-radius: 25px 25px 0px 0px;
     display: block;
     margin: 0px;
     padding: 20px 10px 10px 10px;
@@ -140,30 +156,34 @@ body{
     font-size: 35px;
     font-family: 'Anton', sans-serif;
 }
-@media only screen and (max-width: 1100px){
-    th{
+
+@media only screen and (max-width: 1100px) {
+    th {
         word-break: break-all;
     }
 }
-table{
+
+table {
     margin: auto;
-    border:2px solid #c49550;
+    border: 2px solid #c49550;
     width: 100%;
     overflow: auto;
 }
 
-th{
+th {
     display: flex;
     margin: auto;
     width: 11%;
     font-size: 1.3rem;
     word-break: normal;
 }
-.res-table{
+
+.res-table {
     /* width: 114%; */
     overflow: auto;
 }
-.head-tr{
+
+.head-tr {
     font-size: 26px;
     background-color: #c49550;
     display: flex;
@@ -171,16 +191,19 @@ th{
     font-weight: bold;
     align-items: center;
 }
-.res-tr,#selectedSell-product{
+
+.res-tr,
+#selectedSell-product {
     display: flex;
     font-size: 22px;
 }
-#sell-product{
+
+#sell-product {
     height: 40vh;
     overflow-y: scroll;
 }
 
-td{
+td {
     width: 11%;
     display: block;
     margin: auto;
@@ -189,13 +212,13 @@ td{
 
 /* from here different containers */
 
-#seller{
+#seller {
     display: block;
     margin: auto;
     margin-bottom: 20px;
     margin-top: 20px;
     /* border-radius: 10px; */
-    border:2px solid #625644;
+    border: 2px solid #625644;
     height: 40px;
     width: 250px;
     font-size: 15px;
@@ -205,29 +228,35 @@ td{
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
-} 
+}
 
-.addProd-form{
+.addProd-form {
     height: 82vh;
     display: flex;
     flex-direction: row;
 }
-.labeldiv{
+
+.labeldiv {
     display: flex;
     flex-direction: column;
 }
 
-.addProdLabels{
+.addProdLabels {
     height: 25px;
     margin: 26px 2px 18px 3px
 }
-.purchasingRelatedDetail,.companyRelatedDetail{
+
+.purchasingRelatedDetail,
+.companyRelatedDetail {
     display: flex;
     flex-direction: column;
     width: 50%;
     height: 100%;
 }
-#mnfDate,#expDate,#purDate{
+
+#mnfDate,
+#expDate,
+#purDate {
     margin: 47px 2px 0px 3px;
     font-size: 10px;
     width: 215px;
@@ -235,11 +264,27 @@ td{
 
 
 /* nearExp-prod container  */
-.alertProd{
+.alertProd {
     background-color: rgb(206, 76, 76);
     color: #fff;
 }
-#nearExp-find,.clearExp-btn,.searchRef-btn,#print-btn,#billFind-btn,#deleteRef-btn,#deleteMatch-product,#oldBillRef-btn,#purEntry-btn,#partyInfo-btn,#getSaleRepo,#getPurRepo,#getProfitRepo,#updatePartyBtn,#partyHistoryBtn,#companyListRef{
+
+#nearExp-find,
+.clearExp-btn,
+.searchRef-btn,
+#print-btn,
+#billFind-btn,
+#deleteRef-btn,
+#deleteMatch-product,
+#oldBillRef-btn,
+#purEntry-btn,
+#partyInfo-btn,
+#getSaleRepo,
+#getPurRepo,
+#getProfitRepo,
+#updatePartyBtn,
+#partyHistoryBtn,
+#companyListRef {
     display: block;
     margin: auto;
     margin-bottom: 20px;
@@ -250,77 +295,84 @@ td{
     width: 170px;
     font-size: 15px;
     font-weight: bold;
-    
+
 }
 
 /* search result  */
-#match-product{
-    padding:5px;
-    background-color:#d2d7d7;
+#match-product {
+    padding: 5px;
+    background-color: #d2d7d7;
     height: 53vh;
     overflow: auto;
-    text-align:justify;
+    text-align: justify;
 }
 
 /* sell container  */
-#selectedSell-product{
+#selectedSell-product {
     display: block;
-    background-color:#d2d7d7;
+    background-color: #d2d7d7;
 
 }
 
-.two-btn{
+.two-btn {
     display: inline;
     margin: 30px 0px 30px 190px;
 }
-#clr-btn:hover{
+
+#clr-btn:hover {
     background-color: #b63636;
 
 }
-#checkOut-btn:hover{
+
+#checkOut-btn:hover {
     background-color: #54b151;
 }
-#first-billing-step-container .bill-input{
+
+#first-billing-step-container .bill-input {
     width: 50px;
     height: 30px;
     margin: 0px 0px 0px 0px;
     border: 0px solid transparent;
 }
 
-.cartLabel{
+.cartLabel {
     margin: auto;
 }
 
-.final-amt-label
-{
+.final-amt-label {
     text-align: center;
 }
-.first-bill-th{
+
+.first-bill-th {
     width: 10%;
 }
-.first-bill-td{
+
+.first-bill-td {
     width: 80px;
 }
-.first-bill-tr{
+
+.first-bill-tr {
     background-color: #d2d7d7;
 }
 
-#first-billing-step-container #invoNo{
-    height:30px;width:100%;
-    border:transparent;
-    display:inline;
-    font-weight:bold;
-    margin:0px 0px;
-    font-size:20px;
-    background:transparent;
+#first-billing-step-container #invoNo {
+    height: 30px;
+    width: 100%;
+    border: transparent;
+    display: inline;
+    font-weight: bold;
+    margin: 0px 0px;
+    font-size: 20px;
+    background: transparent;
 }
 
 /* purchase entry form  */
-#purchaseEntry-form{
+#purchaseEntry-form {
     display: flex;
     flex-direction: column;
 }
-#payMode{
+
+#payMode {
     width: 18%;
     background-color: white;
     border: 2px solid black;
@@ -329,9 +381,11 @@ td{
     margin-bottom: 5px;
     align-self: center;
 }
+
 /* find credit balance of party  */
 /* pay remaining balance */
-#creditBalanceCheckForm,#InvoicePaymentForm{
+#creditBalanceCheckForm,
+#InvoicePaymentForm {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -341,41 +395,48 @@ td{
 
 
 /* find bill container  */
-.findBill-container .bill-finder-tool{
+.findBill-container .bill-finder-tool {
     display: block;
-    justify-items:center;
+    justify-items: center;
     border-bottom: 2px solid black;
 }
 
-.findBill-container #oldInvoNo{
-    height:30px;width:40px;
-    border:transparent;
-    display:inline;
-    font-weight:bold;
-    margin:0px 0px;
-    font-size:20px;
-    background:transparent;
+.findBill-container #oldInvoNo {
+    height: 30px;
+    width: 40px;
+    border: transparent;
+    display: inline;
+    font-weight: bold;
+    margin: 0px 0px;
+    font-size: 20px;
+    background: transparent;
 }
 
 /* manage inventory constainer  */
 
-select{
+select {
     background-color: transparent;
     border: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
     font-size: 20px;
-    text-align-last:center;
+    text-align-last: center;
 }
 
 /* purchase entry container  */
-.purchase-container label,.partyManage-container label{
+.purchase-container label,
+.partyManage-container label {
     display: flex;
     justify-content: space-around;
     margin: auto;
 }
-#selectParty,#repoSelect,#partyManageSelcet,#selectPartyInupdateParty,#selectPartyInHistory{
+
+#selectParty,
+#repoSelect,
+#partyManageSelcet,
+#selectPartyInupdateParty,
+#selectPartyInHistory {
     display: block;
     margin: auto;
     margin-bottom: 20px;
@@ -394,9 +455,42 @@ select{
 }
 
 /* sale purchase report  */
-.repoDetail{
+.repoDetail {
     display: inline-flex;
-    margin-left:400px ;
+    margin-left: 400px;
 }
 
-/* manage party conatiner  */
+/* version 2.0 container  */
+#v2-div {
+    display: flex;
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #94939385;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#v2-div div {
+    display: flex;
+    background-color: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border-radius: 0.8vw;
+}
+
+#v2-div button {
+    background-color: rgb(255, 200, 98);
+    border: none;
+    height: 5vh;
+    width: 50%;
+    border-radius: 0.8vw;
+    font-size: 1em;
+    cursor: pointer;
+}

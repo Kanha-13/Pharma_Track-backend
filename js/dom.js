@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    
+    //continue v1.0
+    $('#continue-v1').on("click",()=>{
+        $('#v2-div').css("display", "none");
+    })
+
+
+
     //logout function for refresh and window tab close
     const logoutAfterRefresh = () => {
         const url = '/logOut';

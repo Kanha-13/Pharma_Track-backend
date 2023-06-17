@@ -1,22 +1,29 @@
-.welcome-container{
+.welcome-container {
   height: 93vh;
   background-image: url("/img3.jpg");
   background-color: #cccccc;
   background-size: 1500px 900px;
   border-radius: 20px 20px 20px 20px;
 }
+
 /* Full-width input fields */
-.welcome-container input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  /* Set a style for all buttons */
-  #login-btn,#logout-btn,#form-login-btn,.form-signUp-btn,#backToLogin-btn,#signUpForm-signUp-btn{
+.welcome-container input[type=text],
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+#login-btn,
+#logout-btn,
+#form-login-btn,
+.form-signUp-btn,
+#backToLogin-btn,
+#signUpForm-signUp-btn {
   cursor: pointer;
   width: 80px;
   font-weight: bold;
@@ -25,20 +32,37 @@
   margin-top: 30px;
 }
 
-#login-btn:hover,#form-login-btn:hover,#signUpForm-signUp-btn:hover{
+#signUpForm-signUp-btn {
+  margin-top: 0px;
+}
+
+#backToLogin-btn {
+
+  margin-top: 2vh;
+}
+
+
+#login-btn:hover,
+#form-login-btn:hover,
+#signUpForm-signUp-btn:hover {
   background-color: rgb(96, 221, 96);
 }
-#logout-btn:hover{
+
+#logout-btn:hover {
   background-color: rgb(165, 40, 40)
 }
-.login-logout-btn{
+
+.login-logout-btn {
   margin-top: 60px;
 }
+
 .welcome-container button:hover {
-    opacity: 0.8;
-  }
-.form-signUp-btn:hover,#backToLogin-btn:hover{
-  background-color:rgb(233, 218, 6)
+  opacity: 0.8;
+}
+
+.form-signUp-btn:hover,
+#backToLogin-btn:hover {
+  background-color: rgb(233, 218, 6)
 }
 
 /* Extra styles for the cancel button */
@@ -48,21 +72,7 @@
   background-color: #f44336;
 }
 
-/* Center the image and position the close button */
-.welcome-container .imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  height: 130px;
-  position: relative;
-}
-
-.welcome-container img.avatar {
-  width: 25%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-.welcome-container  .container {
+.welcome-container .container {
   padding: 16px;
 }
 
@@ -70,29 +80,36 @@
   float: right;
   padding-top: 16px;
 }
+
 /* The Modal (background) */
 .welcome-container .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px;
 }
 
 /* Modal Content/Box */
 .welcome-container .modal-content {
   background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #888;
-  border-radius: 12%;
-  width: 30%; /* Could be more or less, depending on screen size */
-  /* height: 510px; */
+  border-radius: 1vw;
+  width: 30%;
+
 }
 
 /* The Close Button (x) */
@@ -118,39 +135,71 @@
 }
 
 @-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
+  from {
+    -webkit-transform: scale(0)
+  }
+
+  to {
+    -webkit-transform: scale(1)
+  }
 }
-  
+
 @keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
 }
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
-      display: block;
-      float: none;
+    display: block;
+    float: none;
   }
+
   .cancelbtn {
-      width: 100%;
+    width: 100%;
   }
 }
 
 /* signup form css setting  */
-#signUpForm{
+#signUpForm,
+#otpVerificationForm,
+#verifyResendForm {
   display: flex;
-  padding: 0px 0px 55px 0px;
-  /* flex-direction: row; */
-  /* position: absolute; */
-  /* align-items: center; */
+  padding: 2vh 0vw;
+  align-items: center;
+  justify-content: center;
 }
-#signUpForm-signUp-btn:hover{
+
+#signUpForm div {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}
+
+#form-login-btn {
+  margin-top: 2vh;
+  width: 35%;
+}
+
+#login-form-wala-signup-btn {
+  margin-top: 1vh;
+  width: 50%;
+}
+
+#signUpForm-signUp-btn:hover {
   background-color: rgb(96, 221, 96);
 }
 
 /* forget password css  */
-#forgetPasswordLink{
+#forgetPasswordLink {
   cursor: pointer;
 }
