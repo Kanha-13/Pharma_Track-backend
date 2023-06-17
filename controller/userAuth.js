@@ -1,8 +1,9 @@
 const optSchema = require('../models/otp');
-const sgMail = require('@sendgrid/mail')
+// const sgMail = require('@sendgrid/mail')
 const User = require('../models/users')
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const { sendEmail } = require('../utils/sendmail');
 module.exports = {
     login: async (req, res) => {
 
@@ -65,27 +66,15 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey(process.env.SENDGRID_KA_API)
-            const msg = {
-                to: userEmail, // Change to your recipient
-                from: 'kanha.agr13@gmail.com', // Change to your verified sender
-                subject: 'Your OTP for Pharmacy ERP solution',
-                text: otp,
+            if (await sendEmail(userEmail, otp)) {
+                await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
+                setTimeout(async () => {
+                    await optSchema.deleteOne({ userEmail: newUser.email })
+                }, 600000);
+                res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: userEmail })
+            } else {
+                res.status(501).json({ message: "something went wrong!" })
             }
-            sgMail
-                .send(msg)
-                .then(async () => {
-                    await optSchema.create({ otp: otp, userId: newUser._id, userEmail: newUser.email })
-                    setTimeout(async () => {
-                        await optSchema.deleteOne({ userEmail: newUser.email })
-                    }, 600000);
-                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: userEmail })
-                })
-                .catch((error) => {
-                    console.error(error)
-                    res.status(501).json(error)
-                })
-
         }
     },
     otpVerification: async (req, res) => {
@@ -123,26 +112,26 @@ module.exports = {
             for (let i = 0; i < 6; i++) {
                 otp += digits[Math.floor(Math.random() * 10)];
             }
-            sgMail.setApiKey(process.env.SENDGRID_KA_API)
-            const msg = {
-                to: user.email, // Change to your recipient
-                from: 'kanha.agr13@gmail.com', // Change to your verified sender
-                subject: 'Your OTP for Pharmacy ERP solution',
-                text: otp,
+            try {
+                const callback = async (error, data, response) => {
+                    if (error) {
+                        res.status(501).json({ message: "something went wrong!" })
+                    } else {
+                        console.log('Email sent successfully');
+                        await optSchema.create({ otp: otp, userId: user._id, userEmail: user.email })
+                        setTimeout(async () => {
+                            await optSchema.deleteOne({ userEmail: user.email })
+                        }, 600000);
+                        res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: user.email })
+                    }
+                };
+
+                await sendEmail(user.email, otp, callback).then(async () => {
+                })
+            } catch (error) {
+                console.log(error)
+                res.status(501).json({ message: "something went wrong!" })
             }
-            sgMail
-                .send(msg)
-                .then(async () => {
-                    await optSchema.create({ otp: otp, userId: user._id, userEmail: user.email })
-                    setTimeout(async () => {
-                        await optSchema.deleteOne({ userEmail: user.email })
-                    }, 600000);
-                    res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: user.email })
-                })
-                .catch((error) => {
-                    console.error(error)
-                    res.status(501).json(error)
-                })
         }
     },
     forgetPassword: async (req, res) => {
