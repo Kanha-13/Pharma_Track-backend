@@ -32,6 +32,15 @@ module.exports = {
         res.status(200).json(await products.find(req.bobdy));
     },
 
+    getProfWithInitials: async (req, res) => {
+        try {
+            const resdata = await products.find({ itemName: { $regex: `^${req.query.key}`, $options: "i" } })
+            res.status(200).json(resdata);
+        } catch (error) {
+            res.status(500).json({ message: "Something went wrong!" })
+        }
+    },
+
     //api for product which is near expiry
     nearExp: async (req, res) => {
         const data = await products.find({ expDate: { $lte: req.body.expDate, $gt: req.body.alertDate }, stock: { $gt: 0 } });
@@ -39,6 +48,11 @@ module.exports = {
         const respo = [alertDate, data]
         res.status(200).json(respo);
 
+    },
+    getInvoiceNumber:async(req,res)=>{
+        const count = await patientsBill.countDocuments();
+        const data = { invoCount: count + 1 }
+        res.status(200).json(data)
     },
     toCart: async (req, res) => {
         var Data = await products.find({ _id: req.body.ids })
@@ -51,7 +65,7 @@ module.exports = {
         var Medicines = [];
         const todaysdate = new Date()
         for (var i = 1; i < req.body[0].length; i++) {
-            const result = await products.updateOne({ _id: req.body[0][i]._id }, { $inc: { stock: -(req.body[0][i].Soldqnt) } })
+            const result = await products.updateOne({ _id: req.body[0][i]._id }, { $inc: { stock: -(req.body[0][i].soldQnt) } })
             Medicines[i - 1] = req.body[0][i]
         }
         const billDetail = {
@@ -78,7 +92,7 @@ module.exports = {
     },
     goingOutOfStock: async (req, res) => {
         var alertProd = await products.find({ category: "tablet", stock: { $lte: 30 } })
-        alertProd = [...alertProd, ...await products.find({ category: "bottle", stock: { $lte: 5 } })]
+        alertProd.push(await products.find({ category: "bottle", stock: { $lte: 5 } }))
         res.status(200).json(alertProd)
     }
 }

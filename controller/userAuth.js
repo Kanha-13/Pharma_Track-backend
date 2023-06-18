@@ -30,7 +30,7 @@ module.exports = {
 
                 });
                 res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
-                res.send("Ho gaya").status(200)
+                res.json({ message: "Ho gaya", token: token }).status(200)
 
             }
             else {
@@ -48,8 +48,11 @@ module.exports = {
         const userName = req.body.userName;
         const userEmail = req.body.userEmail;
         const password = req.body.password;
+        const userRole = req.body.userRole;
+        if (!(userName && userEmail && password))
+            return res.status(400).json("Missing credentials!")
         const user = await User.findOne({ email: userEmail })
-        if (user != null) {
+        if (user) {
             if (user.otpVerified)
                 res.status(400).json("User Alerady exist")
             else res.status(400).json("User already exist ,but not verified")
@@ -104,7 +107,7 @@ module.exports = {
             });
             await optSchema.deleteOne({ userEmail: email })
             res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
-            res.status(201).json({ message: "OTP verified and user has been logged in" })
+            res.status(201).json({ message: "OTP verified and user has been logged in", token: token })
             return
         }
         else {
@@ -112,9 +115,16 @@ module.exports = {
         }
     },
     resendUserOTP: async (req, res) => {
-        const user = await User.findOne({ email: req.body.email })
+        const userEmail = req.body.email
+        if (!userEmail)
+            return res.status(400).json("Missing credentials!")
+        const user = await User.findOne({ email: userEmail })
         if (!user) return res.status(404).json({ message: "No user found with this email" })
-        if (await optSchema.findOne({ userEmail: user.email })) return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
+        const otpRegistered = await optSchema.find({ userEmail: user.email })
+        if (otpRegistered?.length > 1)
+            return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
+        else if (otpRegistered?.length === 1)
+            await optSchema.deleteOne({ userEmail: userEmail })
         if (user.otpVerified) return res.status(400).json({ message: "User already verified" })
         else {
             //generate otp of 6 digit
@@ -147,10 +157,17 @@ module.exports = {
     },
     forgetPassword: async (req, res) => {
         const email = req.body.email;
+        if (!email) return res.status(400).json({ message: "Missing credentials!" })
         const user = await User.findOne({ email: email })
         if (!user) return res.status(404).json({ message: "User with this email not found" })
         if (!user.otpVerified) return res.status(400).json({ message: "User not verified" })
-        if (await optSchema.findOne({ userEmail: user.email })) return res.status(400).json({ message: "Too many many attempts. Wait for 10 mins,than try again" })
+
+        const otpRegistered = await optSchema.find({ userEmail: user.email })
+        if (otpRegistered?.length > 1)
+            return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
+        else if (otpRegistered?.length === 1)
+            await optSchema.deleteOne({ userEmail: userEmail })
+
         //generate otp of 6 digit
         var digits = '0123456789';
         let otp = '';
@@ -181,6 +198,7 @@ module.exports = {
     resetPasswordOTPverification: async (req, res) => {
         const email = req.body.email;
         const otp = req.body.otp;
+        if (!(email && otp)) return res.status(400).json({ message: "Missing credentials!" })
         const otpData = await optSchema.findOne({ userEmail: email })
         if (!otpData) return res.status(404).json({ message: "Invalid Email" })
         if (!otpData.otp == otp) return res.status(400).json({ message: "OTP dose not match!" })
@@ -190,10 +208,15 @@ module.exports = {
     },
     newPasswordReset: async (req, res) => {
         const reqId = req.body.reId
-        const otpData = await optSchema.findById({ _id: reqId })
-        if (!otpData) return res.status(400).json({ message: "Fake credentials" })
-        const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10);
-        console.log(await User.updateOne({ email: otpData.userEmail }, { $set: { password: hashedPassword } }))
-        res.status(201).json({ message: "Password reset successfully. Login to continue" })
+        try {
+            const otpData = await optSchema.findById({ _id: reqId })
+            if (!otpData) return res.status(400).json({ message: "Fake credentials" })
+            await optSchema.deleteOne({ userEmail: otpData.userEmail })
+            const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10);
+            await User.updateOne({ email: otpData.userEmail }, { $set: { password: hashedPassword } })
+            res.status(201).json({ message: "Password reset successfully. Login to continue" })
+        } catch (error) {
+            res.status(400).json({ message: "Something went wrong!" })
+        }
     }
 }

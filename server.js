@@ -12,11 +12,12 @@ require('dotenv').config();
 //app config
 const app = express();
 const port = process.env.PORT || 5001;
+const AllowedOrigin = process.env.ALLOWED_ORIGIN;
 const connection_url = process.env.MONGODB_KA_API;
 //middlewares
 app.use(express.json());
 app.use(express.static(__dirname))
-app.use(Cors());
+app.use(Cors({ origin: AllowedOrigin, credentials: true }));
 app.use(cookieParser());
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
