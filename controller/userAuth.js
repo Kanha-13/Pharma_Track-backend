@@ -115,12 +115,13 @@ module.exports = {
         }
     },
     resendUserOTP: async (req, res) => {
+        let otpRegistered = []
         const userEmail = req.body.email
         if (!userEmail)
             return res.status(400).json("Missing credentials!")
         const user = await User.findOne({ email: userEmail })
         if (!user) return res.status(404).json({ message: "No user found with this email" })
-        const otpRegistered = await optSchema.find({ userEmail: user.email })
+        otpRegistered = await optSchema.find({ userEmail: user.email }) || []
         if (otpRegistered?.length > 1)
             return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
         else if (otpRegistered?.length === 1)
@@ -156,13 +157,14 @@ module.exports = {
         }
     },
     forgetPassword: async (req, res) => {
+        let otpRegistered = []
         const email = req.body.email;
         if (!email) return res.status(400).json({ message: "Missing credentials!" })
         const user = await User.findOne({ email: email })
         if (!user) return res.status(404).json({ message: "User with this email not found" })
         if (!user.otpVerified) return res.status(400).json({ message: "User not verified" })
 
-        const otpRegistered = await optSchema.find({ userEmail: user.email })
+        otpRegistered = await optSchema.find({ userEmail: user.email }) || []
         if (otpRegistered?.length > 1)
             return res.status(400).json({ message: "Too many many attempts. Wait for 4 mins,than try again" })
         else if (otpRegistered?.length === 1)
