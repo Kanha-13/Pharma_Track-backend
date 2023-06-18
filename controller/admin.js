@@ -25,7 +25,7 @@ module.exports = {
                 }, '', {
 
                 });
-                res.cookie('', token, { httpOnly: true });
+                res.cookie('', token, { httpOnly: true , sameSite: 'none', secure: true});
                 res.send("Ho gaya").status(200)
 
             }

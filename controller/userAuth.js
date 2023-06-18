@@ -29,7 +29,7 @@ module.exports = {
                 }, process.env.SECRETE_JWT_KEY, {
 
                 });
-                res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
+                res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true, sameSite: 'none', secure: true });
                 res.json({ message: "Ho gaya", token: token }).status(200)
 
             }
@@ -106,7 +106,7 @@ module.exports = {
             }, process.env.SECRETE_JWT_KEY, {
             });
             await optSchema.deleteOne({ userEmail: email })
-            res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true });
+            res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true, sameSite: 'none', secure: true });
             res.status(201).json({ message: "OTP verified and user has been logged in", token: token })
             return
         }
