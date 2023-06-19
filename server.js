@@ -19,8 +19,6 @@ app.use(express.json());
 app.use(express.static(__dirname))
 app.use(Cors({ origin: AllowedOrigin, credentials: true }));
 app.use(cookieParser());
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
 
 //mongo connection
 mongoose.connect(connection_url, {
