@@ -1,6 +1,7 @@
 const API = {
-  GET_STOCK: "/stock",
+  GET_STOCKS_INITIALS: "/stocks/initials",
+  GET_STOCK: "/stock/:pId",
   ADD_STOCK: "/stock",
-  UDPATE: "/stock"
+  UDPATE_STOCK: "/stock"
 }
 module.exports = { API }

@@ -9,11 +9,12 @@ router.route('/product/initials').get(auth, ProductController.getProdWithInitial
 router.route('/product')
   .get(auth, ProductController.findProdHandler)
   .post(auth, ProductController.addProdHandler)
-  .patch(auth,ProductController.udpateProductHandler)
+  .patch(auth, ProductController.udpateProductHandler)
+  .delete(auth, ProductController.deleteProdHandler)
 
 
 
-router.route('/deleteProd').post(auth, ProductController.deleteProdHandler)
+// router.route('/deleteProd').post(auth, ProductController.deleteProdHandler)
 router.route('/product/nearExp').post(auth, ProductController.nearExpiryHandler)
 router.route('/product/goingOutOfStock').get(auth, ProductController.goingOutOfStockHandler)
 router.route('/invoice/count').get(auth, ProductController.getInvoiceNumberHandler)

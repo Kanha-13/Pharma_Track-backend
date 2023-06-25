@@ -1,6 +1,7 @@
 const Product = {
   ADD_SUCCESS: "Product added successfully",
-  UPDATE_SUCCESS: "Product updated successfully"
+  UPDATE_SUCCESS: "Product updated successfully",
+  DELETE_SUCCESS: "Product deleted successfully",
 }
 
 const Stock = {

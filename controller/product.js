@@ -15,9 +15,13 @@ const addProd = async (req, res) => {
 }
 
 const deleteProd = async (req, res) => {
-    for (var i = 0; i < req.body.length; i++)
-        await products.deleteOne({ _id: req.body[i] })
-    res.status(200).json("Product Deleted");
+    const pId = req.query.item
+    if (!pId) return res.status(400).json({ message: "product id missing" });
+    const response = await ProductService.deleteProd(pId)
+    if (response.err)
+        res.status(500).json({ data: null, error: response.err })
+    else
+        res.status(200).json({ data: SUCCESS.PRODUCT.DELETE_SUCCESS, error: null })
 }
 
 const findProd = async (req, res) => {

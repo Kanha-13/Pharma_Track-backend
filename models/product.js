@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    qnty: {
+        type: Number,
+        required: false
+    },
     category: {
         type: String,
         require: true,

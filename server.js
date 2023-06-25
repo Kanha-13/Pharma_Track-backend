@@ -1,6 +1,7 @@
 const express = require('express');
 const Cors = require('cors');
 const product = require('./routes/product');
+const stock = require('./routes/stock');
 const admin = require('./routes/admin');
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
@@ -26,6 +27,7 @@ connect();
 app.use(admin)
 app.use(users)
 app.use(product)
+app.use(stock)
 app.use(billHistory)
 app.use(partyManage)
 app.use(salePurchase)
