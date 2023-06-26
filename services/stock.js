@@ -22,7 +22,6 @@ const addStock = async (data) => {
       return { data: res, err: null }
     }
   } catch (error) {
-    console.log(error)
     return { data: null, err: error }
   }
 }

@@ -17,7 +17,7 @@ const updateStockHandler = async (req, res) => {
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
-    res.status(200).json({ data: SUCCESS.STOCK.ADD_SUCCESS, error: response.err })
+    res.status(200).json({ data: SUCCESS.STOCK.UPDATE_SUCCESS, error: response.err })
 }
 
 const getStockHandler = async (req, res) => {
@@ -37,6 +37,14 @@ const getStockInitialsHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: response.err });
 }
 
-const StockController = { addStockHandler, updateStockHandler, getStockHandler, getStockInitialsHandler }
+const deleteStockHandler = async (req, res) => {
+  // const response = await StockService.getStockInitials(req.query.key)
+  // if (response.err)
+  //   res.status(500).json({ data: null, error: data.err })
+  // else
+  //   res.status(200).json({ data: SUCCESS.STOCK.DELETE_SUCCESS, error: response.err });
+}
+
+const StockController = { addStockHandler, updateStockHandler, getStockHandler, getStockInitialsHandler, deleteStockHandler }
 
 module.exports = StockController

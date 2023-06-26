@@ -3,6 +3,7 @@ const Cors = require('cors');
 const product = require('./routes/product');
 const stock = require('./routes/stock');
 const admin = require('./routes/admin');
+const vendor = require('./routes/vendor')
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
 const billHistory = require('./routes/billHistory');
@@ -28,6 +29,7 @@ app.use(admin)
 app.use(users)
 app.use(product)
 app.use(stock)
+app.use(vendor)
 app.use(billHistory)
 app.use(partyManage)
 app.use(salePurchase)
