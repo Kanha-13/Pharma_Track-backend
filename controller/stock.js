@@ -29,6 +29,16 @@ const getStockHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: response.err })
 }
 
+const getExpiryStocksHandler = async (req, res) => {
+  const from = req.query.from
+  const to = req.query.to
+  const response = await StockService.getExpiryStock({ from, to })
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+
 const getStockInitialsHandler = async (req, res) => {
   const response = await StockService.getStockInitials(req.query.key)
   if (response.err)
@@ -45,6 +55,10 @@ const deleteStockHandler = async (req, res) => {
   //   res.status(200).json({ data: SUCCESS.STOCK.DELETE_SUCCESS, error: response.err });
 }
 
-const StockController = { addStockHandler, updateStockHandler, getStockHandler, getStockInitialsHandler, deleteStockHandler }
+const StockController = {
+  addStockHandler, updateStockHandler,
+  getStockHandler, getStockInitialsHandler, deleteStockHandler,
+  getExpiryStocksHandler
+}
 
 module.exports = StockController

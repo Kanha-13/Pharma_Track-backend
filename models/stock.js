@@ -21,6 +21,20 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "products"
+    },
+    vId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "vendors"
+    },
+    minQnty:{
+        type: Number,
+        required: true,
+        default:0
+    },
+    maxQnty:{
+        type: Number,
+        required: true,
+        default:0
     }
 })
 

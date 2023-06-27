@@ -1,8 +1,10 @@
 const API = {
+  ADD_STOCK: "/stock",
   GET_STOCKS_INITIALS: "/stocks/initials",
   GET_STOCK: "/stock/:pId",
-  ADD_STOCK: "/stock",
+  GET_EXPIRY_STOCKS: "/stocks/expiry",
   UDPATE_STOCK: "/stock",
+  DELETE_STOCK: "/stock",
 
   ADD_VENDOR: "/vendor",
   UPDATE_VENDOR: "/vendor",

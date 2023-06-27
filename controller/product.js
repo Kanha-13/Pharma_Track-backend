@@ -53,14 +53,6 @@ const udpateProduct = async (req, res) => {
     else
         res.status(200).json({ data: SUCCESS.PRODUCT.UPDATE_SUCCESS, error: null })
 }
-
-const nearExpiry = async (req, res) => {
-    const data = await products.find({ expDate: { $lte: req.body.expDate, $gt: req.body.alertDate }, stock: { $gt: 0 } });
-    const alertDate = await products.find({ expDate: { $lte: req.body.alertDate }, stock: { $gt: 0 } })
-    const respo = [alertDate, data]
-    res.status(200).json(respo);
-
-}
 const getInvoiceNumber = async (req, res) => {
     const count = await patientsBill.countDocuments();
     const data = { invoCount: count + 1 }
@@ -114,7 +106,6 @@ const ProductController = {
     findProdHandler: findProd,
     udpateProductHandler: udpateProduct,
     getProdWithInitialsHandler: getProdWithInitials,
-    nearExpiryHandler: nearExpiry,
     getInvoiceNumberHandler: getInvoiceNumber,
     toCartHandler: toCart,
     reduceStockHandler: reduceStock,

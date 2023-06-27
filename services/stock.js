@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const Stock = require("../models/stock")
+const mongoose = require('mongoose');
+
 
 const checkDuplicate = async (data) => {
   return new Promise((resolve, reject) => {
@@ -37,9 +39,56 @@ const updateStock = async (id, data) => {
 
 const getStock = async (pId) => {
   try {
-    const res = await Stock.find({ pId: pId });
+    const res = await Stock.aggregate([
+      { $match: { pId: mongoose.Types.ObjectId(pId) } },
+      {
+        $lookup: {
+          from: 'vendors',
+          localField: 'vId',
+          foreignField: '_id',
+          as: 'vendorDetail'
+        }
+      }
+    ]);
     return { data: res, err: null }
   } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
+const getExpiryStock = async (date) => {
+  try {
+    let query = {};
+    if (date.from)
+      query = { expDate: { $lte: new Date(date.to), $gt: new Date(date.from) }, qnty: { $gt: 0 } }
+    else
+      query = { expDate: { $lte: new Date(date.to) }, qnty: { $gt: 0 } }
+    const res = await Stock.aggregate([
+      {
+        $match: query
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "pId",
+          foreignField: "_id",
+          as: "productDetail"
+        }
+      },
+      {
+        $lookup: {
+          from: 'vendors',
+          localField: 'vId',
+          foreignField: '_id',
+          as: 'vendorDetail'
+        }
+      },
+    ]);
+    console.log(res)
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
     return { data: null, err: error }
   }
 }
@@ -67,7 +116,7 @@ const getStockInitials = async (key) => {
   }
 }
 
-const StockService = { addStock, updateStock, getStock, getStockInitials }
+const StockService = { addStock, updateStock, getStock, getStockInitials, getExpiryStock }
 
 
 module.exports = StockService
