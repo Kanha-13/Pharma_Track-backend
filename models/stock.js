@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
+const stockSchema = new mongoose.Schema({
     qnty: {//number of tablets / bottles / tubes / vials
         type: Number,
         required: true,
@@ -35,7 +35,12 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default:0
+    },
+    status:{
+        type:String,
+        required:true,
+        default:"ACTIVE"
     }
 })
 
-module.exports = mongoose.model('stock', productSchema);
+module.exports = mongoose.model('stock', stockSchema);

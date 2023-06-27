@@ -10,6 +10,11 @@ const API = {
   UPDATE_VENDOR: "/vendor",
   GET_VENDORS: "/vendors",
   GET_VENDOR: "/vendor/:vId",
-  DELETE_VENDOR: "/vendor/:vId"
+  DELETE_VENDOR: "/vendor/:vId",
+
+  ADD_SETTLEMENT:"/settlement",
+  GET_SETTLEMENTS:"/settlements",
+  UPDATE_SETTLEMENT:"/settlement/:id",
+  DELETE_SETTLEMENT:"/settlement/:id"
 }
 module.exports = { API }

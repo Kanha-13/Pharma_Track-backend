@@ -61,9 +61,9 @@ const getExpiryStock = async (date) => {
   try {
     let query = {};
     if (date.from)
-      query = { expDate: { $lte: new Date(date.to), $gt: new Date(date.from) }, qnty: { $gt: 0 } }
+      query = { expDate: { $lte: new Date(date.to), $gt: new Date(date.from) }, qnty: { $gt: 0 }, status: "ACTIVE" }
     else
-      query = { expDate: { $lte: new Date(date.to) }, qnty: { $gt: 0 } }
+      query = { expDate: { $lte: new Date(date.to) }, qnty: { $gt: 0 }, status: "ACTIVE" }
     const res = await Stock.aggregate([
       {
         $match: query
@@ -85,7 +85,6 @@ const getExpiryStock = async (date) => {
         }
       },
     ]);
-    console.log(res)
     return { data: res, err: null }
   } catch (error) {
     console.log(error)

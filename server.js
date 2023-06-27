@@ -4,6 +4,7 @@ const product = require('./routes/product');
 const stock = require('./routes/stock');
 const admin = require('./routes/admin');
 const vendor = require('./routes/vendor')
+const settlement = require('./routes/settlement')
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
 const billHistory = require('./routes/billHistory');
@@ -31,6 +32,7 @@ app.use(product)
 app.use(stock)
 app.use(vendor)
 app.use(billHistory)
+app.use(settlement)
 app.use(partyManage)
 app.use(salePurchase)
 
