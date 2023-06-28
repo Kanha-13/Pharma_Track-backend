@@ -5,12 +5,17 @@ const SettlementService = require("../services/settlement");
 const addSettlementHandler = async (req, res) => {
   const data = req.body;
   const response = await SettlementService.addSettlement(data)
-  const response2 = await INTERNAL_SERVICE.STOCKS.updateStock(data.sId, { status: "RETURNED" })
-  console.log("update of stock",response2)
-  if (response.err && response2.err)
-    res.status(500).json({ data: null, error: { err1: response.err, err2: response2.err } })
+  if (response.err)
+    return res.status(500).json({ data: null, error: response.err })
+
+  const [response1, response2] = await Promise.all([
+    await INTERNAL_SERVICE.STOCKS.updateStockQnty(data.sId, { qnty: -data.returnQnty }),
+    await INTERNAL_SERVICE.PRODUCTS.updateProductQnty(data.pId, { qnty: -data.returnQnty })
+  ])
+  if (response1.err || response2.err)
+    res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
   else
-    res.status(201).json({ data: SUCCESS.SETTLEMENT.ADD_SUCCESS, error: response.err })
+    res.status(201).json({ data: SUCCESS.SETTLEMENT.ADD_SUCCESS, error: null })
 }
 
 const updateSettlementHandler = async (req, res) => {

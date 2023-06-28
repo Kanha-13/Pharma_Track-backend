@@ -45,14 +45,6 @@ const getSettlements = async () => {
           foreignField: '_id',
           as: 'vendorDetail'
         }
-      },
-      {
-        $lookup: {
-          from: 'stocks',
-          localField: 'sId',
-          foreignField: '_id',
-          as: 'stockDetail'
-        }
       }
     ]);
     return { data: res, err: null }

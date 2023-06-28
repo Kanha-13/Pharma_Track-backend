@@ -19,7 +19,7 @@ const addStock = async (data) => {
   try {
     const id = await checkDuplicate(data);
     if (id) {//if true means entry already exist therefore just update the stock, not create new enty
-      return INTERNAL_SERVICE.STOCKS.incrementStockQnty(id, data)
+      return await INTERNAL_SERVICE.STOCKS.updateStockQnty(id, { qnty: data.qnty })
     } else {
       const res = await Stock.create(data);
       return { data: res, err: null }

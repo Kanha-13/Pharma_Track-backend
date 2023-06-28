@@ -9,7 +9,7 @@ const updateStock = async (id,data) => {
   }
 }
 
-const incrementStockQnty = async (id,data) => {
+const updateStockQnty = async (id,data) => {
   try {
     const res = await Stock.updateOne({ _id: id }, { $inc: { qnty: data.qnty } });
     return { data: res, err: null }
@@ -20,7 +20,7 @@ const incrementStockQnty = async (id,data) => {
 
 const STOCKS = {
   updateStock,
-  incrementStockQnty
+  updateStockQnty
 }
 
 module.exports = STOCKS;
