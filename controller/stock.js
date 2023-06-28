@@ -4,7 +4,7 @@ const StockService = require("../services/stock");
 
 const addStockHandler = async (req, res) => {
   const data = req.body;
-  const [response1, response2] = await Promise.all([await StockService.addStock(data), await INTERNAL_SERVICE.updateProduct(data)])
+  const [response1, response2] = await Promise.all([await StockService.addStock(data), await INTERNAL_SERVICE.PRODUCTS.updateProductQnty(data.pId, { qnty: data.qnty })])
   if (response1.err || response2.err)
     res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
   else
@@ -12,8 +12,9 @@ const addStockHandler = async (req, res) => {
 }
 
 const updateStockHandler = async (req, res) => {
-  const data = req.body.data;
-  const response = await StockService.updateStock(data)
+  const data = req.body;
+  const id = req.params.id
+  const response = await StockService.updateStock(id, data)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
@@ -48,11 +49,14 @@ const getStockInitialsHandler = async (req, res) => {
 }
 
 const deleteStockHandler = async (req, res) => {
-  // const response = await StockService.getStockInitials(req.query.key)
-  // if (response.err)
-  //   res.status(500).json({ data: null, error: data.err })
-  // else
-  //   res.status(200).json({ data: SUCCESS.STOCK.DELETE_SUCCESS, error: response.err });
+  const id = req.params.id //stock id
+  let resp = await StockService.getStockById(id)
+  const stockData = resp.data
+  const [response1, response2] = await Promise.all([await StockService.deleteStock(id), await INTERNAL_SERVICE.PRODUCTS.updateProductQnty(stockData.pId, { qnty: -stockData.qnty })])
+  if (response1.err || response2.err)
+    res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
+  else
+    res.status(200).json({ data: SUCCESS.STOCK.DELETE_SUCCESS, error: null });
 }
 
 const StockController = {

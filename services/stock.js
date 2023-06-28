@@ -1,3 +1,4 @@
+const INTERNAL_SERVICE = require("../InternalService");
 const Product = require("../models/product");
 const Stock = require("../models/stock")
 const mongoose = require('mongoose');
@@ -18,7 +19,7 @@ const addStock = async (data) => {
   try {
     const id = await checkDuplicate(data);
     if (id) {//if true means entry already exist therefore just update the stock, not create new enty
-      return updateStock(id, data)
+      return INTERNAL_SERVICE.STOCKS.incrementStockQnty(id, data)
     } else {
       const res = await Stock.create(data);
       return { data: res, err: null }
@@ -30,9 +31,19 @@ const addStock = async (data) => {
 
 const updateStock = async (id, data) => {
   try {
-    const res = await Stock.updateOne({ _id: id }, { $inc: { qnty: data.qnty } });
+    const response = await Stock.updateOne({ _id: id }, data)
+    return { data: response, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
+const getStockById = async (id) => {
+  try {
+    const res = await Stock.findById(id);
     return { data: res, err: null }
   } catch (error) {
+    console.log(error)
     return { data: null, err: error }
   }
 }
@@ -115,7 +126,16 @@ const getStockInitials = async (key) => {
   }
 }
 
-const StockService = { addStock, updateStock, getStock, getStockInitials, getExpiryStock }
+const deleteStock = async (id) => {
+  try {
+    const response = await Stock.deleteOne({ _id: id })
+    return { data: response, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
+const StockService = { addStock, updateStock, getStock, getStockInitials, getExpiryStock, deleteStock, getStockById }
 
 
 module.exports = StockService

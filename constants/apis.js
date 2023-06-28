@@ -3,8 +3,8 @@ const API = {
   GET_STOCKS_INITIALS: "/stocks/initials",
   GET_STOCK: "/stock/:pId",
   GET_EXPIRY_STOCKS: "/stocks/expiry",
-  UDPATE_STOCK: "/stock",
-  DELETE_STOCK: "/stock",
+  UDPATE_STOCK: "/stock/:id",
+  DELETE_STOCK: "/stock/:id",
 
   ADD_VENDOR: "/vendor",
   UPDATE_VENDOR: "/vendor",

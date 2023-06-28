@@ -9,4 +9,18 @@ const updateStock = async (id,data) => {
   }
 }
 
-module.exports = updateStock;
+const incrementStockQnty = async (id,data) => {
+  try {
+    const res = await Stock.updateOne({ _id: id }, { $inc: { qnty: data.qnty } });
+    return { data: res, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
+const STOCKS = {
+  updateStock,
+  incrementStockQnty
+}
+
+module.exports = STOCKS;

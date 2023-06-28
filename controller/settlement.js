@@ -5,7 +5,7 @@ const SettlementService = require("../services/settlement");
 const addSettlementHandler = async (req, res) => {
   const data = req.body;
   const response = await SettlementService.addSettlement(data)
-  const response2 = await INTERNAL_SERVICE.updateStock(data.sId, { status: "RETURNED" })
+  const response2 = await INTERNAL_SERVICE.STOCKS.updateStock(data.sId, { status: "RETURNED" })
   console.log("update of stock",response2)
   if (response.err && response2.err)
     res.status(500).json({ data: null, error: { err1: response.err, err2: response2.err } })

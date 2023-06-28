@@ -18,4 +18,7 @@ router.route(API.ADD_STOCK)
 router.route(API.UDPATE_STOCK)
   .patch(auth, StockController.updateStockHandler)
 
+router.route(API.DELETE_STOCK)
+  .delete(auth, StockController.deleteStockHandler)
+
 module.exports = router;
