@@ -34,6 +34,14 @@ const findProd = async (req, res) => {
     }
 }
 
+const getAllProductsHandler = async (req, res) => {
+    const response = await ProductService.getAllProduct()
+    if (response.err)
+        res.status(500).json({ data: null, error: response.err })
+    else
+        res.status(200).json({ data: response.data, error: response.err });
+}
+
 const getProdWithInitials = async (req, res) => {
     try {
         const resdata = await products.find({ itemName: { $regex: `^${req.query.key}`, $options: "i" } })
@@ -109,8 +117,8 @@ const ProductController = {
     getInvoiceNumberHandler: getInvoiceNumber,
     toCartHandler: toCart,
     reduceStockHandler: reduceStock,
-    goingOutOfStockHandler: goingOutOfStock
-
+    goingOutOfStockHandler: goingOutOfStock,
+    getAllProductsHandler
 }
 module.exports = ProductController
 

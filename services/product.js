@@ -36,6 +36,14 @@ const updateProduct = async (pId, data) => {
     return { data: null, err: error }
   }
 }
+const getAllProduct = async () => {
+  try {
+    const res = await Product.find({})
+    return { data: res, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
 const getProduct = async () => {
 
 }
@@ -48,7 +56,7 @@ const deleteProd = async (pId) => {
   }
 }
 
-const ProductService = { addProduct, updateProduct, getProduct, deleteProd }
+const ProductService = { addProduct, updateProduct, getProduct, deleteProd, getAllProduct }
 
 
 module.exports = ProductService
