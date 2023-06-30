@@ -15,6 +15,12 @@ const API = {
   ADD_SETTLEMENT:"/settlement",
   GET_SETTLEMENTS:"/settlements",
   UPDATE_SETTLEMENT:"/settlement/:id",
-  DELETE_SETTLEMENT:"/settlement/:id"
+  DELETE_SETTLEMENT:"/settlement/:id",
+
+  ADD_PURCHASE: '/purchase',
+  GET_PURCHASES: '/purchases',
+  GET_PURCHASE_DETAIL: '/purchase/:id',
+  UPDATE_PURCHASE: '/purchase/:id',
+  DELETE_PURCHASE: '/purchase/:id'
 }
 module.exports = { API }

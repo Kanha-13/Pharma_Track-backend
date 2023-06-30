@@ -21,9 +21,15 @@ const Settlemet = {
   UPDATE_SUCCESS: "Settlemet updated successfully",
   DELETE_SUCCESS: "Settlemet deleted successfully"
 }
+const Purchase = {
+  ADD_SUCCESS: "Purchase added successfully",
+  UPDATE_SUCCESS: "Purchase updated successfully",
+  DELETE_SUCCESS: "Purchase deleted successfully"
+}
 
 const SUCCESS = {
   STOCK: Stock,
+  PURCHASE: Purchase,
   PRODUCT: Product,
   VENDOR: Vendor,
   SETTLEMENT:Settlemet

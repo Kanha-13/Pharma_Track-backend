@@ -4,6 +4,7 @@ const stockSchema = new mongoose.Schema({
     qnty: {//number of tablets / bottles / tubes / vials
         type: Number,
         required: true,
+        default:0
     },
     expDate: {
         type: Date,

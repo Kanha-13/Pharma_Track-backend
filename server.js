@@ -2,6 +2,7 @@ const express = require('express');
 const Cors = require('cors');
 const product = require('./routes/product');
 const stock = require('./routes/stock');
+const purchase = require('./routes/purchase');
 const admin = require('./routes/admin');
 const vendor = require('./routes/vendor')
 const settlement = require('./routes/settlement')
@@ -30,6 +31,7 @@ app.use(admin)
 app.use(users)
 app.use(product)
 app.use(stock)
+app.use(purchase)
 app.use(vendor)
 app.use(billHistory)
 app.use(settlement)
