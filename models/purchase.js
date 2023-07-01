@@ -28,6 +28,14 @@ const purchaseSchema = new mongoose.Schema({
         type: String,
         require: true,
       },
+      cashDisc: {
+        type: String,
+        require: true,
+      },
+      schemeDisc: {
+        type: String,
+        require: true,
+      },
       netRate: {//reducing schemes and discount
         type: String,
         require: true,
@@ -35,6 +43,28 @@ const purchaseSchema = new mongoose.Schema({
       expDate: {
         type: Date,
         required: true,
+      },
+      schemeDisc: {
+        type: String,
+        required: true
+      },
+      cashDisc: {
+        type: String,
+        required: true
+      },
+      netTax: {
+        type: String,
+        required: true
+      },
+      netValue: {
+        type: String,
+        required: true
+
+      },
+      netAmt: {
+        type: String,
+        required: true
+
       },
     }
   ],
@@ -57,7 +87,15 @@ const purchaseSchema = new mongoose.Schema({
   totalAmt: {
     type: Number,
     required: true
-  }
+  },
+  totalValue:{
+    type: Number,
+    required: true
+  },
+  totalTax:{
+    type: Number,
+    required: true
+  },
 })
 
 module.exports = mongoose.model('purchase', purchaseSchema);
