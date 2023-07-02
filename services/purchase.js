@@ -43,7 +43,44 @@ const updatePurchase = async (id, data) => {
 
 const getPurchaseById = async (id) => {
   try {
-    const res = await Purchase.findById(id);
+    const res = await Purchase.findById(id)
+    // const res = await Purchase.aggregate([
+    //   {
+    //     $match: { _id: mongoose.Types.ObjectId(id) }
+
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "products",
+    //       localField: "productsDetail.pId",
+    //       foreignField: "_id",
+    //       as: "productNames"
+    //     }
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: 'vendors',
+    //       localField: 'vId',
+    //       foreignField: '_id',
+    //       as: 'vendorDetail'
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       "_id": 1,
+    //       "productsDetail": 1,
+    //       "purDate": 1,
+    //       "vId": 1,
+    //       "billNo": 1,
+    //       "paymentType": 1,
+    //       "totalAmt": 1,
+    //       "totalValue": 1,
+    //       "totalTax": 1,
+    //       "productNames.itemName": 1,
+    //       "vendorDetail.vendorName": 1
+    //     }
+    //   },
+    // ]);
     return { data: res, err: null }
   } catch (error) {
     console.log(error)

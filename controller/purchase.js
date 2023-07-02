@@ -3,10 +3,15 @@ const SUCCESS = require("../constants/successMessage");
 const PurchaseService = require("../services/purchase");
 
 const addPurchaseHandler = async (req, res) => {
-  const data = req.body;
+  let data = req.body;
   const response1 = await PurchaseService.addPurchase(data)
   if (response1.err)
     return res.status(500).json({ data: null, error: response1.err })
+
+  data.productsDetail = data.productsDetail.map((prod) => {
+    return { ...prod, qnty: prod.qnty * prod.pkg }
+  })
+
   const [response2, response3] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
     await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail)
@@ -37,8 +42,8 @@ const getPurchasesHandler = async (req, res) => {
 }
 
 const getPurchaseHandler = async (req, res) => {
-  const pId = req.params.pId
-  const response = await PurchaseService.getPurchase(pId)
+  const purId = req.params.id
+  const response = await PurchaseService.getPurchaseById(purId)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else

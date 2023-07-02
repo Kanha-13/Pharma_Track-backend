@@ -12,7 +12,7 @@ const purchaseSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      qnty: {//number of tablets / bottles / tubes / vials
+      qnty: {//number of strips / bottles / tubes / vials
         type: Number,
         required: true,
       },
