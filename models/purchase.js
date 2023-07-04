@@ -8,6 +8,18 @@ const purchaseSchema = new mongoose.Schema({
         required: true,
         ref: "products"
       },
+      itemName: {
+        type: String,
+        required: true,
+      },
+      pkg: {
+        type: String,
+        required: true,
+      },
+      gst: {
+        type: String,
+        required: true,
+      },
       batch: {
         type: String,
         required: true,
@@ -88,11 +100,11 @@ const purchaseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  totalValue:{
+  totalValue: {
     type: Number,
     required: true
   },
-  totalTax:{
+  totalTax: {
     type: Number,
     required: true
   },
