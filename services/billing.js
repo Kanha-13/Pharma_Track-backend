@@ -36,7 +36,6 @@ const getBillById = async (id) => {
 }
 
 const getBillQuery = async (query) => {
-  console.log(query)
   try {
     let searchQuery = {}
     if (query.patientName)
@@ -52,7 +51,6 @@ const getBillQuery = async (query) => {
         $lte: query.to, $gte: query.from
       }
     }
-    console.log(searchQuery)
     const res = await Bill.find(searchQuery);
     return { data: res, err: null }
   } catch (error) {
