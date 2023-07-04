@@ -34,7 +34,7 @@ const updateBillHandler = async (req, res) => {
 }
 
 const getBillsHandler = async (req, res) => {
-  const response = await BillService.getBills(req.query)
+  const response = await BillService.getBillQuery(req.query)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else

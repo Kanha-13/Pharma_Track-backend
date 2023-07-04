@@ -13,10 +13,10 @@ const API = {
   GET_VENDOR: "/vendor/:vId",
   DELETE_VENDOR: "/vendor/:vId",
 
-  ADD_SETTLEMENT:"/settlement",
-  GET_SETTLEMENTS:"/settlements",
-  UPDATE_SETTLEMENT:"/settlement/:id",
-  DELETE_SETTLEMENT:"/settlement/:id",
+  ADD_SETTLEMENT: "/settlement",
+  GET_SETTLEMENTS: "/settlements",
+  UPDATE_SETTLEMENT: "/settlement/:id",
+  DELETE_SETTLEMENT: "/settlement/:id",
 
   ADD_PURCHASE: '/purchase',
   GET_PURCHASES: '/purchases',
@@ -24,6 +24,7 @@ const API = {
   UPDATE_PURCHASE: '/purchase/:id',
   DELETE_PURCHASE: '/purchase/:id',
 
-  BILLING_CHECKOUT:'/billing/checkout',
+  BILLING_CHECKOUT: '/billing/checkout',
+  GET_BILLING_HISTORY: '/billings',
 }
 module.exports = { API }

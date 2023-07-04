@@ -36,19 +36,24 @@ const getBillById = async (id) => {
 }
 
 const getBillQuery = async (query) => {
+  console.log(query)
   try {
-    const pId = query.pId
-    const res = await Bill.aggregate([
-      { $match: { pId: mongoose.Types.ObjectId(pId) } },
-      {
-        $lookup: {
-          from: 'vendors',
-          localField: 'vId',
-          foreignField: '_id',
-          as: 'vendorDetail'
-        }
+    let searchQuery = {}
+    if (query.patientName)
+      searchQuery.patientName = query.patientName
+    if (query.invoiceNo)
+      searchQuery.invoiceNo = query.invoiceNo
+    if (query.mobileNumber)
+      searchQuery.invoiceNo = query.mobileNumber
+    if (query.prescribedBy)
+      searchQuery.prescribedBy = query.prescribedBy
+    if (query.from && query.to) {
+      searchQuery.billingDate = {
+        $lte: query.to, $gte: query.from
       }
-    ]);
+    }
+    console.log(searchQuery)
+    const res = await Bill.find(searchQuery);
     return { data: res, err: null }
   } catch (error) {
     console.log(error)
