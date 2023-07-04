@@ -48,8 +48,9 @@ const getStockById = async (id) => {
   }
 }
 
-const getStock = async (pId) => {
+const getStockQuery = async (query) => {
   try {
+    const pId = query.pId
     const res = await Stock.aggregate([
       { $match: { pId: mongoose.Types.ObjectId(pId) } },
       {
@@ -135,7 +136,7 @@ const deleteStock = async (id) => {
   }
 }
 
-const StockService = { addStock, updateStock, getStock, getStockInitials, getExpiryStock, deleteStock, getStockById }
+const StockService = { addStock, updateStock, getStockQuery, getStockInitials, getExpiryStock, deleteStock, getStockById }
 
 
 module.exports = StockService

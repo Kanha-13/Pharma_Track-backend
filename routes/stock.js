@@ -12,6 +12,9 @@ router.route(API.GET_EXPIRY_STOCKS)
 router.route(API.GET_STOCK)
   .get(auth, StockController.getStockHandler)
 
+router.route(API.GET_STOCKS_QUERY)
+  .get(auth, StockController.getStockQueryHandler)
+
 router.route(API.ADD_STOCK)
   .post(auth, StockController.addStockHandler)
 

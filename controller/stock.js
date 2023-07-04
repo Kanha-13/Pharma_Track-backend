@@ -22,8 +22,16 @@ const updateStockHandler = async (req, res) => {
 }
 
 const getStockHandler = async (req, res) => {
-  const pId = req.params.pId
-  const response = await StockService.getStock(pId)
+  const id = req.params.pId
+  const response = await StockService.getStockById(id)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+const getStockQueryHandler = async (req, res) => {
+  const query = req.query
+  const response = await StockService.getStockQuery(query)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
@@ -61,7 +69,7 @@ const deleteStockHandler = async (req, res) => {
 
 const StockController = {
   addStockHandler, updateStockHandler,
-  getStockHandler, getStockInitialsHandler, deleteStockHandler,
+  getStockHandler, getStockQueryHandler, getStockInitialsHandler, deleteStockHandler,
   getExpiryStocksHandler
 }
 

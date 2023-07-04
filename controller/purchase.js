@@ -9,9 +9,11 @@ const addPurchaseHandler = async (req, res) => {
     return res.status(500).json({ data: null, error: response1.err })
 
   data.productsDetail = data.productsDetail.map((prod) => {
-    return { ...prod, qnty: prod.qnty * prod.pkg }
+    if (prod.category === "TABLET")
+      return { ...prod, qnty: prod.qnty * prod.pkg }
+    else return prod
   })
-
+  
   const [response2, response3] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
     await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail)

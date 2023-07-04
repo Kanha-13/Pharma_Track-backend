@@ -22,7 +22,7 @@ const addMultipleStocks = async (documents) => {
       const updateOperation = {
         $setOnInsert: document,
         $inc: { qnty: qnty },
-        status:"ACTIVE"
+        status: "ACTIVE"
       };
 
       // update operation to the bulk operation
@@ -32,6 +32,38 @@ const addMultipleStocks = async (documents) => {
           update: updateOperation,
           upsert: true, // Insert if no match is found
           new: true
+        },
+      });
+    }
+
+    if (bulkOps.length > 0) {
+      // Execute the bulk write operation
+      const result = await Stock.bulkWrite(bulkOps);
+      return { data: result, err: null }
+    }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
+const updateMultipleStocksQnty = async (documents) => {
+  try {
+    const bulkOps = [];
+    for (const document of documents) {
+      // criteria for duplicate entries
+      const duplicateCriteria = { _id: document.stockId };
+
+      // update operation
+      const updateOperation = {
+        $inc: { qnty: document.qnty },
+      };
+
+      // update operation to the bulk operation
+      bulkOps.push({
+        updateOne: {
+          filter: duplicateCriteria,
+          update: updateOperation,
         },
       });
     }
@@ -59,7 +91,8 @@ const updateStockQnty = async (id, data) => {
 const STOCKS = {
   updateStock,
   updateStockQnty,
-  addMultipleStocks
+  addMultipleStocks,
+  updateMultipleStocksQnty
 }
 
 module.exports = STOCKS;
