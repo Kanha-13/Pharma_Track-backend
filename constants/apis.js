@@ -25,6 +25,7 @@ const API = {
   DELETE_PURCHASE: '/purchase/:id',
 
   BILLING_CHECKOUT: '/billing/checkout',
+  GET_BILLING_INFO: '/billing/:id',
   GET_BILLING_HISTORY: '/billings',
 }
 module.exports = { API }

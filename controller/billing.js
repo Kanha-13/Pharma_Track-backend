@@ -42,8 +42,8 @@ const getBillsHandler = async (req, res) => {
 }
 
 const getBillHandler = async (req, res) => {
-  const purId = req.params.id
-  const response = await BillService.getBillById(purId)
+  const billingId = req.params.id
+  const response = await BillService.getBillById(billingId)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else

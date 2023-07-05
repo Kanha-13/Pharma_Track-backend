@@ -6,6 +6,9 @@ const addBill = async (data) => {
   try {
     const invoiceCount = await Bill.countDocuments()
     data.billInfo.invoiceNo = invoiceCount + 1
+    data.billInfo.patientName = data.billInfo.patientName.toUpperCase()
+    if (data.billInfo.prescribedBy)
+      data.billInfo.prescribedBy = data.billInfo.prescribedBy.toUpperCase()
     const Data = {
       ...data.billInfo, productsDetail: data.productsDetail
     }
@@ -39,19 +42,22 @@ const getBillQuery = async (query) => {
   try {
     let searchQuery = {}
     if (query.patientName)
-      searchQuery.patientName = query.patientName
+      searchQuery.patientName = query.patientName.toUpperCase()
     if (query.invoiceNo)
       searchQuery.invoiceNo = query.invoiceNo
     if (query.mobileNumber)
       searchQuery.invoiceNo = query.mobileNumber
     if (query.prescribedBy)
-      searchQuery.prescribedBy = query.prescribedBy
+      searchQuery.prescribedBy = query.prescribedBy.toUpperCase()
     if (query.from && query.to) {
       searchQuery.billingDate = {
         $lte: query.to, $gte: query.from
       }
     }
-    const res = await Bill.find(searchQuery);
+    const res = await Bill.aggregate([
+      { $match: searchQuery },
+      { $project: { productsDetail: 0 } }
+    ]);
     return { data: res, err: null }
   } catch (error) {
     console.log(error)

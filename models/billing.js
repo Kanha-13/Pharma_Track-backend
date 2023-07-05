@@ -95,6 +95,11 @@ const billSchema = new mongoose.Schema({
     required: true,
     default: ""
   },
+  amtDue: {
+    type: String,
+    required: true,
+    default: ""
+  },
   roundoff: {
     type: String,
     default: ""

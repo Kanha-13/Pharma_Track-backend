@@ -9,6 +9,9 @@ const auth = require('../middleware/is_auth');
 router.route(API.GET_BILLING_HISTORY)
   .get(auth, BillController.getBillsHandler)
 
+router.route(API.GET_BILLING_INFO)
+  .get(auth, BillController.getBillHandler)
+
 router.route(API.BILLING_CHECKOUT)
   .post(auth, BillController.addBillHandler)
 
