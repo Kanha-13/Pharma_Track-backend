@@ -15,8 +15,11 @@ router.route(API.GET_BILLING_INFO)
 router.route(API.BILLING_CHECKOUT)
   .post(auth, BillController.addBillHandler)
 
-// router.route(API.UDPATE_STOCK)
-//   .patch(auth, StockController.updateStockHandler)
+router.route(API.UPDATE_BILLING_INFO)
+  .patch(auth, BillController.updateBillHandler)
+
+router.route(API.CANCEL_BILLING)
+  .put(auth, BillController.cancelBillHandler)
 
 // router.route(API.DELETE_STOCK)
 //   .delete(auth, StockController.deleteStockHandler)

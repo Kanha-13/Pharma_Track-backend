@@ -16,10 +16,10 @@ const Vendor = {
   DELETE_SUCCESS: "Vendor deleted successfully"
 }
 
-const Settlemet = {
-  ADD_SUCCESS: "Settlemet added successfully",
-  UPDATE_SUCCESS: "Settlemet updated successfully",
-  DELETE_SUCCESS: "Settlemet deleted successfully"
+const Settlement = {
+  ADD_SUCCESS: "Settlement added successfully",
+  UPDATE_SUCCESS: "Settlement updated successfully",
+  DELETE_SUCCESS: "Settlement deleted successfully"
 }
 const Purchase = {
   ADD_SUCCESS: "Purchase added successfully",
@@ -27,12 +27,19 @@ const Purchase = {
   DELETE_SUCCESS: "Purchase deleted successfully"
 }
 
+const Billing = {
+  ADD_SUCCESS: "Billing added successfully",
+  UPDATE_SUCCESS: "Billing updated successfully",
+  DELETE_SUCCESS: "Billing deleted successfully"
+}
+
 const SUCCESS = {
   STOCK: Stock,
   PURCHASE: Purchase,
   PRODUCT: Product,
   VENDOR: Vendor,
-  SETTLEMENT:Settlemet
+  SETTLEMENT: Settlement,
+  BILLING: Billing
 }
 
 module.exports = SUCCESS

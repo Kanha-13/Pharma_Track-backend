@@ -27,5 +27,7 @@ const API = {
   BILLING_CHECKOUT: '/billing/checkout',
   GET_BILLING_INFO: '/billing/:id',
   GET_BILLING_HISTORY: '/billings',
+  UPDATE_BILLING_INFO: "/billing/:id",
+  CANCEL_BILLING: "/billing/:id",
 }
 module.exports = { API }

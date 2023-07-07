@@ -61,12 +61,14 @@ const billSchema = new mongoose.Schema({
   },
   prescribedBy: {
     type: String,
-    default: ""
+    default: "",
+    uppercase:true,
     // required: true,
   },
   patientName: {
     type: String,
     required: true,
+    uppercase:true,
   },
   mobileNumber: {
     type: String,

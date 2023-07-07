@@ -52,7 +52,7 @@ const updateMultipleStocksQnty = async (documents) => {
     const bulkOps = [];
     for (const document of documents) {
       // criteria for duplicate entries
-      const duplicateCriteria = { _id: document.stockId };
+      const duplicateCriteria = { $or: [{ _id: document.stockId }, { batch: document.batch }] };
 
       // update operation
       const updateOperation = {

@@ -30,7 +30,7 @@ const updateBillHandler = async (req, res) => {
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
-    res.status(200).json({ data: SUCCESS.PURCHASE.UPDATE_SUCCESS, error: response.err })
+    res.status(200).json({ data: SUCCESS.BILLING.UPDATE_SUCCESS, error: response.err })
 }
 
 const getBillsHandler = async (req, res) => {
@@ -50,6 +50,50 @@ const getBillHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: response.err })
 }
 
+const cancelBillHandler = async (req, res) => {
+  try {
+    const newBillData = req.body;
+    const billId = req.params.id
+    console.log(newBillData, billId)
+    const oldBillData = await BillService.getBillById(billId)
+    const response1 = await BillService.updateBill(billId, { ...newBillData.billInfo, productsDetail: newBillData.productsDetail })
+    console.log(response1.data)
+    if (oldBillData.err || response1.err)
+      res.status(500).json({ data: null, errors: { oldBillFetch: oldBillData.err, updateBill: response1.err } })
+    else {
+      // updating returned products
+      let qntyToUpdate = oldBillData.data.productsDetail.map((prod, index) => {
+        return { pId: prod.pId, qnty: prod.soldQnty, batch: prod.batch }
+      })
+      const [response2, response3, updatedBill] = await Promise.all([
+        await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(qntyToUpdate),
+        await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(qntyToUpdate),
+        await BillService.getBillById(billId)
+      ])
+
+      if (response2.err || response3.err || updatedBill.err)
+        res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: updatedBill.err } })
+      else {
+        //updating stocks for newbill products
+        let newProdQnty = newBillData.productsDetail.map((prod) => {
+          return { pId: prod.pId, batch: prod.batch, qnty: - prod.soldQnty }
+        })
+        const [response4, response5] = await Promise.all([
+          await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(newProdQnty),
+          await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(newProdQnty)
+        ])
+        if (response4.err || response5.err)
+          res.status(500).json({ data: null, error: { err4: response4.err, err5: response5.err } })
+        else
+          res.status(201).json({ data: updatedBill.data, error: null })
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ data: null, error: error })
+  }
+}
+
 const deleteBillHandler = async (req, res) => {
   const id = req.params.id //billing id
   let resp = await BillService.getBillById(id)
@@ -62,7 +106,7 @@ const deleteBillHandler = async (req, res) => {
 }
 
 const BillController = {
-  addBillHandler, updateBillHandler,
+  addBillHandler, updateBillHandler, cancelBillHandler,
   getBillHandler, getBillsHandler, deleteBillHandler
 }
 
