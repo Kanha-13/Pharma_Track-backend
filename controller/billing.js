@@ -41,9 +41,36 @@ const getBillsHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: response.err })
 }
 
+const getCNsHandler = async (req, res) => {
+  const response = await BillService.getCNQuery(req.query)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+
 const getBillHandler = async (req, res) => {
   const billingId = req.params.id
   const response = await BillService.getBillById(billingId)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+
+const getCNHandler = async (req, res) => {
+  const cnId = req.params.id
+  console.log(cnId)
+  const response = await BillService.getCNById(cnId)
+  console.log(response)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+const deleteCNHandler = async (req, res) => {
+  const cnId = req.params.id
+  const response = await BillService.deleteCNById(cnId)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
@@ -128,8 +155,8 @@ const deleteBillHandler = async (req, res) => {
 }
 
 const BillController = {
-  addBillHandler, updateBillHandler, cancelBillHandler, addCNHandler,
-  getBillHandler, getBillsHandler, deleteBillHandler
+  addBillHandler, updateBillHandler, cancelBillHandler, addCNHandler, deleteCNHandler,
+  getBillHandler, getBillsHandler, deleteBillHandler, getCNsHandler, getCNHandler
 }
 
 module.exports = BillController

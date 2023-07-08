@@ -9,8 +9,17 @@ const auth = require('../middleware/is_auth');
 router.route(API.GET_BILLING_HISTORY)
   .get(auth, BillController.getBillsHandler)
 
+router.route(API.GET_CN_HISTORY)
+  .get(auth, BillController.getCNsHandler)
+
 router.route(API.GET_BILLING_INFO)
   .get(auth, BillController.getBillHandler)
+
+router.route(API.GET_CN_INFO)
+  .get(auth, BillController.getCNHandler)
+
+router.route(API.DELETE_BILLING_CN)
+  .delete(auth, BillController.deleteCNHandler)
 
 router.route(API.BILLING_CHECKOUT)
   .post(auth, BillController.addBillHandler)
@@ -23,8 +32,5 @@ router.route(API.CANCEL_BILLING)
 
 router.route(API.ADD_BILLING_CN)
   .post(auth, BillController.addCNHandler)
-
-// router.route(API.DELETE_STOCK)
-//   .delete(auth, StockController.deleteStockHandler)
 
 module.exports = router;

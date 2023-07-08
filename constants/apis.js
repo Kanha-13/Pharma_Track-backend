@@ -26,7 +26,10 @@ const API = {
 
   BILLING_CHECKOUT: '/billing/checkout',
   GET_BILLING_INFO: '/billing/:id',
+  GET_CN_INFO: '/billing/creditnote/:id',
   GET_BILLING_HISTORY: '/billings',
+  DELETE_BILLING_CN: "/billing/creditnote/:id",
+  GET_CN_HISTORY: '/billings/creditnotes',
   UPDATE_BILLING_INFO: "/billing/:id",
   ADD_BILLING_CN: "/billing/creditnote",
   CANCEL_BILLING: "/billing/:id",

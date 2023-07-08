@@ -1,7 +1,5 @@
 const Bill = require("../models/billing")
 const CN = require("../models/creditNote")
-const mongoose = require('mongoose');
-
 
 const addBill = async (data) => {
   try {
@@ -56,6 +54,26 @@ const getBillById = async (id) => {
   }
 }
 
+const getCNById = async (id) => {
+  try {
+    console.log(id)
+    const res = await CN.findById(id);
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+const deleteCNById = async (id) => {
+  try {
+    const res = await CN.deleteOne({ _id: id });
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const getBillQuery = async (query) => {
   try {
     let searchQuery = {}
@@ -64,7 +82,7 @@ const getBillQuery = async (query) => {
     if (query.invoiceNo)
       searchQuery.invoiceNo = query.invoiceNo
     if (query.mobileNumber)
-      searchQuery.invoiceNo = query.mobileNumber
+      searchQuery.mobileNumber = query.mobileNumber
     if (query.prescribedBy)
       searchQuery.prescribedBy = query.prescribedBy.toUpperCase()
     if (query.from && query.to) {
@@ -73,6 +91,33 @@ const getBillQuery = async (query) => {
       }
     }
     const res = await Bill.aggregate([
+      { $match: searchQuery },
+      { $project: { productsDetail: 0 } }
+    ]);
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
+const getCNQuery = async (query) => {
+  try {
+    let searchQuery = {}
+    if (query.patientName)
+      searchQuery.patientName = query.patientName.toUpperCase()
+    if (query.cnNo)
+      searchQuery.cnNo = query.cnNo
+    if (query.mobileNumber)
+      searchQuery.mobileNumber = query.mobileNumber
+    if (query.prescribedBy)
+      searchQuery.prescribedBy = query.prescribedBy.toUpperCase()
+    if (query.from && query.to) {
+      searchQuery.billingDate = {
+        $lte: query.to, $gte: query.from
+      }
+    }
+    const res = await CN.aggregate([
       { $match: searchQuery },
       { $project: { productsDetail: 0 } }
     ]);
@@ -92,7 +137,7 @@ const deleteBill = async (id) => {
   }
 }
 
-const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById, addCN }
+const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById, addCN, getCNQuery, getCNById, deleteCNById }
 
 
 module.exports = BillService
