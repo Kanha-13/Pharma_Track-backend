@@ -56,7 +56,6 @@ const getBillById = async (id) => {
 
 const getCNById = async (id) => {
   try {
-    console.log(id)
     const res = await CN.findById(id);
     return { data: res, err: null }
   } catch (error) {

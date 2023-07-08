@@ -60,9 +60,7 @@ const getBillHandler = async (req, res) => {
 
 const getCNHandler = async (req, res) => {
   const cnId = req.params.id
-  console.log(cnId)
   const response = await BillService.getCNById(cnId)
-  console.log(response)
   if (response.err)
     res.status(500).json({ data: null, error: response.err })
   else
@@ -81,10 +79,8 @@ const cancelBillHandler = async (req, res) => {
   try {
     const newBillData = req.body;
     const billId = req.params.id
-    console.log(newBillData, billId)
     const oldBillData = await BillService.getBillById(billId)
     const response1 = await BillService.updateBill(billId, { ...newBillData.billInfo, productsDetail: newBillData.productsDetail })
-    console.log(response1.data)
     if (oldBillData.err || response1.err)
       res.status(500).json({ data: null, errors: { oldBillFetch: oldBillData.err, updateBill: response1.err } })
     else {
