@@ -96,13 +96,14 @@ const cancelBillHandler = async (req, res) => {
 
 const addCNHandler = async (req, res) => {
   let data = req.body;
+  data.productsDetail.map((prod) => {
+    prod.returnedQnty = prod.qnty = prod.soldQnty // to res-stock the quantity of stocks from Product and Stocks collection
+  })
+
   const response1 = await BillService.addCN(data)
   if (response1.err)
     return res.status(500).json({ data: null, err1: response1.err })
 
-  data.productsDetail.map((prod) => {
-    prod.qnty = prod.soldQnty // to res-stock the quantity of stocks from Product and Stocks collection
-  })
 
   const [response2, response3] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),

@@ -24,7 +24,7 @@ const cnSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      soldQnty: {//number of strips / bottles / tubes / vials
+      returnedQnty: {//number of tabs / bottles / tubes / vials
         type: Number,
         required: true,
       },
