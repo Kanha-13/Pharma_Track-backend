@@ -1,4 +1,5 @@
 const Bill = require("../models/billing")
+const CN = require("../models/creditNote")
 const mongoose = require('mongoose');
 
 
@@ -23,6 +24,23 @@ const updateBill = async (id, data) => {
   try {
     const response = await Bill.updateOne({ _id: id }, data)
     return { data: response, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
+const addCN = async (data) => {
+  try {
+    const cnCount = await CN.countDocuments()
+    data.billInfo.cnNo = cnCount + 1
+    data.billInfo.patientName = data.billInfo.patientName.toUpperCase()
+    if (data.billInfo.prescribedBy)
+      data.billInfo.prescribedBy = data.billInfo.prescribedBy.toUpperCase()
+    const Data = {
+      ...data.billInfo, productsDetail: data.productsDetail
+    }
+    const res = await CN.create(Data);
+    return { data: res, err: null }
   } catch (error) {
     return { data: null, err: error }
   }
@@ -74,7 +92,7 @@ const deleteBill = async (id) => {
   }
 }
 
-const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById }
+const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById, addCN }
 
 
 module.exports = BillService

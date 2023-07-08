@@ -94,6 +94,27 @@ const cancelBillHandler = async (req, res) => {
   }
 }
 
+const addCNHandler = async (req, res) => {
+  let data = req.body;
+  const response1 = await BillService.addCN(data)
+  if (response1.err)
+    return res.status(500).json({ data: null, err1: response1.err })
+
+  data.productsDetail.map((prod) => {
+    prod.qnty = prod.soldQnty // to res-stock the quantity of stocks from Product and Stocks collection
+  })
+
+  const [response2, response3] = await Promise.all([
+    await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
+    await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(data.productsDetail)
+  ])
+
+  if (response2.err || response3.err)
+    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err } })
+  else
+    res.status(201).json({ data: response1.data, error: null })
+}
+
 const deleteBillHandler = async (req, res) => {
   const id = req.params.id //billing id
   let resp = await BillService.getBillById(id)
@@ -106,7 +127,7 @@ const deleteBillHandler = async (req, res) => {
 }
 
 const BillController = {
-  addBillHandler, updateBillHandler, cancelBillHandler,
+  addBillHandler, updateBillHandler, cancelBillHandler, addCNHandler,
   getBillHandler, getBillsHandler, deleteBillHandler
 }
 
