@@ -28,9 +28,18 @@ const updateBillHandler = async (req, res) => {
   const id = req.params.id
   const response = await BillService.updateBill(id, data)
   if (response.err)
-    res.status(500).json({ data: null, error: response.err })
+    return res.status(500).json({ data: null, error: response.err })
+
+  const [response2, response3, updatedBill] = await Promise.all([
+    await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.removedItem),
+    await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(data.removedItem),
+    await BillService.getBillById(id)
+  ])
+
+  if (response2.err || response3.err || updatedBill.err)
+    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, updatedBillGet: updatedBill.err } })
   else
-    res.status(200).json({ data: SUCCESS.BILLING.UPDATE_SUCCESS, error: response.err })
+    res.status(201).json({ data: updatedBill.data, error: null })
 }
 
 const getBillsHandler = async (req, res) => {
