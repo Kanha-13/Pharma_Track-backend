@@ -33,5 +33,9 @@ const API = {
   UPDATE_BILLING_INFO: "/billing/:id",
   ADD_BILLING_CN: "/billing/creditnote",
   CANCEL_BILLING: "/billing/:id",
+
+  //patients
+  GET_MEDICINE_HISTORY: "/patient/medicines",
+
 }
 module.exports = { API }
