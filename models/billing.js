@@ -106,6 +106,14 @@ const billSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  creditAmt: {
+    type: String,
+    default: ""
+  },
+  cnId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "creditNotes"
+  },
 })
 
 module.exports = mongoose.model('saleBill', billSchema);

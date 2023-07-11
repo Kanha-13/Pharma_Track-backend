@@ -106,6 +106,11 @@ const cnSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  status: {
+    type: String,
+    required: true,
+    default: "PENDING"
+  }
 })
 
 module.exports = mongoose.model('creditNote', cnSchema);
