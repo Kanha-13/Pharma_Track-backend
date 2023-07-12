@@ -67,6 +67,15 @@ const getBillHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: response.err })
 }
 
+const getLastBillingHandler = async (req, res) => {
+  const query = req.query
+  const response = await BillService.getLastBill(query)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: response.err })
+}
+
 const getCNHandler = async (req, res) => {
   const cnId = req.params.id
   const response = await BillService.getCNById(cnId)
@@ -161,7 +170,7 @@ const deleteBillHandler = async (req, res) => {
 
 const BillController = {
   addBillHandler, updateBillHandler, cancelBillHandler, addCNHandler, deleteCNHandler,
-  getBillHandler, getBillsHandler, deleteBillHandler, getCNsHandler, getCNHandler
+  getBillHandler, getBillsHandler, deleteBillHandler, getCNsHandler, getCNHandler,getLastBillingHandler
 }
 
 module.exports = BillController

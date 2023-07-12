@@ -126,6 +126,15 @@ const getCNQuery = async (query) => {
     return { data: null, err: error }
   }
 }
+const getLastBill = async (query) => {
+  try {
+    const res = await Bill.find({}).sort({ [query.field]: -1 }).limit(parseInt(query.count));
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
 
 const deleteBill = async (id) => {
   try {
@@ -136,7 +145,7 @@ const deleteBill = async (id) => {
   }
 }
 
-const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById, addCN, getCNQuery, getCNById, deleteCNById }
+const BillService = { addBill, updateBill, getBillQuery, deleteBill, getBillById, addCN, getCNQuery, getCNById, deleteCNById, getLastBill }
 
 
 module.exports = BillService

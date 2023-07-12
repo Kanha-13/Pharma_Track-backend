@@ -33,4 +33,7 @@ router.route(API.CANCEL_BILLING)
 router.route(API.ADD_BILLING_CN)
   .post(auth, BillController.addCNHandler)
 
+router.route(API.GET_LAST_BILLING)
+  .get(auth, BillController.getLastBillingHandler)
+
 module.exports = router;

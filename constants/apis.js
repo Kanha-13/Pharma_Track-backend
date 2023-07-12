@@ -33,6 +33,7 @@ const API = {
   UPDATE_BILLING_INFO: "/billing/:id",
   ADD_BILLING_CN: "/billing/creditnote",
   CANCEL_BILLING: "/billing/:id",
+  GET_LAST_BILLING: "/billing/last/query",
 
   //patients
   GET_MEDICINE_HISTORY: "/patient/medicines",
