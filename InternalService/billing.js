@@ -1,4 +1,5 @@
 const Bill = require("../models/billing")
+const CN = require("../models/creditNote")
 
 const getBillsQuery = async (query) => {
   try {
@@ -17,8 +18,19 @@ const getBillsQuery = async (query) => {
   }
 }
 
+const updateCN = async (id, data) => {
+  try {
+    const res = await CN.updateOne({ _id: id }, data)
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const BILLING = {
   getBillsQuery,
+  updateCN
 }
 
 module.exports = BILLING;
