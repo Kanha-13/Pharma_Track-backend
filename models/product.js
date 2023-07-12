@@ -32,6 +32,10 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         require: true,
+    },
+    parentCategory:{// generic , general, ayurvedic, elopathic, homeopathic
+        type: String,
+        require: true
     }
 })
 
