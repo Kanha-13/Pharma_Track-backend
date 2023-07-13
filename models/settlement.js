@@ -28,7 +28,7 @@ const settlementSchema = new mongoose.Schema({
     required: true,
   },
   mrp: {
-    type: String,
+    type: Number,
     require: true,
   },
   status: {

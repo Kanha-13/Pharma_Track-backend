@@ -33,48 +33,40 @@ const purchaseSchema = new mongoose.Schema({
         required: true,
       },
       mrp: {
-        type: String,
+        type: Number,
         require: true,
       },
       rate: {
-        type: String,
+        type: Number,
         require: true,
       },
       cashDisc: {
-        type: String,
+        type: Number,
         require: true,
       },
       schemeDisc: {
-        type: String,
+        type: Number,
         require: true,
       },
       netRate: {//reducing schemes and discount
-        type: String,
+        type: Number,
         require: true,
       },
       expDate: {
         type: Date,
         required: true,
       },
-      schemeDisc: {
-        type: String,
-        required: true
-      },
-      cashDisc: {
-        type: String,
-        required: true
-      },
       netTax: {
-        type: String,
+        type: Number,
         required: true
       },
       netValue: {
-        type: String,
+        type: Number,
         required: true
 
       },
       netAmt: {
-        type: String,
+        type: Number,
         required: true
 
       },
@@ -89,7 +81,7 @@ const purchaseSchema = new mongoose.Schema({
     ref: "vendors"
   },
   billNo: {
-    type: String,
+    type: Number,
     required: true,
   },
   paymentType: {

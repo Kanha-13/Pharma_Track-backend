@@ -17,7 +17,7 @@ const cnSchema = new mongoose.Schema({
         required: true,
       },
       gst: {
-        type: String,
+        type: Number,
         required: true,
       },
       batch: {
@@ -29,15 +29,15 @@ const cnSchema = new mongoose.Schema({
         required: true,
       },
       mrp: {
-        type: String,
+        type: Number,
         require: true,
       },
       rate: {
-        type: String,
+        type: Number,
         require: true,
       },
       disc: {
-        type: String,
+        type: Number,
         require: true,
       },
       expDate: {
@@ -45,7 +45,7 @@ const cnSchema = new mongoose.Schema({
         required: true,
       },
       total: {
-        type: String,
+        type: Number,
         required: true
 
       },
@@ -56,7 +56,7 @@ const cnSchema = new mongoose.Schema({
     required: true,
   },
   cnNo: {
-    type: String,
+    type: Number,
     required: true,
   },
   prescribedBy: {
@@ -79,31 +79,31 @@ const cnSchema = new mongoose.Schema({
     default: ""
   },
   subTotal: {
-    type: String,
+    type: Number,
     required: true,
     default: "",
   },
   discount: {
-    type: String,
+    type: Number,
     default: "0"
   },
   grandTotal: {
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   amtRefund: {
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   amtDue: {//the amt we owe to customer
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   roundoff: {
-    type: String,
+    type: Number,
     default: ""
   },
   status: {

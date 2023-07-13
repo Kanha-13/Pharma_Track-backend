@@ -36,7 +36,12 @@ const productSchema = new mongoose.Schema({
     parentCategory:{// generic , general, ayurvedic, elopathic, homeopathic
         type: String,
         require: true
-    }
+    },
+    minQnty:{
+        type: Number,
+        required: true,
+        default:0
+    },
 })
 
 module.exports = mongoose.model('product', productSchema);

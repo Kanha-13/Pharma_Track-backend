@@ -10,9 +10,6 @@ const patient = require('./routes/patient')
 const settlement = require('./routes/settlement')
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
-const billHistory = require('./routes/billHistory');
-const partyManage = require('./routes/partyPurchase');
-const salePurchase = require('./routes/salePurchase');
 const { connect } = require('./db/mongoose_connect');
 require('dotenv').config();
 //app config
@@ -35,10 +32,7 @@ app.use(product)
 app.use(stock)
 app.use(purchase)
 app.use(vendor)
-app.use(billHistory)
 app.use(settlement)
-app.use(partyManage)
-app.use(salePurchase)
 app.use(billing)
 app.use(patient)
 

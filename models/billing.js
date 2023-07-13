@@ -17,7 +17,7 @@ const billSchema = new mongoose.Schema({
         required: true,
       },
       gst: {
-        type: String,
+        type: Number,
         required: true,
       },
       batch: {
@@ -29,15 +29,15 @@ const billSchema = new mongoose.Schema({
         required: true,
       },
       mrp: {
-        type: String,
+        type: Number,
         require: true,
       },
       rate: {
-        type: String,
+        type: Number,
         require: true,
       },
       disc: {
-        type: String,
+        type: Number,
         require: true,
       },
       expDate: {
@@ -45,9 +45,8 @@ const billSchema = new mongoose.Schema({
         required: true,
       },
       total: {
-        type: String,
+        type: Number,
         required: true
-
       },
     }
   ],
@@ -56,19 +55,19 @@ const billSchema = new mongoose.Schema({
     required: true,
   },
   invoiceNo: {
-    type: String,
+    type: Number,
     required: true,
   },
   prescribedBy: {
     type: String,
     default: "",
-    uppercase:true,
+    uppercase: true,
     // required: true,
   },
   patientName: {
     type: String,
     required: true,
-    uppercase:true,
+    uppercase: true,
   },
   mobileNumber: {
     type: String,
@@ -79,38 +78,38 @@ const billSchema = new mongoose.Schema({
     default: ""
   },
   subTotal: {
-    type: String,
+    type: Number,
     required: true,
     default: "",
   },
   discount: {
-    type: String,
-    default: "0"
+    type: Number,
+    default: 0
   },
   grandTotal: {
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   amtPaid: {
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   amtDue: {
-    type: String,
+    type: Number,
     required: true,
     default: ""
   },
   roundoff: {
-    type: String,
+    type: Number,
     default: ""
   },
   creditAmt: {
-    type: String,
+    type: Number,
     default: ""
   },
-  cnId:{
+  cnId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "creditNotes"
   },

@@ -12,7 +12,7 @@ const stockSchema = new mongoose.Schema({
         required: true,
     },
     mrp: {
-        type: String,
+        type: Number,
         require: true,
     },
     batch: {
@@ -27,16 +27,6 @@ const stockSchema = new mongoose.Schema({
     vId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "vendors"
-    },
-    minQnty:{
-        type: Number,
-        required: true,
-        default:0
-    },
-    maxQnty:{
-        type: Number,
-        required: true,
-        default:0
     },
     status:{
         type:String,
