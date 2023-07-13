@@ -44,8 +44,17 @@ const getAllProduct = async () => {
     return { data: null, err: error }
   }
 }
-const getProduct = async () => {
-
+const getProductQuery = async (query) => {
+  const queries = Object.keys(query)
+  if (queries.length)
+    try {
+      const res = await Product.find({ [queries[0]]: { $lte: query[queries[0]] } })
+      return { data: res, err: null }
+    } catch (error) {
+      return { data: null, err: error }
+    }
+  else
+    return { data: null, err: "Empty query" }
 }
 const deleteProd = async (pId) => {
   try {
@@ -56,7 +65,7 @@ const deleteProd = async (pId) => {
   }
 }
 
-const ProductService = { addProduct, updateProduct, getProduct, deleteProd, getAllProduct }
+const ProductService = { addProduct, updateProduct, getProductQuery, deleteProd, getAllProduct }
 
 
 module.exports = ProductService

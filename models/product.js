@@ -27,20 +27,21 @@ const productSchema = new mongoose.Schema({
     qnty: {
         type: Number,
         required: false,
+        default: 0,
         min: 0
     },
     category: {
         type: String,
         require: true,
     },
-    parentCategory:{// generic , general, ayurvedic, elopathic, homeopathic
+    parentCategory: {// generic , general, ayurvedic, elopathic, homeopathic
         type: String,
         require: true
     },
-    minQnty:{
+    minQnty: {
         type: Number,
         required: true,
-        default:0
+        default: 0
     },
 })
 

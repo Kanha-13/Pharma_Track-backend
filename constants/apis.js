@@ -1,4 +1,13 @@
 const API = {
+
+  GET_PRODUCT_QUERY: "/product/query",
+  ADD_PRODUCT:"/product",
+  GET_PRODUCT_INITIAL:'/product/initials',
+  GET_ALL_PRODUCTS:'/products',
+  GET_PRODUCT:"",
+  DELETE_PRODUCT:"/product",
+  UPDATE_PRODUCT:"/product",
+
   ADD_STOCK: "/stock",
   GET_STOCKS_INITIALS: "/stocks/initials",
   GET_STOCK: "/stock/:pId",

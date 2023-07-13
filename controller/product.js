@@ -59,13 +59,22 @@ const udpateProductHandler = async (req, res) => {
         res.status(200).json({ data: SUCCESS.PRODUCT.UPDATE_SUCCESS, error: null })
 }
 
+const getProductQueryHandler = async (req, res) => {
+    const response = await ProductService.getProductQuery(req.query)
+    if (response.err)
+        res.status(500).json({ data: null, error: response.err })
+    else
+        res.status(200).json({ data: response.data, error: response.err });
+}
+
 const ProductController = {
     addProdHandler,
     deleteProdHandler,
     findProdHandler,
     udpateProductHandler,
     getProdWithInitialsHandler,
-    getAllProductsHandler
+    getAllProductsHandler,
+    getProductQueryHandler
 }
 module.exports = ProductController
 
