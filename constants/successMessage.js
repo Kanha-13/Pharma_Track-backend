@@ -33,13 +33,20 @@ const Billing = {
   DELETE_SUCCESS: "Billing deleted successfully"
 }
 
+const Company = {
+  ADD_SUCCESS: "Company added successfully",
+  UPDATE_SUCCESS: "Company updated successfully",
+  DELETE_SUCCESS: "Company deleted successfully"
+}
+
 const SUCCESS = {
   STOCK: Stock,
   PURCHASE: Purchase,
   PRODUCT: Product,
   VENDOR: Vendor,
   SETTLEMENT: Settlement,
-  BILLING: Billing
+  BILLING: Billing,
+  COMPANY:Company
 }
 
 module.exports = SUCCESS

@@ -48,7 +48,14 @@ const API = {
   GET_MEDICINE_HISTORY: "/patient/medicines",
 
   //trade analysis
-  GET_TRADE_REPORT: "/trade/analysis"
+  GET_TRADE_REPORT: "/trade/analysis",
+
+  //company
+  ADD_COMPANY:"/company",
+  GET_COMPANY:"/company/:id",
+  UPDATE_COMPANY:"/company/:id",
+  DELETE_COMPANY:"/company/:id",
+  GET_COMPANYS:"/companys",
 
 }
 module.exports = { API }

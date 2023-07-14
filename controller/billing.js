@@ -9,6 +9,7 @@ const addBillHandler = async (req, res) => {
     return res.status(500).json({ data: null, err1: response1.err })
 
   data.productsDetail.map((prod) => {
+    // console.log(prod)
     prod.qnty = - prod.soldQnty // to decrement the quantity of stocks from Product and Stocks collection
   })
   const [response2, response3, response4, response5] = await Promise.all([

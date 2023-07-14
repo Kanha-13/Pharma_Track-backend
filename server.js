@@ -8,6 +8,7 @@ const vendor = require('./routes/vendor')
 const billing = require('./routes/billing')
 const patient = require('./routes/patient')
 const trade = require('./routes/trade')
+const company = require('./routes/company')
 const settlement = require('./routes/settlement')
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
@@ -37,6 +38,7 @@ app.use(settlement)
 app.use(billing)
 app.use(patient)
 app.use(trade)
+app.use(company)
 
 //listner
 app.listen(port, () => console.log(`listening on localhost: ${port}`));
