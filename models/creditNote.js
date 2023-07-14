@@ -56,7 +56,7 @@ const cnSchema = new mongoose.Schema({
     required: true,
   },
   cnNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   prescribedBy: {

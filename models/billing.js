@@ -55,7 +55,7 @@ const billSchema = new mongoose.Schema({
     required: true,
   },
   invoiceNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   prescribedBy: {
@@ -80,7 +80,7 @@ const billSchema = new mongoose.Schema({
   subTotal: {
     type: Number,
     required: true,
-    default: "",
+    default: 0,
   },
   discount: {
     type: Number,
@@ -89,29 +89,34 @@ const billSchema = new mongoose.Schema({
   grandTotal: {
     type: Number,
     required: true,
-    default: ""
+    default: 0
   },
   amtPaid: {
     type: Number,
     required: true,
-    default: ""
+    default: 0
   },
   amtDue: {
     type: Number,
     required: true,
-    default: ""
+    default: 0
   },
   roundoff: {
     type: Number,
-    default: ""
+    default: 0
   },
   creditAmt: {
     type: Number,
-    default: ""
+    default: 0
   },
   cnId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "creditNotes"
+  },
+  profit: {
+    type: Number,
+    required: true,
+    default: 0
   },
 })
 

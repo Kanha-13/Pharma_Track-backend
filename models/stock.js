@@ -15,6 +15,10 @@ const stockSchema = new mongoose.Schema({
         type: Number,
         require: true,
     },
+    netRate:{
+        type: Number,
+        default:0
+    },
     batch: {
         type: String,
         required: true,

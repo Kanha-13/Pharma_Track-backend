@@ -81,7 +81,7 @@ const purchaseSchema = new mongoose.Schema({
     ref: "vendors"
   },
   billNo: {
-    type: Number,
+    type: String,
     required: true,
   },
   paymentType: {

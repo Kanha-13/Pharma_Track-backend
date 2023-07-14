@@ -14,13 +14,14 @@ const addPurchaseHandler = async (req, res) => {
     else return prod
   })
   
-  const [response2, response3] = await Promise.all([
+  const [response2, response3, response4] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
-    await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail)
+    await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail),
+    await INTERNAL_SERVICE.TRADE.updateOnePurchaseTrade(data.billInfo.purDate, data),
   ])
 
-  if (response2.err || response3.err)
-    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err } })
+  if (response2.err || response3.err || response4.err)
+    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err } })
   else
     res.status(201).json({ data: SUCCESS.PURCHASE.ADD_SUCCESS, error: null })
 }

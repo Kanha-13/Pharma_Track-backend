@@ -11,14 +11,15 @@ const addBillHandler = async (req, res) => {
   data.productsDetail.map((prod) => {
     prod.qnty = - prod.soldQnty // to decrement the quantity of stocks from Product and Stocks collection
   })
-  const [response2, response3, response4] = await Promise.all([
+  const [response2, response3, response4, response5] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
     await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(data.productsDetail),
-    await INTERNAL_SERVICE.BILLING.updateCN(data.billInfo.cnId, { status: "REFUNDED" })
+    await INTERNAL_SERVICE.BILLING.updateCN(data.billInfo.cnId, { status: "REFUNDED" }),
+    await INTERNAL_SERVICE.TRADE.updateOneSaleTrade(data.billInfo.billingDate, data)
   ])
 
-  if (response2.err || response3.err || response4.err)
-    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err } })
+  if (response2.err || response3.err || response4.err || response5.err)
+    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err, err5: response5.err } })
   else
     res.status(201).json({ data: response1.data, error: null })
 }
@@ -170,7 +171,7 @@ const deleteBillHandler = async (req, res) => {
 
 const BillController = {
   addBillHandler, updateBillHandler, cancelBillHandler, addCNHandler, deleteCNHandler,
-  getBillHandler, getBillsHandler, deleteBillHandler, getCNsHandler, getCNHandler,getLastBillingHandler
+  getBillHandler, getBillsHandler, deleteBillHandler, getCNsHandler, getCNHandler, getLastBillingHandler
 }
 
 module.exports = BillController
