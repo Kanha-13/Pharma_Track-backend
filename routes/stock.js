@@ -24,4 +24,7 @@ router.route(API.UDPATE_STOCK)
 router.route(API.DELETE_STOCK)
   .delete(auth, StockController.deleteStockHandler)
 
+router.route(API.GET_STOCKS_VALUATION)
+  .get(auth, StockController.getStocksValuationHandler)
+
 module.exports = router;

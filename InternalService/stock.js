@@ -88,11 +88,23 @@ const updateStockQnty = async (id, data) => {
   }
 }
 
+const calculateValuation = async (stocks = []) => {
+  let valuation = 0;
+  stocks.map((stock) => {
+    if (stock.productDetail[0]?.category === "TABLET")
+      valuation += ((stock.netRate || 0) / stock.productDetail[0].pkg) * stock.qnty
+    else
+      valuation += (stock.netRate || 0) * stock.qnty
+  })
+  return valuation.toFixed(2);
+}
+
 const STOCKS = {
   updateStock,
   updateStockQnty,
   addMultipleStocks,
-  updateMultipleStocksQnty
+  updateMultipleStocksQnty,
+  calculateValuation
 }
 
 module.exports = STOCKS;

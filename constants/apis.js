@@ -15,6 +15,7 @@ const API = {
   GET_EXPIRY_STOCKS: "/stocks/expiry",
   UDPATE_STOCK: "/stock/:id",
   DELETE_STOCK: "/stock/:id",
+  GET_STOCKS_VALUATION:"/stocks/valuation",
 
   ADD_VENDOR: "/vendor",
   UPDATE_VENDOR: "/vendor",

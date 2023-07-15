@@ -136,7 +136,36 @@ const deleteStock = async (id) => {
   }
 }
 
-const StockService = { addStock, updateStock, getStockQuery, getStockInitials, getExpiryStock, deleteStock, getStockById }
+const getStocksValuation = async () => {
+  try {
+    const stocks = await Stock.aggregate([
+      { $match: {} },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'pId',
+          foreignField: '_id',
+          as: 'productDetail'
+        }
+      },
+      {
+        $project: {
+          "productDetail.pkg": 1,
+          "productDetail.category": 1,
+          "netRate": 1,
+          "qnty": 1
+        }
+      }
+    ]);
+    const res = await INTERNAL_SERVICE.STOCKS.calculateValuation(stocks)
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
+const StockService = { addStock, updateStock, getStockQuery, getStockInitials, getExpiryStock, deleteStock, getStockById, getStocksValuation }
 
 
 module.exports = StockService

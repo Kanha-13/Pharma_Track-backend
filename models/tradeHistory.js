@@ -113,6 +113,12 @@ const tradeSchema = new mongoose.Schema({
             default: 0,
             min: 0
         },
+    },
+    totalLoss: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
     }
 })
 
