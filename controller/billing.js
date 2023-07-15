@@ -1,6 +1,7 @@
 const INTERNAL_SERVICE = require("../InternalService");
 const SUCCESS = require("../constants/successMessage");
 const BillService = require("../services/billing");
+const { analyseParentCategory } = require("../utils/billing");
 
 const addBillHandler = async (req, res) => {
   let data = req.body;
@@ -8,8 +9,10 @@ const addBillHandler = async (req, res) => {
   if (response1.err)
     return res.status(500).json({ data: null, err1: response1.err })
 
+  const categoryReport = analyseParentCategory(data.productsDetail)
+  data.billInfo.categoryWiseSale = categoryReport //in rupees
+
   data.productsDetail.map((prod) => {
-    // console.log(prod)
     prod.qnty = - prod.soldQnty // to decrement the quantity of stocks from Product and Stocks collection
   })
   const [response2, response3, response4, response5] = await Promise.all([

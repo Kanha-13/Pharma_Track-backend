@@ -8,10 +8,15 @@ const updateOneSaleTrade = async (date, data) => {
     const revenue = data.grandTotal
     const profit = data.profit
     const salesCredit = data.amtDue
-
+    const categoryWiseSale = data.categoryWiseSale
     const res = await Trade.updateOne({ date: date }, {
       $inc: {
-        salesCount: saleCount, revenue: revenue, profit: profit, salesCredit: salesCredit
+        salesCount: saleCount, revenue: revenue, profit: profit, salesCredit: salesCredit,
+        "categoryWiseSale.allopathic": categoryWiseSale.allopathic,
+        "categoryWiseSale.ayurvedic": categoryWiseSale.ayurvedic,
+        "categoryWiseSale.general": categoryWiseSale.general,
+        "categoryWiseSale.generic": categoryWiseSale.generic,
+        "categoryWiseSale.surgical": categoryWiseSale.surgical,
       },
       date: date
     }, { upsert: true })
@@ -28,10 +33,16 @@ const updateOnePurchaseTrade = async (date, data) => {
     const purchaseCount = 1
     const investment = data.totalAmt
     const purchaseCredit = (data.paymentType === "CHALAN" || data.paymentType === "CREDIT") ? data.totalAmt : 0
+    const categoryWisePurchase = data.categoryWisePurchase
 
     const res = await Trade.updateOne({ date: date }, {
       $inc: {
-        purchaseCount: purchaseCount, investment: investment, purchaseCredit: purchaseCredit
+        purchaseCount: purchaseCount, investment: investment, purchaseCredit: purchaseCredit,
+        "categoryWisePurchase.allopathic": categoryWisePurchase.allopathic,
+        "categoryWisePurchase.ayurvedic": categoryWisePurchase.ayurvedic,
+        "categoryWisePurchase.general": categoryWisePurchase.general,
+        "categoryWisePurchase.generic": categoryWisePurchase.generic,
+        "categoryWisePurchase.surgical": categoryWisePurchase.surgical,
       },
       date: date
     }, { upsert: true })
@@ -50,13 +61,6 @@ const udpatePreviousMonthTrde = async () => {
     searchYear = today.getFullYear() - 1
 
   try {
-    // //check is entry present
-    // const isAuditDone = await TradeHistory.findOne({ month: previousMonth, year: searchYear })
-
-    // //if yes return
-    // if (isAuditDone?._id)
-    //   return { data: null, err: "Entry already present" }
-
     let from = today.getFullYear() + "-" + (today.getMonth()) + "-" + "01" //previous month first date
     let to = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + "01" // till current month first date
 
@@ -75,6 +79,16 @@ const udpatePreviousMonthTrde = async () => {
     let salesCredit = 0;
     let purchaseCredit = 0;
 
+    let allopathicPurchase = 0;
+    let allopathicSale = 0;
+    let ayurvedicPurchase = 0;
+    let ayurvedicSale = 0;
+    let generalPurchase = 0;
+    let generalSale = 0;
+    let genericPurchase = 0;
+    let genericSale = 0;
+    let surgicalPurchase = 0;
+    let surgicalSale = 0;
 
     daily_trade_record.map((trade, index) => {
       salesCount += trade.salesCount
@@ -84,6 +98,18 @@ const udpatePreviousMonthTrde = async () => {
       profit += trade.profit
       salesCredit += trade.salesCredit
       purchaseCredit += trade.purchaseCredit
+
+      allopathicSale += trade.categoryWiseSale.allopathic
+      ayurvedicSale += trade.categoryWiseSale.ayurvedic
+      generalSale += trade.categoryWiseSale.general
+      genericSale += trade.categoryWiseSale.generic
+      surgicalSale += trade.categoryWiseSale.surgical
+
+      allopathicPurchase += trade.categoryWisePurchase.allopathic
+      ayurvedicPurchase += trade.categoryWisePurchase.ayurvedic
+      generalPurchase += trade.categoryWisePurchase.general
+      genericPurchase += trade.categoryWisePurchase.generic
+      surgicalPurchase += trade.categoryWisePurchase.surgical
     })
 
     investment = investment.toFixed(2)
@@ -98,7 +124,18 @@ const udpatePreviousMonthTrde = async () => {
       $inc: {
         salesCount: salesCount, purchaseCount: purchaseCount,
         investment: investment, revenue: revenue, profit: profit,
-        salesCredit: salesCredit, purchaseCredit: purchaseCredit
+        salesCredit: salesCredit, purchaseCredit: purchaseCredit,
+        "categoryWisePurchase.allopathic": allopathicPurchase,
+        "categoryWisePurchase.ayurvedic": ayurvedicPurchase,
+        "categoryWisePurchase.general": generalPurchase,
+        "categoryWisePurchase.generic": genericPurchase,
+        "categoryWisePurchase.surgical": surgicalPurchase,
+        
+        "categoryWiseSale.allopathic": allopathicSale,
+        "categoryWiseSale.ayurvedic": ayurvedicSale,
+        "categoryWiseSale.general": generalSale,
+        "categoryWiseSale.generic": genericSale,
+        "categoryWiseSale.surgical": surgicalSale,
       }
     }, { upsert: true })
 
@@ -106,7 +143,7 @@ const udpatePreviousMonthTrde = async () => {
     if (deleteResp.err)
       throw Error("Unable to delete old records")
 
-    console.log("Entry made successfully and previous month daily trade record deleted")
+    console.log("Trade history entry made successfully and previous month daily trade record deleted")
     return { data: "Entry made successfully", err: null }
   } catch (error) {
     console.log(error)

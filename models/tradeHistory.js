@@ -49,6 +49,70 @@ const tradeSchema = new mongoose.Schema({
     year: {
         type: Number,
         required: true
+    },
+    categoryWiseSale: {
+        allopathic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        ayurvedic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        general: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        generic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        surgical: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+    },
+    categoryWisePurchase: {
+        allopathic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        ayurvedic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        general: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        generic: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
+        surgical: {
+            type: Number,
+            required: true,
+            default: 0,
+            min: 0
+        },
     }
 })
 

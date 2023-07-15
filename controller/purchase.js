@@ -1,6 +1,7 @@
 const INTERNAL_SERVICE = require("../InternalService");
 const SUCCESS = require("../constants/successMessage");
 const PurchaseService = require("../services/purchase");
+const { analyseParentCategory } = require("../utils/billing");
 
 const addPurchaseHandler = async (req, res) => {
   let data = req.body;
@@ -8,12 +9,15 @@ const addPurchaseHandler = async (req, res) => {
   if (response1.err)
     return res.status(500).json({ data: null, error: response1.err })
 
+  const categoryReport = analyseParentCategory(data.productsDetail)
+  data.billInfo.categoryWisePurchase = categoryReport //in rupees
+
   data.productsDetail = data.productsDetail.map((prod) => {
     if (prod.category === "TABLET")
       return { ...prod, qnty: prod.qnty * prod.pkg }
     else return prod
   })
-  
+
   const [response2, response3, response4] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
     await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail),

@@ -1,25 +1,38 @@
 const Trade = require("../models/trade")
+const TradeHistory = require("../models/tradeHistory")
 
 const getTradeAnalysis = async (query) => {
   let today = new Date()
   let searchQuery = {}
-
-
-  if (query.duration)
-    if (query.duration === "month") {
-      searchQuery.from = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + "01"
-      searchQuery.to = today.getFullYear() + "-" + (today.getMonth() + 2) + "-" + "01"
-    }
-    else {
-      searchQuery.from = today.getFullYear() + "-" + "01" + "-" + "01"
-      searchQuery.to = (today.getFullYear() + 1) + "-" + "01" + "-" + "01"
-    }
-  else if (query.custom) {
-    searchQuery.from = query.custom.from
-    searchQuery.to = query.custom.to
-  }
   try {
-    const res = await Trade.find({ date: { $lt: searchQuery.to, $gte: searchQuery.from } })
+    let res1 = [];
+    let res2 = [];
+    if (query.duration) {
+      if (query.duration === "year") {
+        let currentYear = today.getFullYear()
+        searchQuery = { month: { $lte: 12, $gte: 1 }, year: currentYear }
+        const [response1, response2] = await Promise.all([await Trade.find({}), await TradeHistory.find(searchQuery)])
+        res1 = response1
+        res2 = response2
+      }
+      else
+        res1 = await Trade.find({})
+    }
+    else if (query.fromMonth) {
+      let fromMonth = query.fromMonth
+      let toMonth = query.toMonth
+      let fromYear = query.fromYear
+      let toYear = query.toYear
+      searchQuery = { month: { $lte: toMonth, $gte: fromMonth }, year: { $lte: toYear, $gte: fromYear } }
+      if (toMonth >= (today.getMonth() + 1)) {
+        const [response1, response2] = await Promise.all([await Trade.find({}), await TradeHistory.find(searchQuery)])
+        res1 = response1
+        res2 = response2
+      }
+      else
+        res2 = await TradeHistory.find(searchQuery)
+    }
+    const res = { currentMonth: res1, resetAllMonth: res2 }
     return { data: res, err: null }
   } catch (error) {
     console.log(error)
