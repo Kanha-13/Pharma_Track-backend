@@ -20,7 +20,7 @@ const analyseParentCategory = (products) => {
         generic += parseFloat(prod.total || prod.netAmt)
         break;
       case "SURGICAL":
-        generic += parseFloat(prod.total || prod.netAmt)
+        surgical += parseFloat(prod.total || prod.netAmt)
         break;
       default:
         break;

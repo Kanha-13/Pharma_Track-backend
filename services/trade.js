@@ -11,12 +11,12 @@ const getTradeAnalysis = async (query) => {
       if (query.duration === "year") {
         let currentYear = today.getFullYear()
         searchQuery = { month: { $lte: 12, $gte: 1 }, year: currentYear }
-        const [response1, response2] = await Promise.all([await Trade.find({}), await TradeHistory.find(searchQuery)])
+        const [response1, response2] = await Promise.all([await Trade.find({}).sort({ date: 1 }), await TradeHistory.find(searchQuery).sort({ month: 1, year: 1 })])
         res1 = response1
         res2 = response2
       }
       else
-        res1 = await Trade.find({})
+        res1 = await Trade.find({}).sort({ date: 1 })
     }
     else if (query.fromMonth) {
       let fromMonth = query.fromMonth
@@ -25,7 +25,7 @@ const getTradeAnalysis = async (query) => {
       let toYear = query.toYear
       searchQuery = { month: { $lte: toMonth, $gte: fromMonth }, year: { $lte: toYear, $gte: fromYear } }
       if (toMonth >= (today.getMonth() + 1)) {
-        const [response1, response2] = await Promise.all([await Trade.find({}), await TradeHistory.find(searchQuery)])
+        const [response1, response2] = await Promise.all([await Trade.find({}), await TradeHistory.find(searchQuery).sort({ month: 1, year: 1 })])
         res1 = response1
         res2 = response2
       }

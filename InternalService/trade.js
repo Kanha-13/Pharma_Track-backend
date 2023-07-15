@@ -143,7 +143,7 @@ const udpatePreviousMonthTrde = async () => {
     if (deleteResp.err)
       throw Error("Unable to delete old records")
 
-    console.log("Trade history entry made successfully and previous month daily trade record deleted")
+    console.log("Trade-history entry made successfully and previous month daily trade records deleted")
     return { data: "Entry made successfully", err: null }
   } catch (error) {
     console.log(error)
