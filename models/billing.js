@@ -118,6 +118,15 @@ const billSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
+  paymentType: {
+    type: String,
+  },
+  paymentId: {
+    type: String,
+  },
+  paymentDate: {
+    type: Date
+  },
 })
 
 module.exports = mongoose.model('saleBill', billSchema);

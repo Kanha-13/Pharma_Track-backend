@@ -15,7 +15,7 @@ const API = {
   GET_EXPIRY_STOCKS: "/stocks/expiry",
   UDPATE_STOCK: "/stock/:id",
   DELETE_STOCK: "/stock/:id",
-  GET_STOCKS_VALUATION:"/stocks/valuation",
+  GET_STOCKS_VALUATION: "/stocks/valuation",
 
   ADD_VENDOR: "/vendor",
   UPDATE_VENDOR: "/vendor",
@@ -48,16 +48,17 @@ const API = {
 
   //patients
   GET_MEDICINE_HISTORY: "/patient/medicines",
+  PATIENT_BILL_PAYMENT: '/patient/bill/payment',
 
   //trade analysis
   GET_TRADE_REPORT: "/trade/analysis",
 
   //company
-  ADD_COMPANY:"/company",
-  GET_COMPANY:"/company/:id",
-  UPDATE_COMPANY:"/company/:id",
-  DELETE_COMPANY:"/company/:id",
-  GET_COMPANYS:"/companys",
+  ADD_COMPANY: "/company",
+  GET_COMPANY: "/company/:id",
+  UPDATE_COMPANY: "/company/:id",
+  DELETE_COMPANY: "/company/:id",
+  GET_COMPANYS: "/companys",
 
 }
 module.exports = { API }

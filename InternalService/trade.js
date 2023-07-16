@@ -182,7 +182,6 @@ const updateOneTradeCreditAndLoss = async (date, data) => {
       creditPaidOff
     }
   }
-
   try {
     const response = await Trade.updateOne({ date: date }, updateData, { upsert: true })
     return { data: response, err: null }

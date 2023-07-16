@@ -84,11 +84,11 @@ const getBillQuery = async (query) => {
       searchQuery.mobileNumber = query.mobileNumber
     if (query.prescribedBy)
       searchQuery.prescribedBy = query.prescribedBy.toUpperCase()
-    if (query.from && query.to) {
-      searchQuery.billingDate = {
-        $lte: query.to, $gte: query.from
-      }
-    }
+    if (query.creditbill)
+      searchQuery.amtDue = { "$gt": 0 }
+    if (query.from && query.to)
+      searchQuery.billingDate = { "$lte": new Date(query.to), "$gte": new Date(query.from) }
+
     const res = await Bill.aggregate([
       { $match: searchQuery },
       { $project: { productsDetail: 0 } }
@@ -112,9 +112,7 @@ const getCNQuery = async (query) => {
     if (query.prescribedBy)
       searchQuery.prescribedBy = query.prescribedBy.toUpperCase()
     if (query.from && query.to) {
-      searchQuery.billingDate = {
-        $lte: query.to, $gte: query.from
-      }
+      searchQuery.billingDate = { "$lte": new Date(query.to), "$gte": new Date(query.from) }
     }
     const res = await CN.aggregate([
       { $match: searchQuery },
