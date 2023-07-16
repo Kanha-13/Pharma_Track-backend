@@ -119,6 +119,18 @@ const tradeSchema = new mongoose.Schema({
         required: true,
         default: 0,
         min: 0
+    },
+    creditCollection: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    },
+    creditPaidOff: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
     }
 })
 

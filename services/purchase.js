@@ -41,6 +41,15 @@ const updatePurchase = async (id, data) => {
   }
 }
 
+const updatePurchases = async (ids, data) => {
+  try {
+    const response = await Purchase.updateMany({ _id: { $in: ids } }, data)
+    return { data: response, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
 const getPurchaseById = async (id) => {
   try {
     const res = await Purchase.findById(id)
@@ -95,11 +104,15 @@ const getPurchases = async (query) => {
       searchQuery.vId = query.vId
     if (query.billNo)
       searchQuery.billNo = query.billNo
+    if (query.ids?.length)
+      searchQuery._id = { $in: query.ids }
     if (query.from && query.to) {
       searchQuery.purDate = {
         $lte: query.to, $gte: query.from
       }
     }
+    if (query.paymentType)
+      searchQuery.paymentType = query.paymentType
     const res = await Purchase.find(searchQuery);
     return { data: res, err: null }
   } catch (error) {
@@ -117,7 +130,18 @@ const deletePurchase = async (id) => {
   }
 }
 
-const PurchaseService = { addPurchase, updatePurchase, getPurchases, deletePurchase, getPurchaseById }
+const deletePurchases = async (ids) => {
+  try {
+    const response = await Purchase.deleteMany({ _id: { $in: ids } })
+    return { data: response, err: null }
+  } catch (error) {
+    return { data: null, err: error }
+  }
+}
+
+// const billPayment =async
+
+const PurchaseService = { addPurchase, updatePurchase, updatePurchases, getPurchases, deletePurchase, getPurchaseById, deletePurchases }
 
 
 module.exports = PurchaseService

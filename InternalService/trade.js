@@ -78,6 +78,9 @@ const udpatePreviousMonthTrde = async () => {
     let profit = 0;
     let salesCredit = 0;
     let purchaseCredit = 0;
+    let totalLoss = 0;
+    let creditCollection = 0;
+    let creditPaidOff = 0;
 
     let allopathicPurchase = 0;
     let allopathicSale = 0;
@@ -98,6 +101,9 @@ const udpatePreviousMonthTrde = async () => {
       profit += trade.profit
       salesCredit += trade.salesCredit
       purchaseCredit += trade.purchaseCredit
+      totalLoss += trade.totalLoss
+      creditCollection += trade.creditCollection
+      creditPaidOff += trade.creditPaidOff
 
       allopathicSale += trade.categoryWiseSale.allopathic
       ayurvedicSale += trade.categoryWiseSale.ayurvedic
@@ -125,12 +131,14 @@ const udpatePreviousMonthTrde = async () => {
         salesCount: salesCount, purchaseCount: purchaseCount,
         investment: investment, revenue: revenue, profit: profit,
         salesCredit: salesCredit, purchaseCredit: purchaseCredit,
+        totalLoss: totalLoss, creditCollection: creditCollection, creditPaidOff: creditPaidOff,
+
         "categoryWisePurchase.allopathic": allopathicPurchase,
         "categoryWisePurchase.ayurvedic": ayurvedicPurchase,
         "categoryWisePurchase.general": generalPurchase,
         "categoryWisePurchase.generic": genericPurchase,
         "categoryWisePurchase.surgical": surgicalPurchase,
-        
+
         "categoryWiseSale.allopathic": allopathicSale,
         "categoryWiseSale.ayurvedic": ayurvedicSale,
         "categoryWiseSale.general": generalSale,
@@ -165,10 +173,30 @@ const deleteOldTrade = async (records = []) => {
   }
 }
 
+const updateOneTradeCreditAndLoss = async (date, data) => {
+  const { totalLoss = 0, creditCollection = 0, creditPaidOff = 0 } = data
+  const updateData = {
+    $inc: {
+      totalLoss,
+      creditCollection,
+      creditPaidOff
+    }
+  }
+
+  try {
+    const response = await Trade.updateOne({ date: date }, updateData, { upsert: true })
+    return { data: response, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const TRADE = {
   updateOneSaleTrade,
   updateOnePurchaseTrade,
   udpatePreviousMonthTrde,
+  updateOneTradeCreditAndLoss
 }
 
 module.exports = TRADE;

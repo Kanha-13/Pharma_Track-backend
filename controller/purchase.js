@@ -2,6 +2,7 @@ const INTERNAL_SERVICE = require("../InternalService");
 const SUCCESS = require("../constants/successMessage");
 const PurchaseService = require("../services/purchase");
 const { analyseParentCategory } = require("../utils/billing");
+const { mergeBillsInOne } = require("../utils/purchase");
 
 const addPurchaseHandler = async (req, res) => {
   let data = req.body;
@@ -25,9 +26,15 @@ const addPurchaseHandler = async (req, res) => {
   ])
 
   if (response2.err || response3.err || response4.err)
-    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err } })
-  else
-    res.status(201).json({ data: SUCCESS.PURCHASE.ADD_SUCCESS, error: null })
+    return res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err } })
+
+  if (data.billInfo.paymentType === "CHALAN" || data.billInfo.paymentType === "CREDIT") {
+    const response5 = await INTERNAL_SERVICE.VENDOR.updateVendor(data.billInfo.vId, { $inc: { balance: data.billInfo.totalAmt } })
+    if (response5.err)
+      return res.status(500).json({ data: null, error: { err5: response5.err } })
+  }
+
+  res.status(201).json({ data: SUCCESS.PURCHASE.ADD_SUCCESS, error: null })
 }
 
 const updatePurchaseHandler = async (req, res) => {
@@ -68,8 +75,52 @@ const deletePurchaseHandler = async (req, res) => {
     res.status(200).json({ data: SUCCESS.PURCHASE.DELETE_SUCCESS, error: null });
 }
 
+const billPaymentHandler = async (req, res) => {
+  const { vId, bills, paymentDetail, billType } = req.body
+  if (billType === "CHALAN") {
+    const response1 = await PurchaseService.getPurchases({ ids: bills })
+    if (response1.err)
+      return res.status(500).json({ data: null, error: response1.err })
+
+    const mergedBill = mergeBillsInOne(response1.data, paymentDetail)
+    if (mergedBill.err)
+      return res.status(500).json({ data: null, error: mergedBill.err })
+
+    const response2 = await PurchaseService.addPurchase(mergedBill.data)
+    if (response2.err)
+      return res.status(500).json({ data: null, error: response2.err })
+
+
+    const [response3, response4, response5] = await Promise.all([
+      await PurchaseService.deletePurchases(bills),
+      await INTERNAL_SERVICE.VENDOR.updateVendor(vId, { $inc: { balance: -paymentDetail.amtPaid } }),
+      await INTERNAL_SERVICE.TRADE.updateOneTradeCreditAndLoss(paymentDetail.paymentDate, { creditPaidOff: paymentDetail.amtPaid })
+    ])
+    if (response3.err || response4.err || response5.err)
+      return res.status(500).json({ data: null, error: { err3: response3.err, err4: response4.err, err5: response5.err } })
+
+    return res.status(201).json({ data: "Payment recorded, challans deleted new bill updated", error: null })
+  }
+  else {
+    const data = {
+      paymentDate: paymentDetail.paymentDate,
+      paymentId: paymentDetail.paymentId,
+      paymentType: paymentDetail.paymentMode,
+    }
+    const [response1, response2] = ([
+      await PurchaseService.updatePurchases(bills, data),
+      await INTERNAL_SERVICE.TRADE.updateOneTradeCreditAndLoss(paymentDetail.paymentDate, { creditPaidOff: paymentDetail.amtPaid })
+    ])
+    if (response1.err || response2.err)
+      return res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
+
+    return res.status(200).json({ data: "Payment recorded", error: null })
+
+  }
+}
+
 const PurchaseController = {
-  addPurchaseHandler, updatePurchaseHandler,
+  addPurchaseHandler, updatePurchaseHandler, billPaymentHandler,
   getPurchaseHandler, getPurchasesHandler, deletePurchaseHandler
 }
 

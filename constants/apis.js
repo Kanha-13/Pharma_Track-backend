@@ -33,6 +33,7 @@ const API = {
   GET_PURCHASE_DETAIL: '/purchase/:id',
   UPDATE_PURCHASE: '/purchase/:id',
   DELETE_PURCHASE: '/purchase/:id',
+  BILL_PAYMENT_PURCHASE: '/purchase/bill/payment',
 
   BILLING_CHECKOUT: '/billing/checkout',
   GET_BILLING_INFO: '/billing/:id',

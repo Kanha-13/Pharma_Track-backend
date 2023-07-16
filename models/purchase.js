@@ -88,6 +88,12 @@ const purchaseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  paymentId: {
+    type: String,
+  },
+  paymentDate: {
+    type: Date
+  },
   totalAmt: {
     type: Number,
     required: true
