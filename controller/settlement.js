@@ -13,9 +13,13 @@ const addSettlementHandler = async (req, res) => {
     await INTERNAL_SERVICE.PRODUCTS.updateProductQnty(data.pId, { qnty: -data.returnQnty })
   ])
   if (response1.err || response2.err)
-    res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
-  else
-    res.status(201).json({ data: SUCCESS.SETTLEMENT.ADD_SUCCESS, error: null })
+    return res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
+
+  const response3 = await INTERNAL_SERVICE.STOCKS.clearEmptyStocks()
+  if (response3.err)
+    return res.status(500).json({ data: null, error: { err3: response3.err } })
+
+  res.status(201).json({ data: SUCCESS.SETTLEMENT.ADD_SUCCESS, error: null })
 }
 
 const updateSettlementHandler = async (req, res) => {

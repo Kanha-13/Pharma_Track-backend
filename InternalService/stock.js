@@ -71,6 +71,7 @@ const updateMultipleStocksQnty = async (documents) => {
     if (bulkOps.length > 0) {
       // Execute the bulk write operation
       const result = await Stock.bulkWrite(bulkOps);
+      clearEmptyStocks()
       return { data: result, err: null }
     }
   } catch (error) {
@@ -99,8 +100,19 @@ const calculateValuation = async (stocks = []) => {
   return valuation.toFixed(2);
 }
 
+const clearEmptyStocks = async () => {
+  try {
+    await Stock.deleteMany({ qnty: 0 })
+    return { data: "Stock cleared", err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const STOCKS = {
   updateStock,
+  clearEmptyStocks,
   updateStockQnty,
   addMultipleStocks,
   updateMultipleStocksQnty,
