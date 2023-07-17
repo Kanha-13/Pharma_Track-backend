@@ -1,6 +1,7 @@
 const INTERNAL_SERVICE = require("../InternalService");
 const SUCCESS = require("../constants/successMessage");
 const SettlementService = require("../services/settlement");
+const { calculateLoss } = require("../utils/settlement");
 
 const addSettlementHandler = async (req, res) => {
   const data = req.body;
@@ -15,9 +16,12 @@ const addSettlementHandler = async (req, res) => {
   if (response1.err || response2.err)
     return res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
 
-  const response3 = await INTERNAL_SERVICE.STOCKS.clearEmptyStocks()
-  if (response3.err)
-    return res.status(500).json({ data: null, error: { err3: response3.err } })
+  const [response3, resposne4] = await Promise.all([
+    await INTERNAL_SERVICE.STOCKS.clearEmptyStocks(),
+    await INTERNAL_SERVICE.TRADE.updateOneTradeCreditAndLoss(data.date, { totalLoss: calculateLoss(data) })
+  ])
+  if (response3.err || resposne4.err)
+    return res.status(500).json({ data: null, error: { err3: response3.err, err4: resposne4.err } })
 
   res.status(201).json({ data: SUCCESS.SETTLEMENT.ADD_SUCCESS, error: null })
 }
