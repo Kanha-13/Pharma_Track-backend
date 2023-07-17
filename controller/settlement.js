@@ -48,10 +48,17 @@ const getSettlementsHandler = async (req, res) => {
 const deleteSettlementHandler = async (req, res) => {
   const settlementId = req.params.id
   if (!settlementId) return res.status(400).json({ message: "settlement id missing" });
-  const data = req.body
-  const response = await SettlementService.deleteSettlement(settlementId, data)
-  if (response.err)
-    res.status(500).json({ data: null, error: response.err })
+  const amtRefunfed = parseFloat(req.query.amtRefunded || "0")
+  const date = req.query.date
+  console.log(amtRefunfed, date)
+  const [response1, response2] = await Promise.all([
+    await SettlementService.deleteSettlement(settlementId),
+    await INTERNAL_SERVICE.TRADE.updateOneTradeCreditAndLoss(date, { totalLoss: -amtRefunfed }),
+  ])
+  console.log(response2)
+
+  if (response1.err || response2.err)
+    res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
   else
     res.status(200).json({ data: SUCCESS.SETTLEMENT.DELETE_SUCCESS, error: null })
 }
