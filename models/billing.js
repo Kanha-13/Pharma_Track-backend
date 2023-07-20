@@ -20,6 +20,10 @@ const billSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      hsn_sac: {
+        type: Number,
+        required: true
+      },
       batch: {
         type: String,
         required: true,
