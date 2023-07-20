@@ -5,6 +5,10 @@ const { analyseParentCategory } = require("../utils/billing");
 
 const addBillHandler = async (req, res) => {
   let data = req.body;
+  const oldBills = await BillService.getBillQuery({ patientName: data.billInfo.patientName, creditbill: true })
+  if (oldBills.err)
+    return res.status(500).json({ data: null, err0: oldBills.err })
+
   const response1 = await BillService.addBill(data)
   if (response1.err)
     return res.status(500).json({ data: null, err1: response1.err })
@@ -15,21 +19,20 @@ const addBillHandler = async (req, res) => {
   data.productsDetail.map((prod) => {
     prod.qnty = - prod.soldQnty // to decrement the quantity of stocks from Product and Stocks collection
   })
-  const [response2, response3, response4, response5, resposne6] = await Promise.all([
+  const [response2, response3, response4, response5] = await Promise.all([
     await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
     await INTERNAL_SERVICE.STOCKS.updateMultipleStocksQnty(data.productsDetail),
     await INTERNAL_SERVICE.BILLING.updateCN(data.billInfo.cnId, { status: "REFUNDED" }),
-    await INTERNAL_SERVICE.TRADE.updateOneSaleTrade(data.billInfo.billingDate, data),
-    await BillService.getBillQuery({ patientName: data.billInfo.patientName, creditbill: true })
+    await INTERNAL_SERVICE.TRADE.updateOneSaleTrade(data.billInfo.billingDate, data)
   ])
 
   const resposne_data = {
     currentBill: response1.data,
-    pendingBills: resposne6.data
+    pendingBills: oldBills.data
   }
 
-  if (response2.err || response3.err || response4.err || response5.err || resposne6.err)
-    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err, err5: response5.err, err6: resposne6.err } })
+  if (response2.err || response3.err || response4.err || response5.err)
+    res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err, err4: response4.err, err5: response5.err } })
   else
     res.status(201).json({ data: resposne_data, error: null })
 }
