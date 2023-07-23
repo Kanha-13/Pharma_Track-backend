@@ -5,35 +5,14 @@ const productSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-
     location: {
         type: String,
     },
-    qnty: {
+    pkg: {
         type: String,
-        required: true,
-    },
-    stock: {
-        type: Number,
         required: true,
     },
     company: {
-        type: String,
-        required: true,
-    },
-    mnfDate: {
-        type: Date,
-        required: true,
-    },
-    expDate: {
-        type: Date,
-        required: true,
-    },
-    mrp: {
-        type: String,
-        require: true,
-    },
-    rate: {
         type: String,
         required: true,
     },
@@ -41,35 +20,29 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    netRate: {
-        type: String,
-        required: true,
-    },
-    batch: {
-        type: String,
-        required: true,
-    },
-    seller: {
-        type: Array,
-        required: true,
-    },
-    billNo: {
-        type: String,
-        required: true,
-    },
-    purDate: [{
-        type: Date,
-        required: true,
-    }],
     hsn_sac: {
         type: Number,
         required: true
     },
+    qnty: {
+        type: Number,
+        required: false,
+        default: 0,
+        min: 0
+    },
     category: {
         type: String,
         require: true,
-    }
-
+    },
+    parentCategory: {// generic , general, ayurvedic, elopathic, homeopathic
+        type: String,
+        require: true
+    },
+    minQnty: {
+        type: Number,
+        required: true,
+        default: 0
+    },
 })
 
 module.exports = mongoose.model('product', productSchema);
