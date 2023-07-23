@@ -92,7 +92,7 @@ THE SOFTWARE.
 
 ## Author
 
-Kanha Agrawal
+[Kanha Agrawal](https://github.com/kanha-13/)
 
 ## Contact
 
