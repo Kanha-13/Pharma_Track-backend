@@ -92,7 +92,7 @@ const updateStockQnty = async (id, data) => {
 const calculateValuation = async (stocks = []) => {
   let valuation = 0;
   stocks.map((stock) => {
-    if (stock.productDetail.length())
+    if (Array.isArray(stock.productDetail))
       if (stock.productDetail[0].category === "TABLET")
         return valuation += ((stock.netRate || 0) / stock.productDetail[0].pkg) * stock.qnty
     valuation += (stock.netRate || 0) * stock.qnty
