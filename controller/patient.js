@@ -22,7 +22,7 @@ const creditBillPayment = async (req, res) => {
   if (response.err)
     return res.status(500).json({ data: null, error: response.err })
 
-  res.status(200).json({ data: "Payment recorded successfully!", error: null })
+  res.status(200).json({ data: data, error: null })
 }
 
 const PatientController = {
