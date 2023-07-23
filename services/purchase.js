@@ -104,8 +104,9 @@ const getPurchases = async (query) => {
       searchQuery.vId = query.vId
     if (query.billNo)
       searchQuery.billNo = query.billNo
-    if (query.ids?.length)
-      searchQuery._id = { $in: query.ids }
+    if (query.ids)
+      if (query.ids.length)
+        searchQuery._id = { $in: query.ids }
     if (query.from && query.to) {
       searchQuery.purDate = {
         $lte: query.to, $gte: query.from
