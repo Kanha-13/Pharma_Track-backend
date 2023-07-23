@@ -50,12 +50,10 @@ const deleteSettlementHandler = async (req, res) => {
   if (!settlementId) return res.status(400).json({ message: "settlement id missing" });
   const amtRefunfed = parseFloat(req.query.amtRefunded || "0")
   const date = req.query.date
-  console.log(amtRefunfed, date)
   const [response1, response2] = await Promise.all([
     await SettlementService.deleteSettlement(settlementId),
     await INTERNAL_SERVICE.TRADE.updateOneTradeCreditAndLoss(date, { totalLoss: -amtRefunfed }),
   ])
-  console.log(response2)
 
   if (response1.err || response2.err)
     res.status(500).json({ data: null, error: { err1: response1.err, err2: response2.err } })
