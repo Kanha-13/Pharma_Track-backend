@@ -1,7 +1,7 @@
 const spawn = require('child_process').spawn
 let backupProcess = spawn('mongodump', [
-    '--db=restaurantDB',
-    '--archive=.',
+    '--db=apnidukan',
+    '--archive=F:/Apnidukan/Backup',
     '--gzip'
     ]);
 
@@ -13,3 +13,5 @@ const mongo_backup = backupProcess.on('exit', (code, signal) => {
     else 
         console.log('Successfully backedup the database')
 });
+
+module.exports = mongo_backup

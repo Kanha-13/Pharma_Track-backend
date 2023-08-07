@@ -1,6 +1,6 @@
 const nodeCron = require("node-cron")
+const mongo_backup = require("./mongo_backup")
 
-nodeCron.schedule('*/2 * * * * *', () => {
-    // This job will run every second
-    console.log(new Date().toDateString());
+nodeCron.schedule('*/5 * * * * *', () => {
+    mongo_backup();
 })
