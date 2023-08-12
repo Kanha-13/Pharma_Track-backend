@@ -46,10 +46,20 @@ const getCompaniesHandler = async (req, res) => {
     res.status(200).json({ data: response.data, error: null })
 }
 
+const getCompaniesQueryHandler = async (req, res) => {
+  const query = req.query
+  const response = await CompanyService.getCompaniesQuery(query)
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+  else
+    res.status(200).json({ data: response.data, error: null })
+}
+
 const ComapnyController = {
   addCompanyHandler,
   getCompanyHandler,
   getCompaniesHandler,
+  getCompaniesQueryHandler,
   udpateCompanyHandler,
   deleteCompanyHandler,
 }

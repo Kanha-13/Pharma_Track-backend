@@ -59,6 +59,6 @@ const API = {
   UPDATE_COMPANY: "/company/:id",
   DELETE_COMPANY: "/company/:id",
   GET_COMPANYS: "/companys",
-
+  GET_COMPANYS_QUERY: "/companys/query",
 }
 module.exports = { API }
