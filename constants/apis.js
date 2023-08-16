@@ -20,6 +20,7 @@ const API = {
   ADD_VENDOR: "/vendor",
   UPDATE_VENDOR: "/vendor",
   GET_VENDORS: "/vendors",
+  GET_VENDORS_QUERY: "/vendors/query",
   GET_VENDOR: "/vendor/:vId",
   DELETE_VENDOR: "/vendor/:vId",
 

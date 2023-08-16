@@ -38,6 +38,15 @@ const getVendorsHandler = async (req, res) => {
         res.status(200).json({ data: response.data, error: response.err })
 }
 
+const getVendorsQueryHandler = async (req, res) => {
+    const query = req.query
+    const response = await VendorService.getVendorsQuery(query)
+    if (response.err)
+        res.status(500).json({ data: null, error: response.err })
+    else
+        res.status(200).json({ data: response.data, error: response.err })
+}
+
 const deleteVendorHandler = async (req, res) => {
     const vId = req.params.vId
     const response = await VendorService.deleteVendor(vId)
@@ -47,6 +56,6 @@ const deleteVendorHandler = async (req, res) => {
         res.status(200).json({ data: SUCCESS.VENDOR.DELETE_SUCCESS, error: response.err })
 }
 
-const VendorController = { addVendorHandler, getVendorsHandler, getVendorHandler, updateVendorHandler,deleteVendorHandler }
+const VendorController = { addVendorHandler, getVendorsHandler, getVendorsQueryHandler, getVendorHandler, updateVendorHandler, deleteVendorHandler }
 
 module.exports = VendorController

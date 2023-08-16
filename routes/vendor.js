@@ -5,10 +5,13 @@ const auth = require('../middleware/is_auth');
 
 
 router.route(API.GET_VENDOR)
-  .get(auth,VendorHandler.getVendorHandler )
+  .get(auth, VendorHandler.getVendorHandler)
 
 router.route(API.GET_VENDORS)
-  .get(auth,VendorHandler.getVendorsHandler )
+  .get(auth, VendorHandler.getVendorsHandler)
+
+router.route(API.GET_VENDORS_QUERY)
+  .get(auth, VendorHandler.getVendorsQueryHandler)
 
 router.route(API.ADD_VENDOR)
   .post(auth, VendorHandler.addVendorHandler)

@@ -52,6 +52,16 @@ const getVendors = async () => {
   }
 }
 
+const getVendorsQuery = async (query) => {
+  try {
+    const res = await Vendor.find({ vendorName: { $regex: `^${query.key}`, $options: "i" } }).sort("1").limit(20)
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const deleteVendor = async (vId) => {
   try {
     const res = await Vendor.deleteOne({ _id: vId });
@@ -62,7 +72,7 @@ const deleteVendor = async (vId) => {
 }
 
 
-const VendorService = { addVendor, updateVendor, getVendor, getVendors, deleteVendor }
+const VendorService = { addVendor, updateVendor, getVendor, getVendors, getVendorsQuery, deleteVendor }
 
 
 module.exports = VendorService
