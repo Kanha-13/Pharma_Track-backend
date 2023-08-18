@@ -77,7 +77,7 @@ const getBillQuery = async (query) => {
   try {
     let searchQuery = {}
     if (query.patientName)
-      searchQuery.patientName = query.patientName.toUpperCase()
+      searchQuery.patientName = { "$regex": `${query.patientName}`, $options: "i" }
     if (query.invoiceNo)
       searchQuery.invoiceNo = query.invoiceNo
     if (query.mobileNumber)
