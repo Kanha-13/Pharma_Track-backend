@@ -13,6 +13,7 @@ const settlement = require('./routes/settlement')
 const users = require('./routes/user')
 const cookieParser = require('cookie-parser');
 const { connect } = require('./db/mongoose_connect');
+const { cron_backup } = require('./backup_restore/cron-job');
 require('dotenv').config();
 //app config
 const app = express();
@@ -26,6 +27,9 @@ app.use(cookieParser());
 
 //mogoose connection
 connect();
+
+//cron job
+cron_backup(process.env.BACKUP_INTERVAL);
 
 // api endpoint
 app.use(admin)

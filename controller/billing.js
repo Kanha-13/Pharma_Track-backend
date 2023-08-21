@@ -168,7 +168,7 @@ const addCNHandler = async (req, res) => {
   if (response2.err || response3.err)
     res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err } })
   else
-    res.status(201).json({ data: response1.data, error: null })
+    res.status(201).json({ data: { currentBill: response1.data }, error: null })
 }
 
 const deleteBillHandler = async (req, res) => {

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    const check = req.cookies.merePadhChinn
+    const check = req.cookies?.[process.env.TOKEN_NAME]
     if (!check) {
         const error = new Error('Not Authenticated');
         error.statusCode = 401;

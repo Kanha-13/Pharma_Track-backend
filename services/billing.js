@@ -1,10 +1,16 @@
 const Bill = require("../models/billing")
 const CN = require("../models/creditNote")
 
+const generatebillnumber = (billno) => {
+  const char = String.fromCharCode(65 + (parseInt(billno / 999999)))
+  let result = (billno % 999999).toString().padStart(6, '0')
+  return char + result;
+}
+
 const addBill = async (data) => {
   try {
     const invoiceCount = await Bill.countDocuments()
-    data.billInfo.invoiceNo = invoiceCount + 1
+    data.billInfo.invoiceNo = generatebillnumber(invoiceCount + 1)
     data.billInfo.patientName = data.billInfo.patientName.toUpperCase()
     if (data.billInfo.prescribedBy)
       data.billInfo.prescribedBy = data.billInfo.prescribedBy.toUpperCase()
@@ -77,7 +83,7 @@ const getBillQuery = async (query) => {
   try {
     let searchQuery = {}
     if (query.patientName)
-      searchQuery.patientName = query.patientName.toUpperCase()
+      searchQuery.patientName = { "$regex": `${query.patientName}`, $options: "i" }
     if (query.invoiceNo)
       searchQuery.invoiceNo = query.invoiceNo
     if (query.mobileNumber)

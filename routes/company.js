@@ -12,6 +12,9 @@ router.route(API.GET_COMPANY)
 router.route(API.GET_COMPANYS)
   .get(auth, CompanyController.getCompaniesHandler)
 
+router.route(API.GET_COMPANYS_QUERY)
+  .get(auth, CompanyController.getCompaniesQueryHandler)
+
 router.route(API.UPDATE_COMPANY)
   .patch(auth, CompanyController.udpateCompanyHandler)
 

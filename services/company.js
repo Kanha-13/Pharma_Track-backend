@@ -17,6 +17,17 @@ const getCompanies = async () => {
     return { data: null, err: error }
   }
 }
+
+const getCompaniesQuery = async (query) => {
+  try {
+    const res = await Company.find({ companyName: { $regex: `^${query.key}`, $options: "i" } }).sort("1").limit(50)
+    return { data: res, err: null }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
 const getCompany = async (id) => {
   try {
     const res = await Company.findById(id);
@@ -43,6 +54,6 @@ const deleteCompany = async (id) => {
   }
 }
 
-const CompanyService = { getCompany, getCompanies, addCompany, updateCompany, deleteCompany }
+const CompanyService = { getCompany, getCompanies, getCompaniesQuery, addCompany, updateCompany, deleteCompany }
 
 module.exports = CompanyService

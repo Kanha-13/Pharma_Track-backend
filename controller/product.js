@@ -41,9 +41,10 @@ const getAllProductsHandler = async (req, res) => {
 
 const getProdWithInitialsHandler = async (req, res) => {
     try {
-        const resdata = await products.find({ itemName: { $regex: `^${req.query.key}`, $options: "i" } })
+        const resdata = await products.find({ itemName: { $regex: `^${req.query.key}`, $options: "i" } }).sort("1").limit(50)
         res.status(200).json(resdata);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Something went wrong!" })
     }
 }

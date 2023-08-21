@@ -15,7 +15,7 @@ const addPurchaseHandler = async (req, res) => {
 
   data.productsDetail = data.productsDetail.map((prod) => {
     if (prod.category === "TABLET")
-      return { ...prod, qnty: prod.qnty * prod.pkg }
+      return { ...prod, qnty: prod.qnty * parseInt(prod.pkg) }
     else return prod
   })
 
