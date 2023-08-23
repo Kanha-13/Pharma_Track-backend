@@ -5,7 +5,7 @@ const path = require('path');
 const mongo_backup = () => {
     let backupProcess = spawn('mongodump', [
         '--gzip',
-        '--archive=F:/Apnidukan_Backup.gz',
+        `--archive=${process.env.BACK_UP_PATH}`,
         '--db=apnidukan'
     ]);
 
@@ -21,7 +21,7 @@ const mongo_backup = () => {
 const mongo_restore = () => {
     let restoreProcess = spawn('mongorestore', [
         '--gzip',
-        '--archive=F:/Apnidukan_Backup.gz'
+        `--archive=${process.env.BACK_UP_PATH}`
     ]);
 
     restoreProcess.on('exit', (code, signal) => {
