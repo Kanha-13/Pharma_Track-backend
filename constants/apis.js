@@ -1,5 +1,7 @@
 const API = {
 
+  WAKE_UP_SERVER: "/wakeup",
+
   GET_PRODUCT_QUERY: "/product/query",
   ADD_PRODUCT: "/product",
   GET_PRODUCT_INITIAL: '/product/initials',

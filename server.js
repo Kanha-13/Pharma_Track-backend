@@ -1,5 +1,6 @@
 const express = require('express');
 const Cors = require('cors');
+const wakeup = require('./routes/wakeUp');
 const product = require('./routes/product');
 const stock = require('./routes/stock');
 const purchase = require('./routes/purchase');
@@ -32,8 +33,7 @@ connect();
 cron_backup(process.env.BACKUP_INTERVAL);
 
 // api endpoint
-app.use(admin)
-app.use(users)
+app.use(wakeup)
 app.use(product)
 app.use(stock)
 app.use(purchase)
