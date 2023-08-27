@@ -34,6 +34,8 @@ cron_backup(process.env.BACKUP_INTERVAL);
 
 // api endpoint
 app.use(wakeup)
+app.use(admin)
+app.use(users)
 app.use(product)
 app.use(stock)
 app.use(purchase)
