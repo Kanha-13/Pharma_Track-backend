@@ -30,7 +30,7 @@ app.use(cookieParser());
 connect();
 
 //cron job
-cron_backup(process.env.BACKUP_INTERVAL);
+cron_backup();
 
 // api endpoint
 app.use(wakeup)
