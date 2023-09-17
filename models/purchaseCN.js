@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const purchaseSchema = new mongoose.Schema({
+const purchaseCNSchema = new mongoose.Schema({
   productsDetail: [
     {
       pId: {
@@ -28,27 +28,11 @@ const purchaseSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      free: {//number of strips / bottles / tubes / vials
-        type: Number,
-        required: true,
-      },
       mrp: {
         type: Number,
         require: true,
       },
-      rate: {
-        type: Number,
-        require: true,
-      },
-      cashDisc: {
-        type: Number,
-        require: true,
-      },
-      schemeDisc: {
-        type: Number,
-        require: true,
-      },
-      netRate: {//reducing schemes and discount
+      disc: {
         type: Number,
         require: true,
       },
@@ -56,23 +40,14 @@ const purchaseSchema = new mongoose.Schema({
         type: Date,
         required: true,
       },
-      netTax: {
-        type: Number,
-        required: true
-      },
-      netValue: {
-        type: Number,
-        required: true
-
-      },
-      netAmt: {
+      totalAmt: {
         type: Number,
         required: true
 
       },
     }
   ],
-  purDate: {
+  cnDate: {
     type: Date,
     required: true,
   },
@@ -80,39 +55,14 @@ const purchaseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "vendors"
   },
-  billNo: {
+  cnNo: {
     type: String,
     required: true,
-  },
-  paymentType: {
-    type: String,
-    required: true
-  },
-  paymentId: {
-    type: String,
-  },
-  paymentDate: {
-    type: Date
   },
   totalAmt: {
     type: Number,
     required: true
   },
-  totalValue: {
-    type: Number,
-    required: true
-  },
-  totalTax: {
-    type: Number,
-    required: true
-  },
-  cnAmt: {
-    type: Number,
-  },
-  purchaseCNId:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "purchasecns"
-  },
 })
 
-module.exports = mongoose.model('purchase', purchaseSchema);
+module.exports = mongoose.model('purchasecns', purchaseCNSchema);

@@ -32,6 +32,7 @@ const API = {
   DELETE_SETTLEMENT: "/settlement/:id",
 
   ADD_PURCHASE: '/purchase',
+  ADD_PURCHASE_CN: '/purchase/cn',
   GET_PURCHASES: '/purchases',
   GET_PURCHASE_DETAIL: '/purchase/:id',
   UPDATE_PURCHASE: '/purchase/:id',
