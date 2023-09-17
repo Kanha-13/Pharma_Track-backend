@@ -23,6 +23,7 @@ const Settlement = {
 }
 const Purchase = {
   ADD_SUCCESS: "Purchase added successfully",
+  ADD_CN_SUCCESS: "Purchase CN added successfully",
   UPDATE_SUCCESS: "Purchase updated successfully",
   DELETE_SUCCESS: "Purchase deleted successfully"
 }

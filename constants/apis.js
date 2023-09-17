@@ -1,5 +1,7 @@
 const API = {
 
+  WAKE_UP_SERVER: "/wakeup",
+
   GET_PRODUCT_QUERY: "/product/query",
   ADD_PRODUCT: "/product",
   GET_PRODUCT_INITIAL: '/product/initials',
@@ -30,6 +32,7 @@ const API = {
   DELETE_SETTLEMENT: "/settlement/:id",
 
   ADD_PURCHASE: '/purchase',
+  ADD_PURCHASE_CN: '/purchase/cn',
   GET_PURCHASES: '/purchases',
   GET_PURCHASE_DETAIL: '/purchase/:id',
   UPDATE_PURCHASE: '/purchase/:id',
