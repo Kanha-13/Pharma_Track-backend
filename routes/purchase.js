@@ -12,6 +12,9 @@ router.route(API.GET_PURCHASE_DETAIL)
 router.route(API.ADD_PURCHASE)
   .post(auth, PurchaseController.addPurchaseHandler)
 
+router.route(API.ADD_PURCHASE_CN)
+  .post(auth, PurchaseController.addPurchaseCNHandler)
+
 router.route(API.BILL_PAYMENT_PURCHASE)
   .post(auth, PurchaseController.billPaymentHandler)
 

@@ -15,8 +15,8 @@ const addPurchaseHandler = async (req, res) => {
 
   data.productsDetail = data.productsDetail.map((prod) => {
     if (prod.category === "TABLET")
-      return { ...prod, qnty: prod.qnty * parseInt(prod.pkg) }
-    else return prod
+      return { ...prod, qnty: (parseInt(prod.qnty) + parseInt(prod.free) || 0) * parseInt(prod.pkg) }
+    else return { ...prod, qnty: parseInt(prod.qnty) + parseInt(prod.free) || 0 }
   })
 
   const [response2, response3, response4] = await Promise.all([
@@ -45,6 +45,31 @@ const updatePurchaseHandler = async (req, res) => {
     res.status(500).json({ data: null, error: response.err })
   else
     res.status(200).json({ data: SUCCESS.PURCHASE.UPDATE_SUCCESS, error: response.err })
+}
+
+const addPurchaseCNHandler = async (req, res) => {
+  const data = req.body;
+  const response = await PurchaseService.addPurchaseCN(data)
+
+  if (response.err)
+    res.status(500).json({ data: null, error: response.err })
+
+  data.productsDetail.map((prod) => {
+    prod.qnty = - prod.qnty * prod.pkg // to decrement the quantity of stocks from Product and Stocks collection
+  })
+
+  const [response2, response3] = await Promise.all([
+    await INTERNAL_SERVICE.PRODUCTS.updateMultipleProductsQnty(data.productsDetail),
+    await INTERNAL_SERVICE.STOCKS.addMultipleStocks(data.productsDetail),
+  ])
+
+  if (response2.err || response3.err)
+    return res.status(500).json({ data: null, error: { err2: response2.err, err3: response3.err } })
+
+
+  res.status(200).json({ data: response.data, error: response.err })
+
+
 }
 
 const getPurchasesHandler = async (req, res) => {
@@ -120,7 +145,7 @@ const billPaymentHandler = async (req, res) => {
 }
 
 const PurchaseController = {
-  addPurchaseHandler, updatePurchaseHandler, billPaymentHandler,
+  addPurchaseHandler, addPurchaseCNHandler, updatePurchaseHandler, billPaymentHandler,
   getPurchaseHandler, getPurchasesHandler, deletePurchaseHandler
 }
 

@@ -81,9 +81,9 @@ module.exports = {
                         res.status(201).json({ message: 'Otp Sent to Email and is valid for 10 mins', userEmail: newUser.email })
                     }
                 };
-
-                await sendEmail(newUser.email, otp, callback).then(async () => {
-                })
+                callback();
+                //     await sendEmail(newUser.email, otp, callback).then(async () => {
+                //     })
             } catch (error) {
                 console.log(error)
                 res.status(501).json("something went wrong!")
@@ -94,25 +94,25 @@ module.exports = {
         const otp = req.body.otp;
         const email = req.body.userEmail
         const otpData = await optSchema.findOne({ userEmail: email })
-        if (!otpData) {
-            res.status(404).json({ message: "OTP expired" })
-        }
-        else if (otpData.otp == otp) {
-            await User.updateOne({ email: email }, { $set: { otpVerified: true } })
-            const token = jwt.sign({
-                email: email,
-                userId: otpData.userId.toString(),
-                date: new Date(),
-            }, process.env.SECRETE_JWT_KEY, {
-            });
-            await optSchema.deleteOne({ userEmail: email })
-            res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true, sameSite: 'none', secure: true });
-            res.status(201).json({ message: "OTP verified and user has been logged in", token: token })
-            return
-        }
-        else {
-            res.status(400).json({ message: "OTP does not match" })
-        }
+        // if (!otpData) {
+        //     res.status(404).json({ message: "OTP expired" })
+        // }
+        // else if (otpData.otp == otp) {
+        await User.findOneAndUpdate({ email: email }, { $set: { otpVerified: true } }, { new: true })
+        const token = jwt.sign({
+            email: email,
+            userId: otpData.userId.toString(),
+            date: new Date(),
+        }, process.env.SECRETE_JWT_KEY, {
+        });
+        await optSchema.deleteOne({ userEmail: email })
+        res.cookie(process.env.TOKEN_NAME, token, { httpOnly: true, sameSite: 'none', secure: true });
+        res.status(201).json({ message: "OTP verified and user has been logged in", token: token })
+        return
+        // }
+        // else {
+        // res.status(400).json({ message: "OTP does not match" })
+        // }
     },
     resendUserOTP: async (req, res) => {
         const userEmail = req.body.email

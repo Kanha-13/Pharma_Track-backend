@@ -1,4 +1,5 @@
 const Purchase = require("../models/purchase")
+const PurchaseCN = require("../models/purchaseCN")
 const mongoose = require('mongoose');
 
 
@@ -26,6 +27,16 @@ const addPurchase = async (data) => {
       const res = await Purchase.create(Data);
       return { data: res, err: null }
     }
+  } catch (error) {
+    console.log(error)
+    return { data: null, err: error }
+  }
+}
+
+const addPurchaseCN = async (data) => {
+  try {
+      const res = await PurchaseCN.create(data);
+      return { data: res, err: null }
   } catch (error) {
     console.log(error)
     return { data: null, err: error }
@@ -142,7 +153,7 @@ const deletePurchases = async (ids) => {
 
 // const billPayment =async
 
-const PurchaseService = { addPurchase, updatePurchase, updatePurchases, getPurchases, deletePurchase, getPurchaseById, deletePurchases }
+const PurchaseService = { addPurchase, addPurchaseCN, updatePurchase, updatePurchases, getPurchases, deletePurchase, getPurchaseById, deletePurchases }
 
 
 module.exports = PurchaseService
